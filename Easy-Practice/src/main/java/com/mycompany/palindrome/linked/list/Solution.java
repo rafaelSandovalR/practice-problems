@@ -26,8 +26,8 @@ public class Solution {
         while(slow.next != null){
             temp = prev;
             prev = slow;
-            prev.next = temp;
             slow = slow.next;
+            prev.next = temp;
         }
         
         slow.next = prev;
