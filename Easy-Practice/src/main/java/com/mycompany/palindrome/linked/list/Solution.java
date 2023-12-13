@@ -11,6 +11,17 @@ package com.mycompany.palindrome.linked.list;
  */
 public class Solution {
     public boolean isPalindrome(ListNode head){
+        ListNode slow=head, fast=head, prev, temp = null;
+ //traverse linked list to find midpoint
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+ //set middle node's next to null
+        prev = slow;
+        slow = slow.next;
+        prev.next = null;
+        
         return false;
     }
 }
