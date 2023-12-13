@@ -16,7 +16,7 @@ public class Controller {
         ListNode head2 = setNodes(1,2,3);
         displayResults(head2);
         
-        ListNode head3 = setNodes(9,9);
+        ListNode head3 = setNodes(9,8);
         displayResults(head3);
         
         ListNode head4 = setNodes(9);
