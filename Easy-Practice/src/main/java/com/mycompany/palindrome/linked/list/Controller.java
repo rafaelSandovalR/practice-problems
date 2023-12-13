@@ -10,17 +10,20 @@ package com.mycompany.palindrome.linked.list;
  */
 public class Controller {
     public static void main(String[] args) {
-        ListNode head1 = setNodes(1,2,3,4);
+        ListNode head1 = setNodes(1,3,2,3,1,3,2,3,1);
+        displayResults(head1);
         
-        System.out.println(head1.val);
-        System.out.println(head1.next.val);
-        System.out.println(head1.next.next.val);
-        System.out.println(head1.next.next.next.val);
+        ListNode head2 = setNodes(1,2,3);
+        displayResults(head2);
         
+        ListNode head3 = setNodes(9,9);
+        displayResults(head3);
+        
+        ListNode head4 = setNodes(9);
+        displayResults(head4);
     }
     
     public static ListNode setNodes(int... numbers){
-        System.out.println("Length: " + numbers.length);
         int count = 1;
         ListNode head = new ListNode(numbers[0]);
         ListNode current = new ListNode();
@@ -39,5 +42,19 @@ public class Controller {
         }
         
         return head;
+    }
+    
+    public static void displayResults(ListNode head){
+        ListNode current = head;
+        System.out.print("Linked List: {");
+        while(current!=null){
+            System.out.print(current.val);
+            if(current.next != null){System.out.print(", "); }
+            else{System.out.println("}"); }
+            current = current.next;
+        }
+        
+        Solution s = new Solution();
+        System.out.printf("Is Palindrome?: %s \n\n", s.isPalindrome(head)); 
     }
 }
