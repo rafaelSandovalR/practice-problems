@@ -4,6 +4,9 @@
  */
 package roman_to_integer;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Rsand
@@ -53,4 +56,26 @@ public class Solution {
 
         return output;
     }
+    
+    public int romanToInt2(String s){
+/*  INTUITION:  Reading a roman numeral left to right, when a number is less
+                the following one, it means subtraction. When a number is more
+                than the following one, it means addition.
+        
+        IV VI
+*/
+    int output = 0;
+    Map<Character, Integer> m = new HashMap<>();
+     m.put('I', 1);
+     m.put('V', 5);
+     m.put('X', 10);
+     m.put('L', 50);
+     m.put('C', 100);
+     m.put('D', 500);
+     m.put('M', 1000);
+     
+     return output;
+    }
 }
+
+
