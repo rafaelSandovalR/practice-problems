@@ -11,6 +11,6 @@ package roman_to_integer;
 public class Controller {
     public static void main(String[] args) {
         Solution s = new Solution();
-        System.out.println("XII = " + s.romanToInt("XII"));
+        System.out.println("LVIII = " + s.romanToInt("LVIII"));
         }
 }
