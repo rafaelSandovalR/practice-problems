@@ -11,7 +11,7 @@ package roman_to_integer;
 public class Solution {
     public int romanToInt(String s){
         char firstLetter;
-        int output;
+        int output = 0;
        
         
         while(s.length() > 0){
@@ -19,23 +19,24 @@ public class Solution {
             boolean oneLetter = s.length() == 1;
             
             switch(String.valueOf(firstLetter)){
-                case "I":
+                case "I": output+=1;
                 break;
-                case "V":
+                case "V": output+=5;
                 break;
-                case "X":
+                case "X": output+=10;
                 break;
-                case "L":
+                case "L": output+=50;
                 break;
-                case "C":
+                case "C": output+=100;
                 break;
-                case "D":
+                case "D": output+=500;
                 break;
-                case "M":
+                case "M": output+=1000;
                 break;
             }
+            s = s.substring(1);
         }
         
-        return 0;
+        return output;
     }
 }
