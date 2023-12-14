@@ -10,7 +10,7 @@ package roman_to_integer;
  */ 
 public class Solution {
     public int romanToInt(String s){
-char firstLetter = 'i';
+        char firstLetter = 'i';
         int output = 0;
         boolean doubleChar = false;
 
@@ -23,7 +23,7 @@ char firstLetter = 'i';
                     doubleChar = true;
                     if(!oneLetter && s.charAt(1) == 'V'){ output += 4; }
                     else if (!oneLetter && s.charAt(1) == 'X'){ output += 9; }
-                    else {output += 1; doubleChar = false;}
+                    else {output += 1; doubleChar = false; }
                     break;
                 case "V": output += 5;
                     break;
@@ -31,7 +31,7 @@ char firstLetter = 'i';
                     doubleChar = true;
                     if(!oneLetter && s.charAt(1) == 'C'){ output += 90; }
                     else if (!oneLetter && s.charAt(1) == 'L'){ output += 40; }
-                    else {output += 10; doubleChar = false;}
+                    else {output += 10; doubleChar = false; }
                     break;
                 case "L": output += 50;
                     break;
@@ -48,7 +48,7 @@ char firstLetter = 'i';
             }
             if(doubleChar){ s = s.substring(2); }
             else { s = s.substring(1); }
-            
+            doubleChar = false;
         }
 
         return output;
