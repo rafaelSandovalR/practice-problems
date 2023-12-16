@@ -30,7 +30,21 @@ public class Solution {
             m.forEach((key, value) -> {
                 System.out.println(key + ": " + value);
             });
+            
+            //traverse ransomNote string and decrement count of existing chars
+            for(int i = ransomNote.length()-1; i >= 0; i--){
+                letter = ransomNote.charAt(i);
+                //if the letter is not in the hashmap, then return false
+                if(!m.containsKey(letter)){
+                    return false;
+                } else{
+                    m.compute(letter, (key,val) -> val = val-1);
+                    if (m.get(letter) < 0){
+                        return false;
+                    }
+                }
+            }
         
-            return false;
+            return true;
     }
 }
