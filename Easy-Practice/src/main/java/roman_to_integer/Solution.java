@@ -75,9 +75,9 @@ public class Solution {
      m.put('M', 1000);
      
      while(s.length() > 0){
-         
-         if(s.charAt(0) >= s.charAt(1)){output += m.get(s.charAt(0)); }
-         else {output -= s.charAt(0); }
+         if(s.length() == 1){output+= m.get(s.charAt(0)); }
+         else if(m.get(s.charAt(0)) >= m.get(s.charAt(1))){output += m.get(s.charAt(0)); }
+         else {output -= m.get(s.charAt(0)); }
          
          s = s.substring(1);
      }
