@@ -74,13 +74,14 @@ public class Solution {
      m.put('D', 500);
      m.put('M', 1000);
      
-     while(s.length() > 0){
-         if(s.length() == 1){output+= m.get(s.charAt(0)); }
-         else if(m.get(s.charAt(0)) >= m.get(s.charAt(1))){output += m.get(s.charAt(0)); }
-         else {output -= m.get(s.charAt(0)); }
-         
-         s = s.substring(1);
+     
+     for(int i=0; i < s.length()-1 && s.length() > 1; i++){
+         if(m.get(s.charAt(i)) >= m.get(s.charAt(i+1))) {output+=m.get(s.charAt(i)); }
+         else {output -= m.get(s.charAt(i)); }
      }
+     
+     //this catches single character strings and the last character.
+     output += m.get(s.charAt(s.length()-1));
      
      return output;
     }
