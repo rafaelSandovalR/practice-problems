@@ -4,10 +4,14 @@
  */
 package fizz_buzz;
 
+import java.util.List;
+
 /**
  *
  * @author Rsand
  */
 public class Solution {
-    
+    public List<String> fizzBuzz(int n) {
+        
+    }
 }
