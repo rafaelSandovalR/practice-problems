@@ -18,6 +18,9 @@ public class Solution {
         
         for(int i = 1; i <= n; i++){
             
+            if(i>2 && i%3 == 0){ divBy3 = true;}
+            if(i>2 && i%5 == 0){ divBy5 = true;}
+            
             if(divBy3 && divBy5){
                 output.add("FizzBuzz");
             }
@@ -28,6 +31,9 @@ public class Solution {
                 output.add("Buzz");
             }
             else { output.add(String.valueOf(i)); }
+            
+            divBy3 = false;
+            divBy5 = false;
         }
         return output;
     }
