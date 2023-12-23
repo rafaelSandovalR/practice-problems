@@ -33,7 +33,7 @@ public class Solution {
         }
         
         //loop to rank any rows with all zeros
-        for(int i = 0; nextRank > 0 && i < ranks.length; i++){
+        for(int i = ranks.length-1; nextRank > 0 && i >= 0; i--){
             if(ranks[i] < nextRank){
                 ranks[i] = nextRank;
                 nextRank--;
