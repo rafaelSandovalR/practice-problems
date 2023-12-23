@@ -28,14 +28,16 @@ public class Solution {
                     ranks[i] = nextRank;
                     nextRank--;
                 } 
-                else if(j == 0 && nextRank >= 0 ){
-                    ranks[i] = nextRank;
-                    nextRank--;
-                }
             }
-            
         }
         
+        //loop to rank any rows with all zeros
+        for(int i = 0; nextRank > 0 && i < ranks.length; i++){
+            if(ranks[i] < nextRank){
+                ranks[i] = nextRank;
+                nextRank--;
+            }
+        }
 
         
         //placeholder
