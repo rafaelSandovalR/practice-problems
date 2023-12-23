@@ -18,6 +18,7 @@ public class Solution {
         
         int[] ranks = new int[mat.length];
         int nextRank = mat.length;
+
         
         //i goes down the rows, j goes backwards across the columns
         for(int j = mat[0].length-1; j >= 0; j--){
@@ -38,9 +39,20 @@ public class Solution {
                 nextRank--;
             }
         }
+        
+        int[] kWeakest = new int[k];
+
+        //loop to order rows based on ranks in kWeakest variable
+        for(int i = 0; i < k; i++){
+            for(int j = 0; j < ranks.length; j++){
+                if(i+1 == ranks[j]){
+                    kWeakest[i] = j;
+                }
+            }
+        }
 
         
         //placeholder
-        return ranks;
+        return kWeakest;
     }
 }
