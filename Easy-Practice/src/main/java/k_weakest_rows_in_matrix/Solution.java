@@ -10,12 +10,8 @@ package k_weakest_rows_in_matrix;
  */
 public class Solution {
     public int[] kWeakeastRows(int[][] mat, int k){
-        //Weakest possible row is all 0s
-        //Start at the end of each 
-        //Variable to hold next rank 
-        //Array to hold ranks
-        //int[row][column]
-        
+
+        //array to hold ranks; 1 being the weakest
         int[] ranks = new int[mat.length];
         int nextRank = mat.length;
 
@@ -51,8 +47,7 @@ public class Solution {
             }
         }
 
-        
-        //placeholder
+
         return kWeakest;
     }
 }
