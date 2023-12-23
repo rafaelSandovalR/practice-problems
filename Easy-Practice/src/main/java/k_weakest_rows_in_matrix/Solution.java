@@ -17,11 +17,28 @@ public class Solution {
         //int[row][column]
         
         int[] ranks = new int[mat.length];
-        int nextRank;
+        int nextRank = mat.length;
         
         //i goes down the rows, j goes backwards across the columns
-        for(int i = 0, j = mat[0].length-1; i < mat.length; i++, j--){
+        for(int j = mat[0].length-1; j >= 0; j--){
+
+            for (int i = 0; i < mat.length; i++) {
+                //Find the strongest rows
+                if (mat[i][j] == 1 && ranks[i] < nextRank) {
+                    ranks[i] = nextRank;
+                    nextRank--;
+                } 
+                else if(j == 0 && nextRank >= 0 ){
+                    ranks[i] = nextRank;
+                    nextRank--;
+                }
+            }
             
         }
+        
+
+        
+        //placeholder
+        return ranks;
     }
 }
