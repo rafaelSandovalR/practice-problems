@@ -20,10 +20,10 @@ public class Solution {
         int nextRank = mat.length;
 
         
-        //i goes down the rows, j goes backwards across the columns
+        //i goes up the rows, j goes backwards across the columns
         for(int j = mat[0].length-1; j >= 0; j--){
 
-            for (int i = 0; i < mat.length; i++) {
+            for (int i = mat.length-1; i >= 0; i--) {
                 //Find the strongest rows
                 if (mat[i][j] == 1 && ranks[i] < nextRank) {
                     ranks[i] = nextRank;
