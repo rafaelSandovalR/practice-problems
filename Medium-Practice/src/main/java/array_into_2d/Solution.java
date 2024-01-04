@@ -17,38 +17,43 @@ public class Solution {
         
         quickSort(nums, 0 , nums.length-1);
         
-        int rowCount = 0, duplicates = 0;
+        int rowCount = 1, valCount = 1;
+        boolean singular = true;
         List<Integer> sub = new ArrayList<Integer>();
         matrix.add(sub);
         
-        for(int i = 0; i < nums.length; i++){
+        for(int i = 0, j = 0; i < nums.length; i++){
             
-            //count how many duplicates there are
+            //count how many valCount there are
             while(i+1 != nums.length && nums[i] == nums[i+1]){
-                duplicates++;
+                valCount++;
                 i++;
+                singular = false;
             }
             
-            if(duplicates == 0){
+            //if single value add to the first sublist
+            if(singular){
                 sub.add(nums[i]);
             }
             
-            while(duplicates > 0){
-                if(duplicates > rowCount){
+            //if valCount values exist
+            while(valCount > 0){
+                if(valCount > rowCount){
                     List<Integer> nextSub = new ArrayList<Integer>();
-                    //Add number to list
-                    nextSub.add(nums[i]);
+                    //add new list to matrix
+                    matrix.add(nextSub);
                     //increment row count
                     rowCount++;
                 }
-                else{
-                    //Add number to existing rows.
-                    matrix.get(duplicates-1).add(nums[i]);
-                }
+                //Add number to rows.
+                matrix.get(valCount-1).add(nums[i]);
                 //decrement multi
-                duplicates--;
+                valCount--;
             }
             
+            //reset variables
+            singular = true;
+            valCount = 1;
         }
         
         return matrix;
