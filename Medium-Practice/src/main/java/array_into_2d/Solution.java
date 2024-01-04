@@ -17,16 +17,16 @@ public class Solution {
         
         quickSort(nums, 0 , nums.length-1);
         
-        int rowCount = 1, valCount = 1;
+        int rowCount = 1, freq = 1;
         boolean singular = true;
         List<Integer> sub = new ArrayList<Integer>();
         matrix.add(sub);
         
         for(int i = 0, j = 0; i < nums.length; i++){
             
-            //count how many valCount there are
+            //count how many freq there are
             while(i+1 != nums.length && nums[i] == nums[i+1]){
-                valCount++;
+                freq++;
                 i++;
                 singular = false;
             }
@@ -36,9 +36,10 @@ public class Solution {
                 sub.add(nums[i]);
             }
             else{
-                //if valCount values exist
-                while (valCount > 0) {
-                    if (valCount > rowCount) {
+                //if freq values exist
+                while (freq > 0) {
+                    //loop to create rows if number of duplicates exceeds number of rows
+                    while (freq > rowCount) {
                         List<Integer> nextSub = new ArrayList<Integer>();
                         //add new list to matrix
                         matrix.add(nextSub);
@@ -46,16 +47,16 @@ public class Solution {
                         rowCount++;
                     }
                     //Add number to rows in reverse row order
-                    matrix.get(valCount - 1).add(nums[i]);
+                    matrix.get(freq - 1).add(nums[i]);
                     //decrement multi
-                    valCount--;
+                    freq--;
                 }
             }
 
             
             //reset variables
             singular = true;
-            valCount = 1;
+            freq = 1;
         }
         
         return matrix;
