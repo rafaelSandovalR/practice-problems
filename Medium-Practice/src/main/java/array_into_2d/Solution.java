@@ -15,7 +15,9 @@ public class Solution {
     public List<List<Integer>> findMatrix(int[] nums){
         List<List<Integer>> matrix = new ArrayList<List<Integer>>();
         
+        quickSort(nums, 0 , nums.length-1);
         
+        return matrix;
     }
     
     public static void quickSort(int[] arr, int low, int high){
@@ -32,11 +34,12 @@ public class Solution {
         arr[j] = temp;
     }
     
+    //takes last element as pivot
     public static int partition(int[]arr, int low, int high){
         int pivot = arr[high];
         int i = low-1;
         
-        for(int j = low; j < high - 1; j++){
+        for(int j = low; j <= high - 1; j++){
             if(arr[j] <= pivot){
                 i++;
                 swap(arr, i , j);
