@@ -17,6 +17,35 @@ public class Solution {
         
         quickSort(nums, 0 , nums.length-1);
         
+        int rowCount = 0, multiCount = 0;
+        List<Integer> sub = new ArrayList<Integer>();
+        matrix.add(sub);
+        
+        for(int i = 0; i < nums.length; i++){
+            while(i+1 != nums.length && nums[i] == nums[i+1]){
+                multiCount++;
+                i++;
+            }
+            
+            if(multiCount == 0){
+                sub.add(nums[i]);
+            }
+            
+            while(multiCount > 0){
+                if(multiCount > rowCount){
+                    List<Integer> nextSub = new ArrayList<Integer>();
+                    //Add number to list
+                    //decrement multi
+                    //increment row count
+                }
+                else{
+                    //Add number to existing rows.
+                }
+
+            }
+            
+        }
+        
         return matrix;
     }
     
