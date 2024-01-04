@@ -35,21 +35,23 @@ public class Solution {
             if(singular){
                 sub.add(nums[i]);
             }
-            
-            //if valCount values exist
-            while(valCount > 0){
-                if(valCount > rowCount){
-                    List<Integer> nextSub = new ArrayList<Integer>();
-                    //add new list to matrix
-                    matrix.add(nextSub);
-                    //increment row count
-                    rowCount++;
+            else{
+                //if valCount values exist
+                while (valCount > 0) {
+                    if (valCount > rowCount) {
+                        List<Integer> nextSub = new ArrayList<Integer>();
+                        //add new list to matrix
+                        matrix.add(nextSub);
+                        //increment row count
+                        rowCount++;
+                    }
+                    //Add number to rows in reverse row order
+                    matrix.get(valCount - 1).add(nums[i]);
+                    //decrement multi
+                    valCount--;
                 }
-                //Add number to rows.
-                matrix.get(valCount-1).add(nums[i]);
-                //decrement multi
-                valCount--;
             }
+
             
             //reset variables
             singular = true;
