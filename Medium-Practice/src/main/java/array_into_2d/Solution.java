@@ -17,31 +17,36 @@ public class Solution {
         
         quickSort(nums, 0 , nums.length-1);
         
-        int rowCount = 0, multiCount = 0;
+        int rowCount = 0, duplicates = 0;
         List<Integer> sub = new ArrayList<Integer>();
         matrix.add(sub);
         
         for(int i = 0; i < nums.length; i++){
+            
+            //count how many duplicates there are
             while(i+1 != nums.length && nums[i] == nums[i+1]){
-                multiCount++;
+                duplicates++;
                 i++;
             }
             
-            if(multiCount == 0){
+            if(duplicates == 0){
                 sub.add(nums[i]);
             }
             
-            while(multiCount > 0){
-                if(multiCount > rowCount){
+            while(duplicates > 0){
+                if(duplicates > rowCount){
                     List<Integer> nextSub = new ArrayList<Integer>();
                     //Add number to list
-                    //decrement multi
+                    nextSub.add(nums[i]);
                     //increment row count
+                    rowCount++;
                 }
                 else{
                     //Add number to existing rows.
+                    matrix.get(duplicates-1).add(nums[i]);
                 }
-
+                //decrement multi
+                duplicates--;
             }
             
         }
