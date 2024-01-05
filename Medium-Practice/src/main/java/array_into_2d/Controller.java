@@ -4,6 +4,8 @@
  */
 package array_into_2d;
 
+import java.util.List;
+
 /**
  *
  * @author Rsand
@@ -11,13 +13,21 @@ package array_into_2d;
 public class Controller {
     public static void main(String[] args) {
         Solution s = new Solution();
+        List<List<Integer>> matrix;
         
-        int[] arr = {9,10,9,1,5,24,4,1};
+        int[] arr = {1,3,4,1,2,3,1};
         
-        s.findMatrix(arr);
+        matrix = s.findMatrix(arr);
+        displayResults(matrix);
+    }
+    
+    public static void displayResults(List<List<Integer>> matrix){
         
-        for(int i : arr){
-            System.out.print(i + ", ");
-        }
+        /*
+        display matrix like this:
+        [1, 2, 3, 4]
+        [1, 3]
+        [1]
+        */
     }
 }
