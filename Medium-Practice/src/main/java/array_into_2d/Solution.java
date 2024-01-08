@@ -79,9 +79,13 @@ public class Solution {
         ArrayList<List<Integer>> ans = new ArrayList<>();
         
         for(int num : nums){
-            
+            if(freq[num] >= ans.size()){
+                ans.add(new ArrayList<>());
+            }
+            ans.get(freq[num]).add(num);
+            freq[num]++;
         }
-        
+        return ans;
     }
     
     public static void quickSort(int[] arr, int low, int high){
