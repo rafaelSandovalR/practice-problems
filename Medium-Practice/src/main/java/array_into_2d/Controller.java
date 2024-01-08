@@ -17,7 +17,7 @@ public class Controller {
         
         int[] arr = {1,3,4,1,2,3,1};
         
-        matrix = s.findMatrix(arr);
+        matrix = s.findMatrix2(arr);
         displayResults(matrix);
     }
     
