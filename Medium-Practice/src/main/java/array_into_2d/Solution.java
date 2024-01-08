@@ -62,6 +62,28 @@ public class Solution {
         return matrix;
     }
     
+    //alternate solution
+    public List<List<Integer>> findMatrix2(int[] nums){
+        /* 
+        ALGORITHM
+        
+        Create an array freq of size nums.size() + 1 to store the frequency of integers in the array nums.
+        Create an empty 2D array ans to store the answer array.
+        Iterate over the array nums and for each integer c.
+              a.If the frequency of the integer is greater than or equal to the current rows count in ans, then add a row to ans.
+              b.Insert the integer c at the row freq[c].
+              c.Increment the frequency of c in freq
+        Return ans     
+        */
+        int[] freq = new int[nums.length + 1];
+        ArrayList<List<Integer>> ans = new ArrayList<>();
+        
+        for(int num : nums){
+            
+        }
+        
+    }
+    
     public static void quickSort(int[] arr, int low, int high){
         if(low < high){
             int pi = partition(arr, low, high);
