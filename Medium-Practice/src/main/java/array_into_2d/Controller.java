@@ -29,5 +29,16 @@ public class Controller {
         [1, 3]
         [1]
         */
+        for(List<Integer> row : matrix){
+            System.out.print("[");
+            for(int i = 0; i < row.size(); i++){
+                System.out.print(row.get(i));
+                if(i != row.size()-1){
+                    System.out.print(", ");
+                } else {
+                    System.out.println("]");
+                }
+            }
+        }
     }
 }
