@@ -10,6 +10,19 @@ package add_two_numbers;
  */
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2){
+        
+        /*
+        
+        ISSUE WITH FIRST PART IS THAT INT AND LONG DATA TYPES CANNOT HANDLE
+        LARGE NUMBERS
+        
+        DOUBLE CHECK IF POSSIBLE WITH DOUBLE
+        
+        CHECK BIG INTEGER
+        
+        OTHERWISE RESORT TO STRING 
+        
+        */
 //        Step 1: Create two variables:
 //            a) an int to calculate sum: start with 0
 //            b) an int to determine multiplying factor: start with 1
