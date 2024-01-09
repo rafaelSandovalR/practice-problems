@@ -10,19 +10,26 @@ package add_two_numbers;
  */
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2){
-        
-        
 //        Step 1: Create two variables:
 //            a) an int to calculate sum: start with 0
-//            b) an int to determine multiplying factor: start with 1 
-//
-//        
-//        Step 2: Add the first value to sum
-//        
+//            b) an int to determine multiplying factor: start with 1
+        int sum = 0, mFactor = 1;
+        boolean secondList = false;
 //        Step 3: While node is not null:
-//            a) add value times multiplying factor
+        while(l1 != null){
+//            a) add sum and (node value times multiplying factor)
+            sum += (l1.val * mFactor);
 //            b) multiply mFactor by 10
-//            c) if next is null, reset mFactor to 1
+            mFactor *= 10;
+//            c) set l1 to l1.next
+            l1 = l1.next;
+//            d) if next is null, reset mFactor to 1
+            if(l1 == null && !secondList){
+                mFactor = 1;
+                l1 = l2;
+                secondList = true;
+            }
+        }
 //       
 //        Step 4) Repeat Step 2 & 3 for List 2;
 //        
