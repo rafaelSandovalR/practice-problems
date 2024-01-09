@@ -30,24 +30,35 @@ public class Solution {
                 secondList = true;
             }
         }
-//       
-//        Step 4) Repeat Step 2 & 3 for List 2;
 //        
 //        Step 5) Create variables: 
 //            a) a ListNode that will end up with the head of the answer list
-        ListNode prevNode = null;
-//            b) an int that holds what factor of ten the sum is:
-//        
+        ListNode prevNode = null, nextNode = null;
+/*        
 //        Step 6) Calculate what factor of 10 the sum is
+        mFactor = (int) Math.pow(10, (String.valueOf(sum).length()-1));
 //        
 //        Step 7) While sum is greater than zero:
+        while(sum > 0){
 //            a) Create next node (we are starting at the end and moving towards the head)
-        ListNode nextNode = new ListNode();
+            ListNode nextNode = new ListNode();
 //            b) set nextNode's val to sum divided by the current factor of 10;
+            nextNode.val = sum/mFactor;
 //            c) set nextNode's next to prevNode
+            nextNode.next = prevNode;
 //            d) set sum as sum minus sum's largest digit
+            sum -= nextNode.val * mFactor;
 //            e) set factor to factor divided by 10
+            mFactor /= 10;
 //            f) set prevNode to nextNode
+            prevNode = nextNode;
+        }
+*/
+        String sumString = String.valueOf(sum);
+        while(sumString != ""){
+            nextNode = new ListNode(Integer.valueOf(sumString.charAt(0)), prevNode);
+            sumString = sumString.substring(1);
+        }
         return nextNode;
     }
 }
