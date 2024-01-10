@@ -35,16 +35,38 @@ public class Solution {
 
         //1, 2
         int carry = 0, sum = 0;
-        ListNode ans, prev, next;
+        ListNode ans = null, prev = null, next;
         //3
-        sum = l1.val + l2.val;
-        carry = sum / 10;
-        sum = sum % 10;
-        ans = new ListNode(sum);
-        prev = ans;
+
         //4
-        while (l1 != null && l2 != null){
+        while (l1 != null || l2 != null){
             
+            if(l1 != null && l2 != null){
+                sum = l1.val + l2.val + carry;
+            }
+            if(l1 == null){ sum = l2.val + carry;}
+            if(l2 == null){ sum = l1.val + carry;}
+            
+            carry = sum / 10;
+            sum = sum % 10;
+            next = new ListNode(sum);
+            //for first node
+            if(prev == null){
+                ans = next;
+            } else{
+                prev.next = next;
+
+            }
+            
+            if(next != null){ prev = next;}
+            if(l1 != null) {l1 = l1.next;}
+            if(l2 != null) {l2 = l2.next;}
+        }
+        
+        //5
+        if(carry > 0){
+            ListNode last = new ListNode(carry);
+            prev.next = last;
         }
         
         return ans;
