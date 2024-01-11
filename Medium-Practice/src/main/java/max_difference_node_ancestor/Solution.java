@@ -11,9 +11,8 @@ package max_difference_node_ancestor;
 public class Solution {
     public int maxAncestorDiff(TreeNode root){
         int maxVal = 0;
-        TreeNode a, b;
+        TreeNode b = root;
         
-        //Idea: Recursive function
         //Go Farthest Left and Go Farther Right
         
         /*
@@ -27,6 +26,17 @@ public class Solution {
         3. If a-b is more than maxVal, set maxVal to it.
         
         */
+        
+        while(b.left != null){
+            b = b.left;
+        }
+        maxVal = root.val-b.val;
+        
+        while(b.right != null){
+            b = b.right;
+        }
+        if(b.val - root.val> maxVal){ maxVal = b.val - root.val; }
+        
         return maxVal;
     }
 }
