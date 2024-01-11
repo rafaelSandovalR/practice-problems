@@ -10,6 +10,11 @@ package max_difference_node_ancestor;
  */
 public class Solution {
     public int maxAncestorDiff(TreeNode root){
+        int maxVal;
+        TreeNode a, b;
+        
+        //Idea: Recursive function
+        
         
     }
 }
