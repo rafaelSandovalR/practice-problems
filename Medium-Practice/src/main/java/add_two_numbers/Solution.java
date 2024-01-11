@@ -4,6 +4,10 @@
  */
 package add_two_numbers;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Rsand
@@ -11,48 +15,61 @@ package add_two_numbers;
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2){
         
-        /*
-        
-        ISSUE WITH FIRST PART IS THAT INT AND LONG DATA TYPES CANNOT HANDLE
-        LARGE NUMBERS
-        
-        DOUBLE CHECK IF POSSIBLE WITH DOUBLE
-        
-        CHECK BIG INTEGER
-        
-        OTHERWISE RESORT TO STRING 
-        
-        */
-//        Step 1: Create two variables:
-//            a) an int to calculate sum: start with 0
-//            b) an int to determine multiplying factor: start with 1
-        long sum = 0, mFactor = 1;
-        boolean secondList = false;
-//        Step 3: While node is not null:
-        while(l1 != null){
-//            a) add sum and (node value times multiplying factor)
-            sum += (l1.val * mFactor);
-//            b) multiply mFactor by 10
-            mFactor *= 10;
-//            c) set l1 to l1.next
-            l1 = l1.next;
-//            d) if next is null, reset mFactor to 1
-            if(l1 == null && !secondList){
-                mFactor = 1;
-                l1 = l2;
-                secondList = true;
+/*
+        1. Create variable carry to hold carry value after each addition
+        2. Create first answer node, prev node, next node, int var for sums
+        3. Set first node and carry
+        4. While first node and second node are BOTH not null
+            a. Create next node
+            b. Set prev node's next to next node
+            c. If neither nodes are null:
+                i.      add both node vals and carry to sum
+                ii.     set carry by dividing sum by 10
+                iii.    set next node val by taking mod 10 of sum
+            d. If first node is null, add second node val to next node
+            e. If second node is null, add first node val to next node
+            f. set nodes to their respective next nodes
+        5. If carry > 0, create new next node with value.
+        6. return first answer node
+*/
+
+        //1, 2
+        int carry = 0, sum = 0;
+        ListNode ans = null, prev = null, next;
+        //3
+
+        //4
+        while (l1 != null || l2 != null){
+            
+            if(l1 != null && l2 != null){
+                sum = l1.val + l2.val + carry;
             }
+            if(l1 == null){ sum = l2.val + carry;}
+            if(l2 == null){ sum = l1.val + carry;}
+            
+            carry = sum / 10;
+            sum = sum % 10;
+            next = new ListNode(sum);
+            //for first node
+            if(prev == null){
+                ans = next;
+            } else{
+                prev.next = next;
+
+            }
+            
+            if(next != null){ prev = next;}
+            if(l1 != null) {l1 = l1.next;}
+            if(l2 != null) {l2 = l2.next;}
         }
-//        
-//        Step 5) Create variables: 
-//            a) a ListNode that will end up with the head of the answer list
-        ListNode prevNode = null, nextNode = null;
         
-        String sumString = String.valueOf(sum);
-        for(int i = 0; i < sumString.length(); i++){
-            nextNode = new ListNode(Character.getNumericValue(sumString.charAt(i)), prevNode);
-            prevNode = nextNode;
+        //5
+        if(carry > 0){
+            ListNode last = new ListNode(carry);
+            prev.next = last;
         }
-        return nextNode;
+        
+        return ans;
     }
 }
+
