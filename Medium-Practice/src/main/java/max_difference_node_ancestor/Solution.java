@@ -11,32 +11,25 @@ package max_difference_node_ancestor;
 public class Solution {
     public int maxAncestorDiff(TreeNode root){
         int maxVal = 0;
-        TreeNode b = root;
+        int leftMax = 0;
+        int leftMin = 0;
+        int rightMax = 0; 
+        int rightMin = 0;
         
-        //Go Farthest Left and Go Farther Right
-        
-        /*
-        
-        1. Set a to root;
-        2. While a's left node is not null
-            a. Set b to a's left node
-        3. Set maxVal to a-b
-        4. While a's right node is not null
-            a. Set b to a's right node
-        3. If a-b is more than maxVal, set maxVal to it.
-        
-        */
-        
-        while(b.left != null){
-            b = b.left;
+        if(root == null){ return 0; }
+        if(root.left == null){ leftMax = 0; leftMin = 0;}
+        else{ 
+            leftMin = Math.min(root.val, root.left.val);
+            leftMax = Math.max(root.val, root.left.val);
         }
-        maxVal = root.val-b.val;
-        
-        while(b.right != null){
-            b = b.right;
+        if(root.right == null){ rightMax = 0; rightMin = 0;}
+        else{
+            rightMin = Math.min(root.val, root.right.val);
+            rightMax = Math.min(root.val, root.right.val);
         }
-        if(b.val - root.val> maxVal){ maxVal = b.val - root.val; }
-        
+
+        maxVal = Math.max(leftMax-leftMin, rightMax=rightMin);
+
         return maxVal;
     }
 }
