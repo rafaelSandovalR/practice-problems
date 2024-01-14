@@ -29,7 +29,20 @@ public class Solution {
         }
 
         maxVal = Math.max(leftMax-leftMin, rightMax=rightMin);
-
+        
+        /*
+        THOUGHTS
+        
+        - Need to make two recursive calls with left node and right node.
+        = Need to return max difference 
+        
+           1
+         2   3
+        4 5 6 7
+        
+        
+        */
+        
         return maxVal;
     }
 }
