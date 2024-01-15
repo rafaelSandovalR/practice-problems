@@ -11,7 +11,7 @@ package max_difference_node_ancestor;
 public class Solution {
         
     public int maxAncestorDiff(TreeNode root){
-        return 0;
+        return findMaxDiff(root, root.val, root.val);
     }
     
     public int findMaxDiff(TreeNode ancestor, int prevMax, int prevMin){
@@ -31,21 +31,27 @@ public class Solution {
             newMin = Math.min(prevMin, ancestor.left.val);
             currentDiff = newMax - newMin;
             
-            //recursive call with new min/max
+            //recursive call with new min/max for left sub branches
             maxLeft = findMaxDiff(ancestor.left, newMax, newMin);
         }
         
         if(ancestor.right != null){
-            //gets min/max between prev values and left node
+            //gets min/max between prev values and right node
             newMax = Math.max(prevMax, ancestor.right.val);
             newMin = Math.min(prevMin, ancestor.right.val);
             currentDiff = newMax - newMin;
 
-            //recursive call with new min/max
-            maxLeft = findMaxDiff(ancestor.right, newMax, newMin);
+            //recursive call with new min/max for right sub branches
+            maxRight = findMaxDiff(ancestor.right, newMax, newMin);
         }
         
-        return 0;
+        //compare results from left and right sub branches
+        int maxDiff = Math.max(maxLeft, maxRight);
+        
+        //compares result from branches with current difference
+        maxDiff = Math.max(currentDiff, maxDiff);
+        
+        return maxDiff;
     }
     
 }
