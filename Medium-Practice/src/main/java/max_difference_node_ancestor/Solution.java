@@ -30,11 +30,19 @@ public class Solution {
             newMax = Math.max(prevMax, ancestor.left.val);
             newMin = Math.min(prevMin, ancestor.left.val);
             currentDiff = newMax - newMin;
+            
+            //recursive call with new min/max
             maxLeft = findMaxDiff(ancestor.left, newMax, newMin);
         }
         
         if(ancestor.right != null){
-            
+            //gets min/max between prev values and left node
+            newMax = Math.max(prevMax, ancestor.right.val);
+            newMin = Math.min(prevMin, ancestor.right.val);
+            currentDiff = newMax - newMin;
+
+            //recursive call with new min/max
+            maxLeft = findMaxDiff(ancestor.right, newMax, newMin);
         }
         
         return 0;
