@@ -15,6 +15,15 @@ public class Solution {
     }
     
     public int findMaxDiff(TreeNode ancestor, int prevMax, int prevMin){
+        //max diff values from left and right branches
+        int maxLeft=0, maxRight=0;
+        //max between prevMax and current node's value  
+        int newMax, newMin;
+        //defaults to previous max difference for null node
+        int currentDiff = prevMax - prevMin;
+        
+        
+        
         return 0;
     }
     
