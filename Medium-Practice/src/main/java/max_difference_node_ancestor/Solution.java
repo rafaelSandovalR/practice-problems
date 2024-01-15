@@ -29,7 +29,8 @@ public class Solution {
             //gets min/max between prev values and left node
             newMax = Math.max(prevMax, ancestor.left.val);
             newMin = Math.min(prevMin, ancestor.left.val);
-            
+            currentDiff = newMax - newMin;
+            maxLeft = findMaxDiff(ancestor.left, newMax, newMin);
         }
         
         if(ancestor.right != null){
