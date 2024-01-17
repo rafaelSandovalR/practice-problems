@@ -4,9 +4,6 @@
  */
 package insert_getRandom_o1;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -14,37 +11,20 @@ import java.util.List;
  */
 public class RandomizedSet {
     
-    HashMap<Integer, Integer> indexmap = new HashMap<Integer, Integer>();
-    List<Integer> set = new ArrayList<>();
     
     public RandomizedSet(){
 
-    
     }
     
     public boolean insert(int val){
-        if(indexmap.get(val) == null){ 
-            indexmap.put(val, set.size());
-            set.add(val);
-            return true;
-        }
-        
-        return false;
+
     }
     
     public boolean remove(int val){
-        if(indexmap.get(val) != null){
-            int ind = indexmap.get(val);
-            set.remove(ind);
-            indexmap.remove(val);
-            return true;
-        }
-        
-        return false;
+
     }
     
     public  int getRandom(){
-        int randomIndex = (int)((Math.random() * set.size()-1) + 1);
-        return(set.get(randomIndex));
+
     }
 }
