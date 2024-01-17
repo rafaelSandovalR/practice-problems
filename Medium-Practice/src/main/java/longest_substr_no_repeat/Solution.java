@@ -16,12 +16,12 @@ public class Solution {
         Set<Character> letters = new HashSet<Character>();
         int maxLength = 0;
         int currentLength = 0;
+        boolean added;
         
         
         /*
             1. From index 0:
-                a. create new HashSet
-                b. add letters to HashSet
+                a. add letters to HashSet
             2. Check return val to determine if set already contains char
             3. If return val is true, increment currentLength
             4. If return val is false
@@ -29,6 +29,26 @@ public class Solution {
                 b. reset currentLength
                 c. create new set starting with current index
         */
+        
+        for(int i = 0; i < s.length(); i++){
+            added = letters.add(s.charAt(i));
+            
+            if (added){
+                currentLength++;
+            } else {
+                if (currentLength > maxLength){
+                    maxLength = currentLength;
+                }
+                currentLength = 1;
+                letters = new HashSet<Character>();
+                letters.add(s.charAt(i));
+            }
+                
+        }
+
+        if (currentLength > maxLength) {
+            maxLength = currentLength;
+        }
         
         return maxLength;
     }
