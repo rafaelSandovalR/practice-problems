@@ -4,8 +4,11 @@
  */
 package longest_substr_no_repeat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+
 
 /**
  *
@@ -13,41 +16,30 @@ import java.util.Set;
  */
 public class Solution {
     public int lengthOfLongestSubstring(String s){
-        Set<Character> letters = new HashSet<Character>();
+        List<String> letters = new ArrayList<String>();
         int maxLength = 0;
-        int currentLength = 0;
-        boolean added;
+        int lastOccurence = 0;
+        String currentChar;
         
-        
-        /*
-            1. From index 0:
-                a. add letters to HashSet
-            2. Check return val to determine if set already contains char
-            3. If return val is true, increment currentLength
-            4. If return val is false
-                a. if currentLength > maxLength, set maxLength to currentLength
-                b. reset currentLength
-                c. create new set starting with current index
-        */
-        
-        for(int i = 0; i < s.length(); i++){
-            added = letters.add(s.charAt(i));
-            
-            if (added){
-                currentLength++;
-            } else {
-                if (currentLength > maxLength){
-                    maxLength = currentLength;
-                }
-                currentLength = 1;
-                letters = new HashSet<Character>();
-                letters.add(s.charAt(i));
-            }
                 
+        for(int i = 0; i < s.length(); i++){
+            currentChar = String.valueOf(s.charAt(i));
+            
+            if (!letters.contains(currentChar)){
+                letters.add(currentChar);
+
+            } else{
+                if (letters.size() > maxLength) {
+                    maxLength = letters.size();
+                }
+                lastOccurence = letters.indexOf(currentChar);
+                letters = letters.subList(lastOccurence+1, letters.size());
+                letters.add(currentChar);
+            }
         }
 
-        if (currentLength > maxLength) {
-            maxLength = currentLength;
+        if (letters.size() > maxLength) {
+            maxLength = letters.size();
         }
         
         return maxLength;
