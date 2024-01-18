@@ -14,34 +14,28 @@ import java.util.List;
  *
  * @author Rsand
  */
-public class Solution {
-    public int lengthOfLongestSubstring(String s){
-        List<String> letters = new ArrayList<String>();
-        int maxLength = 0;
-        int lastOccurence = 0;
-        String currentChar;
-        
-                
-        for(int i = 0; i < s.length(); i++){
-            currentChar = String.valueOf(s.charAt(i));
-            
-            if (!letters.contains(currentChar)){
-                letters.add(currentChar);
+class Solution {
 
-            } else{
-                if (letters.size() > maxLength) {
-                    maxLength = letters.size();
-                }
-                lastOccurence = letters.indexOf(currentChar);
-                letters = letters.subList(lastOccurence+1, letters.size());
-                letters.add(currentChar);
-            }
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0) {
+            return 0;
         }
 
-        if (letters.size() > maxLength) {
-            maxLength = letters.size();
+        // Assuming the character set is ASCII, we can use an array of size 128.
+        int[] index = new int[128]; // All values are initialized to 0
+
+        int max = 0;
+        for (int i = 0, left = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            left = Math.max(left, index[c]); // Update left to the position right after the last occurrence of the character
+
+            // Calculate the length of the current substring and update max
+            max = Math.max(max, i - left + 1);
+
+            // Update the last seen index of the character
+            index[c] = i + 1; // Storing i + 1 because initial values are 0
         }
-        
-        return maxLength;
+
+        return max;
     }
 }
