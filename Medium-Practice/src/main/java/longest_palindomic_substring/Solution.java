@@ -21,7 +21,6 @@ public class Solution {
                 e. Starting Index
                 b. Ending Index
             4. For the size of the string
-                a. if i = 0, set currentSize to 1;
                 b. if currentChar is equals to prevChar AND prevIndex > 0
                     i. currentSize = 2
                     ii. while nextChar equals prevChar--
@@ -37,6 +36,32 @@ public class Solution {
                 d. Set max to max(max, currentsize)
             5. Return max
         */
+        
+        int size = s.length();
+        int currentSize = 1, maxSize = 0;
+        int startIndex, endIndex;
+        
+        for (int i = 1, prev = 0; i < size; i++){
+            if (prev > 0 && s.charAt(i) == s.charAt(prev)){
+                currentSize++;
+                startIndex = prev;
+                while (i < size && s.charAt(++i) == s.charAt(--prev)){
+                    currentSize++;
+                    endIndex = i; 
+                }
+            }
+            if (prev > 0 && s.charAt(i) == s.charAt(prev-1)){
+                currentSize++;
+                startIndex = prev;
+                while (i < size && s.charAt(++i) == s.charAt(--prev)){
+                    currentSize++;
+                    endIndex = i;
+                }
+            }
+            
+            maxSize = Math.max(maxSize, currentSize);
+        }
+        
     
     }
 }
