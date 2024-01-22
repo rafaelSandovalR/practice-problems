@@ -22,18 +22,21 @@ public class Solution {
     
         int startIndex = 0, endIndex = 0;
         int currentSize = 0, maxSize = 0;
+        //flag for when in the middle of a palindrome check
+        boolean checkIP = false;
 
         
         for (int forward = 1, reverse = 0; forward < s.length(); forward++){
-            
+                      
             //check to see if you're in the middle of an odd palindrome
-            if(s.charAt(forward) == s.charAt(reverse-1)){
+            //only check when not in the middle of a palindrome traversal
+            if(!checkIP && forward > 1 && s.charAt(forward) == s.charAt(reverse-1)){
                 currentSize++;
                 reverse--;
             }
             
-            if(s.charAt(forward) == s.charAt(reverse)){
-                
+            if(reverse >= 0 && s.charAt(forward) == s.charAt(reverse)){
+                checkIP = true;
                 //update size
                 currentSize+=2;
                 
@@ -50,6 +53,7 @@ public class Solution {
             else{
                 //Resets reverse var after any palindromic traversal
                 reverse = forward;
+                checkIP = false;
             }
             
 
