@@ -26,7 +26,14 @@ public class Solution {
         
         for (int forward = 1, reverse = 0; forward < s.length(); forward++){
             
+            //check to see if you're in the middle of an odd palindrome
+            if(s.charAt(forward) == s.charAt(reverse-1)){
+                currentSize++;
+                reverse--;
+            }
+            
             if(s.charAt(forward) == s.charAt(reverse)){
+                
                 //update size
                 currentSize+=2;
                 
@@ -37,14 +44,15 @@ public class Solution {
                     endIndex = forward;
                 }
                 
+                //move variable opposite from forward
                 reverse--;
             }
             else{
+                //Resets reverse var after any palindromic traversal
                 reverse = forward;
             }
             
 
-            
         }
         
         
