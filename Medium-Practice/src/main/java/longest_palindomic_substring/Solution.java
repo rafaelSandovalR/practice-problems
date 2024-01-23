@@ -51,9 +51,14 @@ public class Solution {
                 reverse--;
             }
             else{
+                //Goes back one to check this value with surrounding
+                if(checkIP){
+                    forward--;
+                }
                 //Resets reverse var after any palindromic traversal
                 reverse = forward;
                 checkIP = false;
+                currentSize = 0;
             }
             
 
