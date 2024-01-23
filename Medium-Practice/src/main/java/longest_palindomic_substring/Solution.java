@@ -11,15 +11,6 @@ package longest_palindomic_substring;
 public class Solution {
     public String longestPalindrome(String s){
 
-        /*
-            1. Compare current character to previous character
-            2. If characters match:
-                a. Update current size
-                b. Check surrounding characters.
-        */
-
-        
-    
         int startIndex = 0, endIndex = 0;
         int currentSize = 0, maxSize = 0;
         //flag for when in the middle of a palindrome check
@@ -60,12 +51,9 @@ public class Solution {
                 checkIP = false;
                 currentSize = 0;
             }
-            
-
         }
-        
-        
-        return s.substring(startIndex, endIndex);
+             
+        return s.substring(startIndex, endIndex+1);
     
     }
 }
