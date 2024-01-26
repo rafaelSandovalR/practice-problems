@@ -10,14 +10,23 @@ package longest_palindomic_substring;
  */
 public class Solution {
     public String longestPalindrome(String s){
+        
+        //Other Methods: Dynamic Programming
+        //Algorithm that results in O(1) Computation.
 
         int startIndex = 0, endIndex = 0;
         int currentSize = 0, maxSize = 0;
-        //flag for when in the middle of a palindrome check
+        //flag for when a palindrome check in progress
         boolean checkIP = false;
 
         
         for (int forward = 1, reverse = 0; forward < s.length(); forward++){
+            
+            if (reverse < 0) {
+                reverse = forward - 1;
+                currentSize = 0;
+                checkIP = false;
+            }
                       
             //check to see if you're in the middle of an odd palindrome
             //only check when not in the middle of a palindrome traversal
@@ -26,7 +35,8 @@ public class Solution {
                 reverse--;
             }
             
-            if(reverse >= 0 && s.charAt(forward) == s.charAt(reverse)){
+                        
+            if(s.charAt(forward) == s.charAt(reverse)){
                 checkIP = true;
                 //update size
                 currentSize+=2;
@@ -49,11 +59,14 @@ public class Solution {
                 //Resets reverse var after any palindromic traversal
                 reverse = forward;
                 checkIP = false;
-                currentSize = 0;
+                currentSize = 0;  
+
             }
+
         }
              
         return s.substring(startIndex, endIndex+1);
     
     }
+    
 }
