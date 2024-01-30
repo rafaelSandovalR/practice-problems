@@ -18,22 +18,39 @@ public class Solution {
             5.  Create string using matrix, row by row.
         */
         
+        int numColumns = s.length()/(Math.ceilDiv(numRows, 2));
+        
         if(numRows == 1){return s; }
         
-        char[][] matrix = new char[numRows][numRows/2+1];
+        char[][] matrix = new char[numRows][numColumns];
         
-        for(int i = 0, row = -1, factor = 1, column = 0; i < s.length(); i++){
-
-            if(i % numRows == 0){
+        for(int i = 0, row = 0, factor = 1, column = 0; i < s.length(); i++){
+            
+            if( i != 0 && (row == -1 || row == numRows) ){
                 factor = factor * -1;
                 column++;
+                row = row + (2 * factor);
             }
-            
-            row = row + factor;
             matrix[row][column] = s.charAt(i);
-            
+            row = row + factor;
+    
         }
         
-        return "";
+        StringBuilder str = new StringBuilder();
+        
+        for (int i = 0, row = 0, column = 0; i < (numColumns * numRows); i++) {
+            if(matrix[row][column] != '\u0000'){
+                str.append(matrix[row][column]);
+            }
+            
+            column++;
+            if(column == numColumns){
+                column = 0;
+                row++;
+            }
+        }
+        
+        
+        return str.toString();
     }
 }
