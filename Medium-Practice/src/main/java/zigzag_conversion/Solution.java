@@ -10,47 +10,32 @@ package zigzag_conversion;
  */
 public class Solution {
     public String convert(String s, int numRows){
+
         /*
-            1.  Create a Matrix n*n/2+1
-            2.  Input string characters down the row until nth row
-            3.  Input string characters up the row until row 0
-            4.  Continue this pattern for all characters of s
-            5.  Create string using matrix, row by row.
+            1. Create array of size of s, to hold new string
+        
+            2. Create var nextRow as pointer to return to after each "row"
+                Create var outputIndex to fill array of output string
+                Cteate var ptr to point to next char in sequence
+                Create var width to determine space between characters each loop
+                    width = 2*numRows - 2.
+                Create var invertWidth = 0;
+        
+        
+            3. Loop for as many characters in s
+                a. after first row, width = width - 2
+        
+                b. place s.charAt(ptr) in array[ouputIndex++]
+        
+                b. While ptr + width < size of s
+                    If less than last index: place s.charAt(ptr) in array[outputIndex++]
+                    If ptr + invertWidth  < size of s AND invertWidth > 0
+                        If less than last index: place s.charAt(ptr) in array[outputIndex++]
+
+                c. pointer = ++nextRow;       
+                d. invertWidth + 2;
         */
         
-        int numColumns = s.length()/(Math.ceilDiv(numRows, 2));
-        
-        if(numRows == 1 || s.length() < numRows){return s; }
-        
-        char[][] matrix = new char[numRows][numColumns];
-        
-        for(int i = 0, row = 0, factor = 1, column = 0; i < s.length(); i++){
-            
-            if( i != 0 && (row == -1 || row == numRows) ){
-                factor = factor * -1;
-                column++;
-                row = row + (2 * factor);
-            }
-            matrix[row][column] = s.charAt(i);
-            row = row + factor;
-    
-        }
-        
-        StringBuilder str = new StringBuilder();
-        
-        for (int i = 0, row = 0, column = 0; i < (numColumns * numRows); i++) {
-            if(matrix[row][column] != '\u0000'){
-                str.append(matrix[row][column]);
-            }
-            
-            column++;
-            if(column == numColumns){
-                column = 0;
-                row++;
-            }
-        }
-        
-        
-        return str.toString();
+        return "";
     }
 }
