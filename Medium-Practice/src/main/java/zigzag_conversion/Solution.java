@@ -20,7 +20,7 @@ public class Solution {
         
         int numColumns = s.length()/(Math.ceilDiv(numRows, 2));
         
-        if(numRows == 1){return s; }
+        if(numRows == 1 || s.length() < numRows){return s; }
         
         char[][] matrix = new char[numRows][numColumns];
         
