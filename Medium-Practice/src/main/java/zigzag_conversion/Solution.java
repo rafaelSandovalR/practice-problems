@@ -11,11 +11,29 @@ package zigzag_conversion;
 public class Solution {
     public String convert(String s, int numRows){
         /*
-            1.  Create a Matrix n*n
+            1.  Create a Matrix n*n/2+1
             2.  Input string characters down the row until nth row
             3.  Input string characters up the row until row 0
             4.  Continue this pattern for all characters of s
             5.  Create string using matrix, row by row.
         */
+        
+        if(numRows == 1){return s; }
+        
+        char[][] matrix = new char[numRows][numRows/2+1];
+        
+        for(int i = 0, row = -1, factor = 1, column = 0; i < s.length(); i++){
+
+            if(i % numRows == 0){
+                factor = factor * -1;
+                column++;
+            }
+            
+            row = row + factor;
+            matrix[row][column] = s.charAt(i);
+            
+        }
+        
+        return "";
     }
 }
