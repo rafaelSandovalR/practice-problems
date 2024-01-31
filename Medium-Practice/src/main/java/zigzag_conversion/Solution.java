@@ -34,7 +34,9 @@ public class Solution {
                 c. pointer = ++nextRow;       
                 d. invertWidth + 2;
         */
-        
+        if(numRows <= 1 || s.length() < numRows){
+            return s;
+        }
         
         char[] output = new char[s.length()];
         int row = 0, ptr = 0, width = (2*numRows)-2, invertWidth = 0;
@@ -45,7 +47,9 @@ public class Solution {
             }
             output[i++] = s.charAt(ptr);
             
-            while(ptr+width < s.length() && ptr+invertWidth < s.length()){
+            
+            
+            while(ptr+width < s.length() || ptr+invertWidth < s.length()){
                 ptr+=width;
                 if (ptr < s.length() && width > 0){                    
                     output[i++] = s.charAt(ptr);
