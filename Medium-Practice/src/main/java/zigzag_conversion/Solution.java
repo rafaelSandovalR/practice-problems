@@ -15,7 +15,6 @@ public class Solution {
             1. Create array of size of s, to hold new string
         
             2. Create var nextRow as pointer to return to after each "row"
-                Create var outputIndex to fill array of output string
                 Cteate var ptr to point to next char in sequence
                 Create var width to determine space between characters each loop
                     width = 2*numRows - 2.
@@ -36,6 +35,31 @@ public class Solution {
                 d. invertWidth + 2;
         */
         
-        return "";
+        
+        char[] output = new char[s.length()];
+        int row = 0, ptr = 0, width = (2*numRows)-2, invertWidth = 0;
+        
+        for(int i = 0; i < s.length();){
+            if(row > 0){
+                width-=2;
+            }
+            output[i++] = s.charAt(ptr);
+            
+            while(ptr+width < s.length() && ptr+invertWidth < s.length()){
+                ptr+=width;
+                if (ptr < s.length() && width > 0){                    
+                    output[i++] = s.charAt(ptr);
+                }
+                
+                ptr+=invertWidth;
+                if (ptr < s.length() && invertWidth > 0){
+                    output[i++] = s.charAt(ptr);
+                }
+            }
+            ptr = ++row;
+            invertWidth+=2;
+        }
+        
+        return String.valueOf(output);
     }
 }
