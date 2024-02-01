@@ -14,8 +14,10 @@ public class Solution {
         /*
             1. Create a stack to place each digit in lifo order and a stack for reverse
             2. Push each digit starting from the left, to the first stack
-            3. Pop each digit and push it to the reverse stack
-            4. 
+            3. Check that the reverse number is not >= INTMAX/10
+                a. if over, return 0;
+                b. if equals: check that the next pop is not over the last digit in the INTMAX
+            4. Pop each digit and push it to the reverse stack
         */
     }
 }
