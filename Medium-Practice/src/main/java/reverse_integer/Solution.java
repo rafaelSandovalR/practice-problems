@@ -42,7 +42,8 @@ public class Solution {
             if(result > Integer.MAX_VALUE / 10 || nextDigit > Integer.MAX_VALUE % 10){
                 return  0;
             }
-
+            
+            result = result + (nextDigit * (int)Math.pow(10,i));
             
         }
         
