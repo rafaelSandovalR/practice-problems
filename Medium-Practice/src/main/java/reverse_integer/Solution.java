@@ -13,40 +13,19 @@ import java.util.Stack;
 public class Solution {
     public int reverse(int x){
         
-        /*
-            1. Create a stack to place each digit in lifo order and a stack for reverse
-            2. Push each digit starting from the left, to the first stack
-            3. Check that the reverse number is not >= INTMAX/10
-                a. if over, return 0;
-                b. if equals: check that the next pop is not over the last digit in the INTMAX
-            4. Pop each digit and push it to the reverse stack
-        */
+        int reverse = 0;
         
-        Stack<Integer> reverse = new Stack<Integer>();
-        
-        while(x > 0){
-            int nextDigit = x % 10;
-            reverse.push(nextDigit);
+        while (x != 0){
+            int pop = x % 10;
+            x /= 10;
             
-            x = x/10;
+            if (reverse > Integer.MAX_VALUE/10 || (reverse == Integer.MAX_VALUE / 10 && pop > 7)){return 0; }
+            
+            if(reverse < Integer.MIN_VALUE/10 || (reverse == Integer.MIN_VALUE / 10 && pop < -8)){return 0; }
+            
+            reverse = reverse * 10 + pop;
         }
         
-        int stackSize = reverse.size();
-        
-        int result = 0;
-        int nextDigit = 0;
-        
-        for(int i=0; i <= stackSize; i++){
-            nextDigit = reverse.pop();
-            
-            if(result > Integer.MAX_VALUE / 10 || nextDigit > Integer.MAX_VALUE % 10){
-                return  0;
-            }
-            
-            result = result + (nextDigit * (int)Math.pow(10,i));
-            
-        }
-        
-        return 0;
+        return reverse;
     }
 }
