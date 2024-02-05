@@ -20,46 +20,18 @@ public class Solution {
             7. Return final result
         */
         
-        int result = 0;
-        int sign = 1;
+        if(s.isEmpty()) return 0;
+  
+        int result = 0, sign = 1, i = 0;
         boolean readingNumber = false;
-
         
-        for(int i=0; i < s.length(); i++){
-            
-            if(!readingNumber){
+        while(s.charAt(i) == ' '){i++; }
 
-                switch (s.charAt(i)) {
-                    case ' ':
-                        continue;
-                    case '-':
-                        sign = -1;
-                        readingNumber = true;
-                        continue;
-                    case '+':
-                        readingNumber = true;
-                        continue;
-                }
-                
-                if (!Character.isDigit(s.charAt(i))) {
-                    return 0;
-                }
-            }
-
-            if (Character.isDigit(s.charAt(i))) {
-                int currentDigit = Integer.parseInt(String.valueOf(s.charAt(i)));
-                
-                if(sign>0 && (result > Integer.MAX_VALUE/10 || (result == Integer.MAX_VALUE/10 && currentDigit > 7))){return Integer.MAX_VALUE; }
-                
-                if(sign<0 && (result*sign < Integer.MIN_VALUE/10 || (result*sign == Integer.MIN_VALUE/10 && currentDigit > 8))){return Integer.MIN_VALUE; }
-                
-                result = (result * 10) + currentDigit;
-                readingNumber = true;
-            } else {
-                break;
-            }
-       
+        if(s.charAt(i) == '-' || s.charAt(i) == '+'){
+            sign = s.charAt(i++) == '-' ? -1: 1;
         }
+        
+        
 
         
         return result * sign;
