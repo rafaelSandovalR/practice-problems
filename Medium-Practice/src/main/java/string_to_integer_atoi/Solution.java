@@ -28,21 +28,27 @@ public class Solution {
         for(int i=0; i < s.length(); i++){
             
             if(!readingNumber){
-                if (s.charAt(i) == ' ') {
-                    continue;
-                } else if (s.charAt(i) == '-') {
-                    sign = -1;
-                    readingNumber = true;
-                    continue;
-                } else if(s.charAt(i) == '+'){
-                    readingNumber = true;
-                    continue;
-                }else if(!Character.isDigit(i)){ return 0;}
+
+                switch (s.charAt(i)) {
+                    case ' ':
+                        continue;
+                    case '-':
+                        sign = -1;
+                        readingNumber = true;
+                        continue;
+                    case '+':
+                        readingNumber = true;
+                        continue;
+                }
+                
+                if (!Character.isDigit(i)) {
+                    return 0;
+                }
             }
 
             if (Character.isDigit(s.charAt(i))) {
-                result = (result * 10) + Integer.valueOf(s.charAt(i));
-                i++;
+                int currentChar = Integer.parseInt(String.valueOf(s.charAt(i)));
+                result = (result * 10) + currentChar;
                 readingNumber = true;
             } else {
                 break;
