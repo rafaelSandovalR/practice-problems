@@ -20,6 +20,37 @@ public class Solution {
             7. Return final result
         */
         
+        int result = 0;
+        int sign = 1;
+        boolean readingNumber = false;
+
         
+        for(int i=0; i < s.length(); i++){
+            
+            if(!readingNumber){
+                if (s.charAt(i) == ' ') {
+                    continue;
+                } else if (s.charAt(i) == '-') {
+                    sign = -1;
+                    readingNumber = true;
+                    continue;
+                } else if(s.charAt(i) == '+'){
+                    readingNumber = true;
+                    continue;
+                }else if(!Character.isDigit(i)){ return 0;}
+            }
+
+            if (Character.isDigit(s.charAt(i))) {
+                result = (result * 10) + Integer.valueOf(s.charAt(i));
+                i++;
+                readingNumber = true;
+            } else {
+                break;
+            }
+       
+        }
+ 
+        
+        return result * sign;
     }
 }
