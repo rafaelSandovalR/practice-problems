@@ -25,9 +25,9 @@ public class Solution {
         int result = 0, sign = 1, i = 0;
         boolean readingNumber = false;
         
-        while(s.charAt(i) == ' '){i++; }
+        while(i < s.length() && s.charAt(i) == ' '){i++; }
 
-        if(s.charAt(i) == '-' || s.charAt(i) == '+'){
+        if(i < s.length() && (s.charAt(i) == '-' || s.charAt(i) == '+')){
             sign = s.charAt(i++) == '-' ? -1: 1;
         }
         
