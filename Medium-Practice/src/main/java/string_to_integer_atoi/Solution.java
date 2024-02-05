@@ -49,7 +49,9 @@ public class Solution {
             if (Character.isDigit(s.charAt(i))) {
                 int currentDigit = Integer.parseInt(String.valueOf(s.charAt(i)));
                 
-                if(result > Integer.MAX_VALUE/10 || (result == Integer.MAX_VALUE/10 && currentDigit > 7)){return Integer.MAX_VALUE * sign; }
+                if(sign>0 && (result > Integer.MAX_VALUE/10 || (result == Integer.MAX_VALUE/10 && currentDigit > 7))){return Integer.MAX_VALUE; }
+                
+                if(sign<0 && (result*sign < Integer.MIN_VALUE/10 || (result*sign == Integer.MIN_VALUE/10 && currentDigit > 8))){return Integer.MIN_VALUE; }
                 
                 result = (result * 10) + currentDigit;
                 readingNumber = true;
