@@ -41,21 +41,24 @@ public class Solution {
                         continue;
                 }
                 
-                if (!Character.isDigit(i)) {
+                if (!Character.isDigit(s.charAt(i))) {
                     return 0;
                 }
             }
 
             if (Character.isDigit(s.charAt(i))) {
-                int currentChar = Integer.parseInt(String.valueOf(s.charAt(i)));
-                result = (result * 10) + currentChar;
+                int currentDigit = Integer.parseInt(String.valueOf(s.charAt(i)));
+                
+                if(result > Integer.MAX_VALUE/10 || (result == Integer.MAX_VALUE/10 && currentDigit > 7)){return Integer.MAX_VALUE * sign; }
+                
+                result = (result * 10) + currentDigit;
                 readingNumber = true;
             } else {
                 break;
             }
        
         }
- 
+
         
         return result * sign;
     }
