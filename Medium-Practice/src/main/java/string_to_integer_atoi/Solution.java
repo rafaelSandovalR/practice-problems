@@ -31,7 +31,13 @@ public class Solution {
             sign = s.charAt(i++) == '-' ? -1: 1;
         }
         
-        
+        while(i < s.length() && Character.isDigit(s.charAt(i))){
+            if(result > Integer.MAX_VALUE/10 || 
+                    (result == Integer.MAX_VALUE/10 && s.charAt(i) - '0' > Integer.MAX_VALUE%10)){
+                return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE ;
+            }
+            result = result * 10 + (s.charAt(i++) - '0');
+        }
 
         
         return result * sign;
