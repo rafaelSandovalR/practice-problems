@@ -19,10 +19,13 @@ public class Solution {
             
             maxVol = Math.max(currentVol, maxVol);
             
-            if (height[i] <= height[j]){ i++; }
-            if (height[i] >= height[j]){ j++; }
+            
+            if(height[i] == height[j]){ i++; j--;}
+            else if (height[i] < height[j]){ i++; }
+            else{ j--; }
 
             
         }
+        return maxVol;
     }
 }

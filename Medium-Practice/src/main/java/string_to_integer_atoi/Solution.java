@@ -36,8 +36,12 @@ public class Solution {
                     (result == Integer.MAX_VALUE/10 && s.charAt(i) - '0' > Integer.MAX_VALUE%10)){
                 return (sign == 1) ? Integer.MAX_VALUE : Integer.MIN_VALUE ;
             }
+            int currentChar = s.charAt(i);
+            int charToSubtract = '0';
+            
             result = result * 10 + (s.charAt(i++) - '0');
         }
+        
 
         
         return result * sign;
