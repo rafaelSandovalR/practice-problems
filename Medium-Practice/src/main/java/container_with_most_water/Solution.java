@@ -11,20 +11,22 @@ package container_with_most_water;
 public class Solution {
     public int maxArea(int[] height){
    
-        int currentVol = 0, maxVol = 0;
+        int currentVol, maxVol = 0, minHeight = 0;
         
         for(int i = 0, j = height.length-1; i < j;){
             
-            currentVol = Math.min(height[i], height[j]) * (j-i);
+            minHeight = Math.min(height[i], height[j]);
             
-            maxVol = Math.max(currentVol, maxVol);
+            currentVol = minHeight * (j-i);
             
+            if(currentVol > maxVol){ maxVol = currentVol; }
             
-            if(height[i] == height[j]){ i++; j--;}
-            else if (height[i] < height[j]){ i++; }
-            else{ j--; }
-
-            
+            while(i<j && height[i] <= minHeight){
+                i++;
+            }
+            while(i<j && height[j] <= minHeight){
+                j--;
+            }
         }
         return maxVol;
     }
