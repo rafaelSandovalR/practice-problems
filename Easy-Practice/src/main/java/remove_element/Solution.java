@@ -26,18 +26,22 @@ public class Solution {
             
         */
         
-        int ptr1 = 0, ptr2 = nums.length-1, count = 0;
+        int ptr1 = 0, ptr2 = nums.length-1, count = nums.length;
         
         while (ptr1 < ptr2){
             if (nums[ptr1] == val){
-                count++;
+                count--;
                 
-                while(nums[ptr2--] == val){
-                    count++;
+                while(nums[ptr2] == val){
+                    count--;
+                    ptr2--;
                 }
                 
                 nums[ptr1] = nums[ptr2];
+                ptr2--;
             }
+            
+            ptr1++;
         }
         
         return count;
