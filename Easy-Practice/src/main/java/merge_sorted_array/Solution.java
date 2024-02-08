@@ -23,8 +23,14 @@ public class Solution {
         
         int ptr1 = m-1, ptr2 = n-1;
         
-        for(int set = m+n-1; set < 0; set--){
-            nums1[set] = nums1[ptr1] >= nums2[ptr2] ? nums1[ptr1--] : nums2[ptr2--];
+        for(int set = m+n-1; set >= 0; set--){
+            if(ptr1 < 0){
+                nums1[set] = nums2[ptr2--];
+            }
+            else{
+                nums1[set] = nums1[ptr1] >= nums2[ptr2] ? nums1[ptr1--] : nums2[ptr2--];           
+            }
+ 
         }
     }
 }
