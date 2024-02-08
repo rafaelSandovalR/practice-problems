@@ -12,6 +12,6 @@ public class Controller {
     public static void main(String[] args) {
         Solution s = new Solution();
         
-        s.canConstruct("Rafael", "Sandovalaa");
+        System.out.println(s.canConstruct("Rafaelll", "Rafaell"));
     }
 }

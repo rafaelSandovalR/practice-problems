@@ -10,6 +10,8 @@ package steps_to_zero;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution s = new Solution();
         
+        System.out.println(s.numberOfSteps(123));
     }
 }
