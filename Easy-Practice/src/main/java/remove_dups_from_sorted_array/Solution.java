@@ -10,15 +10,16 @@ package remove_dups_from_sorted_array;
  */
 public class Solution {
     public int removeDuplicates(int[] nums){
-        int count = 0;
+        int count = 1, prev = nums[0];
         
-        for(int i = 0; i < nums.length; i++){
-            if (nums[i] != nums[count]){
+        for(int i = 1; i < nums.length; i++){
+            if (nums[i] != prev){
                 nums[count] = nums[i];
+                prev = nums[i];
                 count++;
             }
         }
               
-        return count == 0 ? 1: count;
+        return count;
     }
 }
