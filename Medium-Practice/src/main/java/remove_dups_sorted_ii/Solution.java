@@ -19,8 +19,10 @@ public class Solution {
                 prev = nums[i];
                 dupCount = 0;
             } else {
-                if (dupCount == 1) {count++; }
                 dupCount++;
+                if (dupCount == 1) {
+                    nums[count++] = nums[i];
+                }
             }
         }
         
