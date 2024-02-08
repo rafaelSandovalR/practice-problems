@@ -21,16 +21,14 @@ public class Solution {
                 c. decrement set index
         */  
         
-        int ptr1 = m-1, ptr2 = n-1;
+        int ptr1 = m-1, ptr2 = n-1, place = m+n-1;
         
-        for(int set = m+n-1; set >= 0; set--){
-            if(ptr1 < 0){
-                nums1[set] = nums2[ptr2--];
+        while(ptr2 >= 0){
+            if(ptr1 >= 0 && nums1[ptr1] > nums2[ptr2]){
+                nums1[place--] = nums1[ptr1--];
+            } else{
+                nums1[place--] = nums2[ptr2--];
             }
-            else{
-                nums1[set] = nums1[ptr1] >= nums2[ptr2] ? nums1[ptr1--] : nums2[ptr2--];           
-            }
- 
-        }
+        }       
     }
 }
