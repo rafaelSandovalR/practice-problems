@@ -10,10 +10,13 @@ package valid_palindrome;
  */
 public class Solution {
     public boolean isPalindrome(String s){
+        
+        if(s.length() == 1) return true;
 
         char char1, char2;
         int charCount = 0;
         int i = 0, j = s.length()-1;
+        boolean atLeastOneCharacter = false;
         
         while(i<j){
             
@@ -27,6 +30,9 @@ public class Solution {
                 char2 = s.charAt(--j);
             }
             
+            if(!atLeastOneCharacter && (isAlphanumeric(char1) || isAlphanumeric(char2))){
+                atLeastOneCharacter = true;
+            }
 
             if (isAlphanumeric(char1) && isAlphanumeric(char2)) {
                 charCount++;
@@ -40,7 +46,7 @@ public class Solution {
             j--;
         }
         
-        return charCount > 0;
+        return (charCount > 0 || atLeastOneCharacter);
     }
     
     public boolean isAlphanumeric(char c){
