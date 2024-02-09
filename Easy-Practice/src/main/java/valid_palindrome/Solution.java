@@ -10,40 +10,42 @@ package valid_palindrome;
  */
 public class Solution {
     public boolean isPalindrome(String s){
-        
-        if(s.length() == 1) return true;
-
         char char1, char2;
         int i = 0, j = s.length()-1;
         
         while(i<j){
             
-            char1 = Character.toLowerCase(s.charAt(i));
-            char2 = Character.toLowerCase(s.charAt(j));
+            char1 = toLower(s.charAt(i));
+            char2 = toLower(s.charAt(j));
             
-            while (!isAlphanumeric(char1) && i<j) {
-                char1 = Character.toLowerCase(s.charAt(++i));
+            if (!isAlphaNum(char1)) {
+                i++;
+                continue;
             }
-            while (!isAlphanumeric(char2) && j>i) {
-                char2 = Character.toLowerCase(s.charAt(--j));
+            if  (!isAlphaNum(char2)) {
+                j--;
+                continue;
             }
             
-
-            if (isAlphanumeric(char1) && isAlphanumeric(char2)) {
-                if (char1 != char2) {
-                    return false;
-                }
+            if (char1 != char2) {
+                return false;
             }
 
             i++;
             j--;
         }
-        
         return true;
     }
     
-    public boolean isAlphanumeric(char c){
-        return Character.isAlphabetic(c) || Character.isDigit(c);
+    public char toLower(char c) {
+        if (c >= 'A' && c <= 'Z') {
+            return (char) ('a' + c - 'A');
+        }
+        return c;
+    }
+    
+    public boolean isAlphaNum(char c){
+        return ((c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'));
     }
         
 }
