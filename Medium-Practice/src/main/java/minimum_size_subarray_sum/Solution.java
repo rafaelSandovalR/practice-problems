@@ -36,5 +36,31 @@ public class Solution {
                     ii. Set START to equal END 
             4. Return MIN
         */
+        int minLength = 0, start = 0, end = 0, currentSum = 0;
+        
+        while (start < nums.length){
+            if (nums[start] >= target){
+                minLength = 1;
+                break;
+            }
+            
+            end++;
+            if (end == nums.length) break;
+            
+            while (end < nums.length || currentSum < target){
+                currentSum = nums[start] + nums[end];
+                if (currentSum >= target){
+                    currentSum = 0;
+                    if (end - start < minLength){
+                        minLength = end - start;
+                    }
+                } else{
+                    end++;
+                }
+            }
+            start = end;
+        }
+        
+        return minLength;
     }
 }
