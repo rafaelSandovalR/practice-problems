@@ -27,7 +27,7 @@ public class Solution {
                 b. Else
                     i. Start loop to get subarray while END is less than nums length 
                         OR current sum is less than target
-                        1. Set CURRENT SUM to Start + End
+                        1. Set CURRENT SUM to CURRENT SUM + [END]
                         2. If CURRENT SUM is greater than or equal to target
                             a. Set CURRENT SUM equal to 0
                             b. set MIN length to MIN(MIN, END minus start)
@@ -47,18 +47,21 @@ public class Solution {
             end++;
             if (end == nums.length) break;
             
+            currentSum += nums[start];
+            
             while (end < nums.length || currentSum < target){
-                currentSum = nums[start] + nums[end];
+                currentSum += nums[end];
                 if (currentSum >= target){
                     currentSum = 0;
                     if (end - start < minLength){
                         minLength = end - start;
                     }
+                    break;
                 } else{
                     end++;
                 }
             }
-            start = end;
+            start = --end;
         }
         
         return minLength;
