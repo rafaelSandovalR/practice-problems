@@ -36,7 +36,7 @@ public class Solution {
                     ii. Set START to equal END 
             4. Return MIN
         */
-        int minLength = 0, start = 0, end = 0, currentSum = 0;
+        int minLength = Integer.MAX_VALUE, start = 0, end = 0, currentSum = 0;
         
         while (start < nums.length){
             if (nums[start] >= target){
@@ -49,21 +49,29 @@ public class Solution {
             
             currentSum += nums[start];
             
-            while (end < nums.length || currentSum < target){
+            while (end < nums.length && currentSum < target){
                 currentSum += nums[end];
+                
                 if (currentSum >= target){
-                    currentSum = 0;
-                    if (end - start < minLength){
+                    
+                    //subtract first element to test if smaller length possible
+                    currentSum -= nums[start];
+                    if (currentSum >= target){
                         minLength = end - start;
+                    } else if (end - start < minLength){
+                        minLength = (end - start) + 1;
                     }
+                    
+                    currentSum = 0;
                     break;
+                    
                 } else{
                     end++;
                 }
             }
-            start = --end;
+            start = end;
         }
         
-        return minLength;
+        return minLength == Integer.MAX_VALUE ? 0 : minLength;
     }
 }
