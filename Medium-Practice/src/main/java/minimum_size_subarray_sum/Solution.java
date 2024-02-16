@@ -56,6 +56,13 @@ public class Solution {
                     
                     //subtract first element to test if smaller length possible
                     currentSum -= nums[start];
+                    
+                    while(currentSum >=target){
+                        minLength = end-start;
+                        start++;
+                        currentSum -= nums[start];
+                    }
+                    
                     if (currentSum >= target){
                         minLength = end - start;
                     } else if (end - start < minLength){
