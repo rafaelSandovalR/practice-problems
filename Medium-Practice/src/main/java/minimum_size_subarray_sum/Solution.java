@@ -24,10 +24,22 @@ public class Solution {
                 e. Return MINLENGTH + 1 or 0
         */
         
-        int minLength = Integer.MAX_VALUE, start = 0, end = 0, currentSum = 0;
+        int minLength = Integer.MAX_VALUE, start = 0, end = 0, sum = 0;
         
+        while (end < nums.length){
+            if (nums[start] == target) return 1;
+            
+            sum += nums[end];
 
+            while (sum >= target){
+                if (end - start < minLength) minLength = end - start;
+                sum -= nums[start];
+                start++;
+                
+            }
+            end++;
+        }
         
-        return minLength == Integer.MAX_VALUE ? 0 : minLength;
+        return minLength == Integer.MAX_VALUE ? 0 : minLength + 1;
     }
 }
