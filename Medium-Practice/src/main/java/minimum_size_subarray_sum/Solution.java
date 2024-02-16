@@ -27,7 +27,6 @@ public class Solution {
         int minLength = Integer.MAX_VALUE, start = 0, end = 0, sum = 0;
         
         while (end < nums.length){
-            if (nums[start] == target) return 1;
             
             sum += nums[end];
 
