@@ -35,5 +35,14 @@ public class Solution {
             16. check for dups in bottom right quadrant.
         */
         
+        int row = 0, column = 0;
+        
+        while (row != 8 && column != 8){
+            boolean[] quadrant = new boolean[9];
+            boolean[] rowOrColumn = new boolean[9];
+            
+            while(column < 8)
+        }
+        
     }
 }
