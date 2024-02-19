@@ -10,31 +10,7 @@ package valid_sudoku;
  */
 public class Solution {
     public boolean isValidSudoku(char[][] board){
-        /*
-            1. Make boolean array 0-9, to determine if duplicates exist within
-                3x3 grid
-            2. Check that no duplicates exist in first row, and that valid digits
-                - save first three items (if any)
-            3. Check that no duplicates exist in first column, and valid
-                - save 2nd and 3rd item (if any)
-            4. Check that no duplicates exist in second row, and valid
-                - save 2nd and 3rd item (if any)
-            5. Do same step as step 4 for second column, third row, third column
-            6. For each loop return false if duplicates exist in column or duplicates
-                exist in saved items.
-            7. clear saved items.
-            8. Check for dups and valid for fourth, fifth and sixth columns
-                - save items
-            9. For each loop return false if duplicates exist
-            10. Repeat steps 8 & 9 for sixth, seventh and eight column
-            11. Check for dups in rows 3, 4, 5
-            12. Check for dups in middle quadrant
-            13. check for dups in middle, right quadrant
-            14. check for dups in bottom left quadrant,
-            15. check for dups in bottom middle quadant
-            16. check for dups in bottom right quadrant.
-        */
-        
+       
         return areRowsValid(board) && areColumnsValid(board) && areSubBoxesValid(board);
 
     }
@@ -91,26 +67,44 @@ public class Solution {
     
     private boolean areSubBoxesValid(char[][] board){
         
-        int row = 0, column = 0, min = 0, max = 2;
+        int row = 0, column = 0, columnMin = 0, columnMax = 2, rowMin = 0, rowMax = 2;
         
-        for(int subBox = 0; subBox < 9; subBox++){
-        
-            boolean[] subBoxCheck = new boolean[10];
+        for(int boxRow = 0; boxRow < 3; boxRow++){
             
-            while (row >= min && row <= max){
+            for (int boxColumn = 0; boxColumn < 3; boxColumn++) {
                 
-                while (column >= min && column <= max){
-                    int currentValue = Character.getNumericValue(board[row][column]);
-                    
-                    if (subBoxCheck[currentValue] == true) return false;
-                    column++;
+                row = rowMin;
+                column = columnMin;
+                boolean[] subBoxCheck = new boolean[10];
+
+                while (row >= rowMin && row <= rowMax) {
+
+                    while (column >= columnMin && column <= columnMax) {
+                        int charValue = Character.getNumericValue(board[row][column]);
+                        column++;
+                        if (charValue < 0) {
+                            continue;
+                        }
+
+                        if (subBoxCheck[charValue] == true) {
+                            return false;
+                        }
+                        subBoxCheck[charValue] = true;
+                    }
+                    row++;
+                    column -=3;
                 }
+                columnMin += 3;
+                columnMax +=3;
             }
             
+            columnMin = 0;
+            columnMax = 2;
+            rowMin+=3;
+            rowMax+=3;
         }
         
         return true;
     }
         
-    }
 }
