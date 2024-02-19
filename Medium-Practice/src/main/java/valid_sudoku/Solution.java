@@ -10,101 +10,44 @@ package valid_sudoku;
  */
 public class Solution {
     public boolean isValidSudoku(char[][] board){
-       
-        return areRowsValid(board) && areColumnsValid(board) && areSubBoxesValid(board);
-
-    }
-    
-    private boolean areRowsValid(char[][] board){
-        int row = 0, column = 0;
-
-        while (row < 9) {
-            boolean[] currentRow = new boolean[10];
-
-            while (column < 9) {
-                int charValue = Character.getNumericValue(board[row][column]);
-                column++;
-                if (charValue < 0) {
-                    continue;
-                }
-                if (currentRow[charValue] == true) {
-                    return false;
-                }
-                currentRow[charValue] = true;
-            }
-
-            column = 0;
-            row++;
-
-        }
-        return true;
-    }
-    
-    private boolean areColumnsValid(char[][] board){
-        int row = 0, column = 0;
-
-        while (column < 9) {
-            boolean[] currentColumn = new boolean[10];
-
-            while (row < 9) {
-                int charValue = Character.getNumericValue(board[row][column]);
-                row++;
-                if (charValue < 0) {
-                    continue;
-                }
-                if (currentColumn[charValue] == true) {
-                    return false;
-                }
-                currentColumn[charValue] = true;
-            }
-
-            row = 0;
-            column++;
-
-        }
-        return true;
-    }
-    
-    private boolean areSubBoxesValid(char[][] board){
+        int N = 9;
         
-        int row = 0, column = 0, columnMin = 0, columnMax = 2, rowMin = 0, rowMax = 2;
+        // Use an array to record the status
+        boolean[][] rows = new boolean[N][N];
+        boolean[][] cols = new boolean[N][N];
+        boolean[][] boxes = new boolean[N][N];
         
-        for(int boxRow = 0; boxRow < 3; boxRow++){
-            
-            for (int boxColumn = 0; boxColumn < 3; boxColumn++) {
+        for (int r = 0; r < N; r++){
+            for (int c = 0; c < N; c++){
                 
-                row = rowMin;
-                column = columnMin;
-                boolean[] subBoxCheck = new boolean[10];
-
-                while (row >= rowMin && row <= rowMax) {
-
-                    while (column >= columnMin && column <= columnMax) {
-                        int charValue = Character.getNumericValue(board[row][column]);
-                        column++;
-                        if (charValue < 0) {
-                            continue;
-                        }
-
-                        if (subBoxCheck[charValue] == true) {
-                            return false;
-                        }
-                        subBoxCheck[charValue] = true;
-                    }
-                    row++;
-                    column -=3;
+                // Check if the position is filled with number
+                if (board[r][c] == '.'){
+                    continue;
                 }
-                columnMin += 3;
-                columnMax +=3;
+                int pos = board[r][c] - '1';
+                
+                // Check the row
+                if (rows[r][pos] == true){
+                    return false;
+                }
+                rows[r][pos] = true;
+                
+                // Check the column
+                if (cols[c][pos] == true){
+                    return false;
+                }
+                cols[c][pos] = true;
+                
+                // Check the box
+                int idx = (r / 3) * 3 + c / 3;
+                if (boxes[idx][pos] == true){
+                    return false;
+                }
+                boxes[idx][pos] = true;
             }
-            
-            columnMin = 0;
-            columnMax = 2;
-            rowMin+=3;
-            rowMax+=3;
         }
-        
         return true;
     }
+    
         
 }
