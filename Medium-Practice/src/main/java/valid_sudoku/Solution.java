@@ -37,12 +37,26 @@ public class Solution {
         
         int row = 0, column = 0;
         
-        while (row != 8 && column != 8){
-            boolean[] quadrant = new boolean[9];
+        while (row < 9){
             boolean[] rowOrColumn = new boolean[9];
             
-            while(column < 8)
+            while (column < 9) {
+                int charValue = Character.getNumericValue(board[row][column]);
+                if (charValue < 0) {
+                    column++;
+                    continue;
+                }
+                if (rowOrColumn[charValue] == true) {
+                    return false;
+                }
+                rowOrColumn[charValue] = true;
+
+            }
+
+            column = 0;
+            row++;        
+      
         }
-        
+        return true;
     }
 }
