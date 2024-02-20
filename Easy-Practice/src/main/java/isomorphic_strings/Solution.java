@@ -14,24 +14,25 @@ import java.util.Map;
 public class Solution {
     public boolean isIsomorphic(String s, String t){
 
-        HashMap<Character, Character> map = new HashMap<>();
-        
-        for (int i = 0; i < s.length(); i++){
-            
+        char[] ascii = new char[128];
+        char[] ascii2 = new char[128];
+
+        for (int i = 0; i < s.length(); i++) {
+
             char sChar = s.charAt(i);
             char tChar = t.charAt(i);
-            
-            if (!map.containsKey(sChar) && !map.containsValue(tChar)){
-                map.put(sChar,tChar);
+
+            if (ascii[sChar] == 0 && ascii2[tChar] == 0) {
+                ascii[sChar] = tChar;
+                ascii2[tChar] = sChar;
+            } else if (ascii[sChar] == 0) {
+                return false;
+            } else if (ascii[sChar] != tChar) {
+                return false;
             }
-            
-            if(!map.containsKey(sChar) && map.containsValue(tChar)) return false;
-            
-            
-            if (map.get(sChar) != tChar) return false;
+
         }
-        
-        
+
         return true;
 
     }
