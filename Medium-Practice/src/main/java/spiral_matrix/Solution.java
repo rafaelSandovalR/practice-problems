@@ -55,10 +55,11 @@ public class Solution {
                 if (r < rowMin){
                     rowMin++;
                     traversingRow = !traversingRow;
-                    direction *=1;
+                    direction *= -1;
                     r++;
                     c++;
                 }
+                
             }
            
         }
