@@ -13,6 +13,28 @@ import java.util.Map;
  */
 public class Solution {
     public boolean canConstruct(String ransomNote, String magazine){
+        
+        int[] magChars = new int[128];
+        
+        for(int i = 0; i < magazine.length(); i++){
+            char currentChar = magazine.charAt(i);
+            if (currentChar >= 'a' && currentChar <= 'z'){
+                magChars[currentChar]++;
+            }
+        }
+        
+        for(int i = 0; i < ransomNote.length(); i++){
+            char currentChar = ransomNote.charAt(i);
+            if (currentChar >= 'a' && currentChar <= 'z') {
+                if (magChars[currentChar] == 0) return false;
+                magChars[currentChar]--;
+            }
+        }
+ 
+        return true;
+        
+        
+ /* HASHMAP SOLUTION
             //hashmap of letter and their count
             Map<Character, Integer> m = new HashMap<>();
             char letter;
@@ -25,12 +47,7 @@ public class Solution {
                     m.compute(letter, (key, val) -> val = val+1);
                 } else {m.put(letter, 1);}
             }
-            
-            //test to display count of all letter in map
-            m.forEach((key, value) -> {
-                System.out.println(key + ": " + value);
-            });
-            
+
             //traverse ransomNote string and decrement count of existing chars
             for(int i = ransomNote.length()-1; i >= 0; i--){
                 letter = ransomNote.charAt(i);
@@ -46,5 +63,6 @@ public class Solution {
             }
         
             return true;
+*/
     }
 }
