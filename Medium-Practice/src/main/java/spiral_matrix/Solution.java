@@ -15,8 +15,8 @@ public class Solution {
     public List<Integer> spiralOrder(int[][] matrix){
         
         List<Integer> spiral = new ArrayList<>();
-        int rowMin = 0, rowMax = matrix.length;
-        int colMin = 0, colMax = matrix[0].length;
+        int rowMin = 1, rowMax = matrix.length-1;
+        int colMin = 0, colMax = matrix[0].length-1;
         int direction = 1;
         boolean traversingRow = true;
         
@@ -27,22 +27,37 @@ public class Solution {
             if (traversingRow){
                 c += direction;
                 
-                if (c == colMax) {
+                if (c > colMax) {
                     colMax--;
                     traversingRow = !traversingRow;
-                    r += direction;
-                    c -= direction;
+                    r++;
+                    c--;
+                }
+                
+                if (c < colMin){
+                    colMin++;
+                    traversingRow = !traversingRow;
+                    r--;
+                    c++;
                 }
                 
             } else {
                 r = r + direction;
                 
-                if (r == rowMax) {
+                if (r > rowMax) {
                     rowMax--;
                     traversingRow = !traversingRow;
                     direction *= -1;
-                    c += direction;
-                    r += direction;
+                    r--;
+                    c--;
+                }
+                
+                if (r < rowMin){
+                    rowMin++;
+                    traversingRow = !traversingRow;
+                    direction *=1;
+                    r++;
+                    c++;
                 }
             }
            
