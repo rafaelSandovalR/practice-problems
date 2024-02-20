@@ -14,8 +14,6 @@ import java.util.Map;
 public class Solution {
     public boolean isIsomorphic(String s, String t){
 
-        int[] sFreq = new int[128];
-        int[] tFreq = new int[128];
         HashMap<Character, Character> map = new HashMap<>();
         
         for (int i = 0; i < s.length(); i++){
@@ -23,12 +21,13 @@ public class Solution {
             char sChar = s.charAt(i);
             char tChar = t.charAt(i);
             
-            map.putIfAbsent(sChar, tChar);
+            if (!map.containsKey(sChar) && !map.containsValue(tChar)){
+                map.put(sChar,tChar);
+            }
             
-            sFreq[sChar]++;
-            tFreq[tChar]++;
+            if(!map.containsKey(sChar) && map.containsValue(tChar)) return false;
             
-            if (sFreq[sChar] != tFreq[tChar]) return false;
+            
             if (map.get(sChar) != tChar) return false;
         }
         
