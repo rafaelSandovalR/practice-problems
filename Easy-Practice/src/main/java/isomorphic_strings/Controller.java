@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package isomorphic_strings;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -11,5 +12,18 @@ package isomorphic_strings;
 public class Controller {
     public static void main(String[] args) {
         
+        Solution sol = new Solution();
+        
+        String s = "paper";
+        String t = "title";
+        
+        long startTime = System.nanoTime();
+        
+        boolean ans = sol.isIsomorphic(s, t);
+        
+        long endTime = System.nanoTime();        
+        long elapsedTimeInMillis = endTime - startTime;
+
+        System.out.println("Runtime: " + elapsedTimeInMillis + " milliseconds");
     }
 }

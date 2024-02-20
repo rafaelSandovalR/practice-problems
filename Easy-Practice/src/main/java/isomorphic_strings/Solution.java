@@ -4,8 +4,7 @@
  */
 package isomorphic_strings;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  *
@@ -13,26 +12,25 @@ import java.util.Map;
  */
 public class Solution {
     public boolean isIsomorphic(String s, String t){
+        
 
-        char[] ascii = new char[128];
-        char[] ascii2 = new char[128];
-
+        int[] a = new int[128];
+        
         for (int i = 0; i < s.length(); i++) {
-
-            char sChar = s.charAt(i);
-            char tChar = t.charAt(i);
-
-            if (ascii[sChar] == 0 && ascii2[tChar] == 0) {
-                ascii[sChar] = tChar;
-                ascii2[tChar] = sChar;
-            } else if (ascii[sChar] == 0) {
-                return false;
-            } else if (ascii[sChar] != tChar) {
+            char sCh = s.charAt(i);
+            char tCh = t.charAt(i);
+            if (a[sCh] == 0) {
+                for (int j = 0; j < 128; j++) {
+                    if (a[j] == tCh) {
+                        return false;
+                    }
+                }
+                a[sCh] = tCh;
+            } else if (a[sCh] != tCh) {
                 return false;
             }
 
         }
-
         return true;
 
     }
