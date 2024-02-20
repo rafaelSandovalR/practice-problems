@@ -17,18 +17,11 @@ public class Solution {
         int[] magChars = new int[128];
         
         for(int i = 0; i < magazine.length(); i++){
-            char currentChar = magazine.charAt(i);
-            if (currentChar >= 'a' && currentChar <= 'z'){
-                magChars[currentChar]++;
-            }
+            magChars[magazine.charAt(i)]++;
         }
         
         for(int i = 0; i < ransomNote.length(); i++){
-            char currentChar = ransomNote.charAt(i);
-            if (currentChar >= 'a' && currentChar <= 'z') {
-                if (magChars[currentChar] == 0) return false;
-                magChars[currentChar]--;
-            }
+            if (magChars[ransomNote.charAt(i)]-- == 0) return false;
         }
  
         return true;
