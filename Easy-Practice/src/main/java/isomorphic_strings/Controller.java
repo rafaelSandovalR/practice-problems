@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ransom_note;
+package isomorphic_strings;
 
 /**
  *
@@ -10,10 +10,6 @@ package ransom_note;
  */
 public class Controller {
     public static void main(String[] args) {
-        Solution s = new Solution();
         
-        boolean ans = s.canConstruct("Rafaell", "abrafghael");
-        
-        System.out.println(ans);
     }
 }
