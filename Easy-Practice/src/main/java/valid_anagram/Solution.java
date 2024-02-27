@@ -15,12 +15,12 @@ public class Solution {
         int[] freq = new int[26];
         
         for (int i=0; i < s.length(); i++){
-            int idx = s.charAt(i % 26);
+            int idx = s.charAt(i) % 26;
             freq[idx]++;
         }
         
         for (int i=0; i < t.length(); i++){
-            int idx = s.charAt(i % 26);
+            int idx = t.charAt(i) % 26;
             if (freq[idx] == 0) return false;
             freq[idx]--;
         }
