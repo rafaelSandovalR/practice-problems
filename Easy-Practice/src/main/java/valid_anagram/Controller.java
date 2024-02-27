@@ -10,6 +10,11 @@ package valid_anagram;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
         
+        String s = "tears";
+        String t = "stare";
+        
+        boolean ans = sol.isAnagram(s, t);
     }
 }
