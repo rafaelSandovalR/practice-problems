@@ -47,10 +47,21 @@ public class Solution {
                 int idx = strs[i].charAt(j) % 26;
                 currentFreq[idx]++;
             }
+            // compare size of strings
             // compare freq to existing list
             for (int k=0; k < ans.size(); k++){
+                boolean match = true;
                 int[] listFreq = freqList.get(k);
-                
+                for (int x = 0; x < listFreq.length; x++){
+                    if (listFreq[x] != currentFreq[x]){
+                        match = false;
+                        break;
+                    }
+                }
+                if (match){
+                    ans.get(k).add(strs[i]);
+                    break;
+                }
             }
         }
         
