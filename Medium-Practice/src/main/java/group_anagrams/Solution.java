@@ -27,6 +27,7 @@ public class Solution {
       
         List<List<String>> ans = new ArrayList<List<String>>();
         List<String> firstList = new ArrayList<String>();
+
         List<int[]> freqList = new ArrayList<int[]>();
         int[] freq = new int[26];
         
@@ -34,13 +35,21 @@ public class Solution {
             int idx = strs[0].charAt(i) % 26;
             freq[idx]++;
         }
-        
+
         freqList.add(freq);
         firstList.add(strs[0]);
         ans.add(firstList);
         
         for (int i=1; i < strs.length; i++){
-            for (int j=0; j < ans.size(); j++){
+            // determine freq of current string
+            int[] currentFreq = new int[26];
+            for (int j = 0; i < strs[i].length(); j++) {
+                int idx = strs[i].charAt(j) % 26;
+                currentFreq[idx]++;
+            }
+            // compare freq to existing list
+            for (int k=0; k < ans.size(); k++){
+                int[] listFreq = freqList.get(k);
                 
             }
         }
