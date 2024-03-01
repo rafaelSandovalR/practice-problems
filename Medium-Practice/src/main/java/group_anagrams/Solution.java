@@ -43,7 +43,7 @@ public class Solution {
         for (int i=1; i < strs.length; i++){
             // determine freq of current string
             int[] currentFreq = new int[26];
-            for (int j = 0; i < strs[i].length(); j++) {
+            for (int j = 0; j < strs[i].length(); j++) {
                 int idx = strs[i].charAt(j) % 26;
                 currentFreq[idx]++;
             }
@@ -53,13 +53,16 @@ public class Solution {
                 boolean match = true;
                 int[] listFreq = freqList.get(k);
                 for (int x = 0; x < listFreq.length; x++){
-                    if (listFreq[x] != currentFreq[x]){
-                        match = false;
-                        break;
-                    }
+                    if (listFreq[x] != currentFreq[x]) match = false;
                 }
                 if (match){
                     ans.get(k).add(strs[i]);
+                    break;
+                } else {
+                    freqList.add(currentFreq);
+                    List<String> nextList = new ArrayList<String>();
+                    nextList.add(strs[i]);
+                    ans.add(nextList);
                     break;
                 }
             }
