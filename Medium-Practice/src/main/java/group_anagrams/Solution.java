@@ -5,6 +5,7 @@
 package group_anagrams;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -26,46 +27,37 @@ public class Solution {
         */
       
         List<List<String>> ans = new ArrayList<List<String>>();
-        List<String> firstList = new ArrayList<String>();
-
         List<int[]> freqList = new ArrayList<int[]>();
-        int[] freq = new int[26];
-        
-        for (int i = 0; i < strs[0].length(); i++) {
-            int idx = strs[0].charAt(i) % 26;
-            freq[idx]++;
-        }
 
-        freqList.add(freq);
-        firstList.add(strs[0]);
-        ans.add(firstList);
         
-        for (int i=1; i < strs.length; i++){
+        for (int stringIdx=0; stringIdx < strs.length; stringIdx++){
+            
             // determine freq of current string
             int[] currentFreq = new int[26];
-            for (int j = 0; j < strs[i].length(); j++) {
-                int idx = strs[i].charAt(j) % 26;
+            for (int charIdx = 0; charIdx < strs[stringIdx].length(); charIdx++) {
+                int idx = strs[stringIdx].charAt(charIdx) % 26;
                 currentFreq[idx]++;
             }
-            // compare size of strings
+            
             // compare freq to existing list
-            for (int k=0; k < ans.size(); k++){
-                boolean match = true;
-                int[] listFreq = freqList.get(k);
-                for (int x = 0; x < listFreq.length; x++){
-                    if (listFreq[x] != currentFreq[x]) match = false;
-                }
-                if (match){
-                    ans.get(k).add(strs[i]);
-                    break;
-                } else {
-                    freqList.add(currentFreq);
-                    List<String> nextList = new ArrayList<String>();
-                    nextList.add(strs[i]);
-                    ans.add(nextList);
+            boolean match = false;
+            for (int sublistIdx=0; sublistIdx < ans.size(); sublistIdx++){
+                int[] sublistFreq = freqList.get(sublistIdx);   
+                if (Arrays.equals(currentFreq, sublistFreq)){
+                    ans.get(sublistIdx).add(strs[stringIdx]);
+                    match = true;
                     break;
                 }
             }
+            
+            // create new sublist and add to answer
+            if (!match){
+                freqList.add(currentFreq);
+                List<String> nextList = new ArrayList<String>();
+                nextList.add(strs[stringIdx]);
+                ans.add(nextList);
+            }
+
         }
         
         return ans;
