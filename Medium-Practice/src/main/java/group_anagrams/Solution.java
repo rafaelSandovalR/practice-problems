@@ -14,21 +14,9 @@ import java.util.List;
  */
 public class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        
-        /*
-            - Create Output list
-            - Enter first item into first list
-            - While STRS has more items
-                - While List has more lists
-                    - Compare item to first item of first list
-                    - If anagram, add to list and break
-                    - If end of list, create new list, add item to it and break;
-            = Return List
-        */
-      
+
         List<List<String>> ans = new ArrayList<List<String>>();
         List<int[]> freqList = new ArrayList<int[]>();
-
         
         for (int stringIdx=0; stringIdx < strs.length; stringIdx++){
             
