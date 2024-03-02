@@ -6,6 +6,7 @@ package group_anagrams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,39 +16,24 @@ import java.util.List;
 public class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
 
-        List<List<String>> ans = new ArrayList<List<String>>();
-        List<int[]> freqList = new ArrayList<int[]>();
+        HashMap<String,List<String>> map = new HashMap<>();
         
-        for (int stringIdx=0; stringIdx < strs.length; stringIdx++){
+        for (int i = 0; i < strs.length; i++) {
+            // sort the characters in each string
+            char[] ch = strs[i].toCharArray();
+            Arrays.sort(ch);
+            String sortedStr = new String(ch);
             
-            // determine freq of current string
-            int[] currentFreq = new int[26];
-            for (int charIdx = 0; charIdx < strs[stringIdx].length(); charIdx++) {
-                int idx = strs[stringIdx].charAt(charIdx) % 26;
-                currentFreq[idx]++;
+            // if sorted string does not exist as a key, add new list to hashmap
+            if (!map.containsKey(sortedStr)){
+                map.put(sortedStr, new ArrayList<>());
             }
             
-            // compare freq to existing list
-            boolean match = false;
-            for (int sublistIdx=0; sublistIdx < ans.size(); sublistIdx++){
-                int[] sublistFreq = freqList.get(sublistIdx);   
-                if (Arrays.equals(currentFreq, sublistFreq)){
-                    ans.get(sublistIdx).add(strs[stringIdx]);
-                    match = true;
-                    break;
-                }
-            }
-            
-            // create new sublist and add to answer
-            if (!match){
-                freqList.add(currentFreq);
-                List<String> nextList = new ArrayList<String>();
-                nextList.add(strs[stringIdx]);
-                ans.add(nextList);
-            }
-
+            // add str to hashmap using sorted string as key
+            map.get(sortedStr).add(strs[i]);
         }
+               
         
-        return ans;
+        return new ArrayList<>(map.values());
     }
 }
