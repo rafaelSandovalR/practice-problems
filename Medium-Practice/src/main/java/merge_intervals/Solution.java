@@ -24,8 +24,9 @@ public class Solution {
             
             
             while (i+1 < intervals.length && intervals[i][1] >= intervals[i+1][0]){
+                range[0] = Math.min(intervals[i][0], intervals[i+1][0]);
+                range[1] = Math.max(intervals[i][1], intervals[i+1][1]);
                 i++;
-                range[1] = intervals[i][1];
             }
             
             list.add(range);
