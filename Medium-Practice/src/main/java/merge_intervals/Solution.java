@@ -4,6 +4,9 @@
  */
 package merge_intervals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Rsand
@@ -11,5 +14,18 @@ package merge_intervals;
 public class Solution {
     public int[][] merge(int[][] intervals){
         
+        List<Integer[]> list = new ArrayList<Integer[]>();
+        int column = 0;
+        
+        for (int i = 0; i < intervals.length; i++){
+            
+            int[] range = new int[2];
+            
+            if (intervals[i][1] >= intervals[i+1][0]){
+                
+            }
+        }
+        
+        return null;
     }
 }
