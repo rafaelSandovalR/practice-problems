@@ -15,17 +15,26 @@ public class Solution {
     public int[][] merge(int[][] intervals){
         
         List<Integer[]> list = new ArrayList<Integer[]>();
-        int column = 0;
         
         for (int i = 0; i < intervals.length; i++){
             
-            int[] range = new int[2];
+            Integer[] range = {i,1};
             
-            if (intervals[i][1] >= intervals[i+1][0]){
-                
+            while (i+1 < intervals.length && intervals[i][1] >= intervals[i+1][0]){
+                range[0] = ++i;
             }
+            
+            list.add(range);
         }
         
-        return null;
+        int[][] ans = new int[list.size()][2];
+        int i = 0;
+        
+        for (Integer[] range: list){
+            ans[i][0] = list.get(i)[0];
+            ans[i][1] = list.get(i)[1];
+        }
+        
+        return ans;
     }
 }
