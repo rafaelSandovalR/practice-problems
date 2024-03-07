@@ -10,6 +10,9 @@ package merge_intervals;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
         
+        int[][] intervals = {{1,3}, {2,6}, {8,10}, {15,18}};
+        int[][] ans = sol.merge(intervals);
     }
 }
