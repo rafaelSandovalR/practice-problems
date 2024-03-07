@@ -18,10 +18,14 @@ public class Solution {
         
         for (int i = 0; i < intervals.length; i++){
             
-            int[] range = {i,1};
+            int leftBound = intervals[i][0];
+            int rightBound = intervals[i][1];
+            int[] range = {leftBound, rightBound};
+            
             
             while (i+1 < intervals.length && intervals[i][1] >= intervals[i+1][0]){
-                range[0] = ++i;
+                i++;
+                range[1] = intervals[i][1];
             }
             
             list.add(range);
