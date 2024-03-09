@@ -17,10 +17,18 @@ public class Solution {
         List<int[]> list = new ArrayList<int[]>();
         // array to flag checked ranges
         boolean[] checked = new boolean[intervals.length];
-        int idx = 0;
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+        checked[0] = true;
         
-        while (!checked[idx]){
+        for (int i = 0; i < intervals.length; i++){
             
+            for (int j = i+1; j < intervals.length; j++){
+                if (intervals[j][0] <= start){
+                    start = intervals[j][0];
+                    end = Math.max(end, intervals[j][1]);
+                }
+            }
         }
         
         int[][] ans = new int[list.size()][2];
