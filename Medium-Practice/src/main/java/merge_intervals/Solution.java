@@ -15,21 +15,12 @@ public class Solution {
     public int[][] merge(int[][] intervals){
         
         List<int[]> list = new ArrayList<int[]>();
+        // array to flag checked ranges
+        boolean[] checked = new boolean[intervals.length];
         
         for (int i = 0; i < intervals.length; i++){
             
-            int leftBound = intervals[i][0];
-            int rightBound = intervals[i][1];
-            int[] range = {leftBound, rightBound};
-            
-            
-            while (i+1 < intervals.length && intervals[i][1] >= intervals[i+1][0]){
-                range[0] = Math.min(intervals[i][0], intervals[i+1][0]);
-                range[1] = Math.max(intervals[i][1], intervals[i+1][1]);
-                i++;
-            }
-            
-            list.add(range);
+
         }
         
         int[][] ans = new int[list.size()][2];
