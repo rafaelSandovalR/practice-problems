@@ -15,20 +15,32 @@ public class Solution {
     public int[][] merge(int[][] intervals){
         
         List<int[]> list = new ArrayList<int[]>();
-        // array to flag checked ranges
-        boolean[] checked = new boolean[intervals.length];
-        int start = intervals[0][0];
-        int end = intervals[0][1];
-        checked[0] = true;
+        // array to flag merged ranges
+        boolean[] merged = new boolean[intervals.length];
+
         
         for (int i = 0; i < intervals.length; i++){
+            if (merged[i]){
+                continue;
+            }
+            int[] currentRange = {intervals[i][0], intervals[i][1]};
             
             for (int j = i+1; j < intervals.length; j++){
-                if (intervals[j][0] <= start){
-                    start = intervals[j][0];
-                    end = Math.max(end, intervals[j][1]);
+
+                int[] rangesToCheck = {intervals[j][0], intervals[j][1]};
+                
+                if (!merged[j]){
+                    if ( rangesOverlap(currentRange, rangesToCheck)){
+                        
+                        currentRange[0] = Math.min(currentRange[0], intervals[j][0]);
+                        currentRange[1] = Math.max(currentRange[1], intervals[j][1]);
+                        merged[j] = true;
+                    }
                 }
             }
+            
+            list.add(currentRange);
+            merged[i] = true;
         }
         
         int[][] ans = new int[list.size()][2];
@@ -39,5 +51,14 @@ public class Solution {
         }
         
         return ans;
+    }
+    
+    private boolean rangesOverlap(int[] currentRange, int[] rangeToCheck){
+               
+        if ( (rangeToCheck[0] >= currentRange[0] && rangeToCheck[0] <= currentRange[1]) 
+                || (rangeToCheck[1] >= currentRange[0] && rangeToCheck[1] <= currentRange[1])) {
+            return true;
+        }
+        return false;
     }
 }
