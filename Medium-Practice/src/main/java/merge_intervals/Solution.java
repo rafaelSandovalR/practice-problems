@@ -23,6 +23,7 @@ public class Solution {
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
         
         List<int[]> result = new ArrayList<>();
+        // Add first interval to result list
         int[] newInterval = intervals[0];
         result.add(newInterval);
         
@@ -36,6 +37,7 @@ public class Solution {
             }
         }
         return result.toArray(new int[result.size()][]);
+        
     }
     
 }
