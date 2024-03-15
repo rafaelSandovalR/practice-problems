@@ -40,6 +40,13 @@ public class Solution {
             
         }
         
-        return null;
+        StringBuilder simplifiedPath = new StringBuilder();
+        
+        while (!stack.isEmpty()){
+            String bottom = stack.pollLast();
+            simplifiedPath.append(bottom);
+        }
+        
+        return simplifiedPath.toString();
     }
 }
