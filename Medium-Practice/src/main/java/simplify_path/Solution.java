@@ -23,7 +23,21 @@ public class Solution {
                 end++;
             }
             
-            stack.push(new String(pathChars, start, end-start));
+            String directory = new String(pathChars, start, end - start);
+
+            switch (directory){
+                case "/":
+                case "/.":
+                    break;
+                case "/..":
+                    if (!stack.isEmpty()){
+                        stack.pop();
+                    }
+                    break;
+                default:
+                    stack.push(directory);
+            }
+            
         }
         
         return null;
