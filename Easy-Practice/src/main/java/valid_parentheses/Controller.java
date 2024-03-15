@@ -14,6 +14,19 @@ public class Controller {
         
         String input = "([}}])";
         
+        long startTime = System.nanoTime();
         boolean ans = sol.isValid(input);
+        long endTime = System.nanoTime();
+        long elapsedTime = endTime - startTime;
+        
+        System.out.println("Execution time in nanoseconds: " + elapsedTime);
+        
+        /*
+        RUNTIME + MEMORY:
+            3-15-24 :   93100 nanoseconds   0.550 s
+                        1 ms in Leetcode    41.6 MB
+                        - Deque & Switch
+        
+         */
     }
 }
