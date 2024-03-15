@@ -12,7 +12,7 @@ public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
         
-        int[][] intervals = {{2,3}, {4,5}, {6,7}, {8,9}, {1,10}};
+        int[][] intervals = {{3,4}, {8,9}, {2,10}, {12,20}, {21,24}};
         
         long startTime = System.nanoTime();
         int[][] ans = sol.merge(intervals);
@@ -23,8 +23,11 @@ public class Controller {
         
         /*
             RUNTIME & MEMORY
-            3-13-24:    12843500 nanoseconds    Total Time: 0.690 s
+            3-13-24:    12843500 nanoseconds
                         8ms in leetcode         46.6 MB
+        
+            3-13-24:    645900 nanoseconds
+                        1ms in leetcode         46.44 MB
         */
     }
 }
