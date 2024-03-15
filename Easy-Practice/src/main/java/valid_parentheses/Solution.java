@@ -4,6 +4,8 @@
  */
 package valid_parentheses;
 
+import java.util.ArrayDeque;
+
 /**
  *
  * @author Rsand
@@ -12,21 +14,32 @@ public class Solution {
     public boolean isValid(String s){
         if (s.length() % 2 != 0) return false;
         
-        for (int i = 1; i < s.length(); i+=2){
-            char prevChar = s.charAt(i-1);
-            switch (s.charAt(i)){
+        ArrayDeque<Character> stack = new ArrayDeque<>();
+        stack.push(s.charAt(0));
+        
+        for (int i = 1; i < s.length(); i++){
+            
+            switch (s.charAt(i)) {
                 case ')':
-                    if (prevChar != '(') return false;
+                    if (stack.peek() == '(') {
+                        stack.pop();
+                    }
                     break;
                 case '}':
-                    if (prevChar != '{') return false;
+                    if (stack.peek() == '{') {
+                        stack.pop();
+                    }
                     break;
                 case ']':
-                    if (prevChar != '[') return false;
+                    if (stack.peek() == '['){
+                        stack.pop();
+                    }
                     break;
+                default:
+                    return false;
             }
         }
         
-        return true;
+        return stack.isEmpty();
     }
 }
