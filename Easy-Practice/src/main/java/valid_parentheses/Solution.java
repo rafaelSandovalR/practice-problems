@@ -30,17 +30,20 @@ public class Solution {
                 case ')':
                     if (topChar == '(') {
                         stack.pop();
-                    }
+                    } else 
+                        return false;
                     break;
                 case '}':
                     if (topChar == '{') {
                         stack.pop();
-                    }
+                    } else
+                        return false;
                     break;
                 case ']':
                     if (topChar == '['){
                         stack.pop();
-                    }
+                    }else
+                        return false;
                     break;
                 default:
                     stack.push(currentChar);
