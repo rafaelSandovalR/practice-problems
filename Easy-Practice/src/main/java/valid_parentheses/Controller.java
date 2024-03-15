@@ -11,5 +11,9 @@ package valid_parentheses;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
+        
+        String input = "([}}])";
+        
+        boolean ans = sol.isValid(input);
     }
 }
