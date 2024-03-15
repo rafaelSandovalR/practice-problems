@@ -18,25 +18,32 @@ public class Solution {
         stack.push(s.charAt(0));
         
         for (int i = 1; i < s.length(); i++){
+
+            char currentChar = s.charAt(i);
+            if (stack.isEmpty()){
+                stack.push(currentChar);
+                continue;
+            }
+            char topChar = stack.peek();
             
-            switch (s.charAt(i)) {
+            switch (currentChar) {
                 case ')':
-                    if (stack.peek() == '(') {
+                    if (topChar == '(') {
                         stack.pop();
                     }
                     break;
                 case '}':
-                    if (stack.peek() == '{') {
+                    if (topChar == '{') {
                         stack.pop();
                     }
                     break;
                 case ']':
-                    if (stack.peek() == '['){
+                    if (topChar == '['){
                         stack.pop();
                     }
                     break;
                 default:
-                    return false;
+                    stack.push(currentChar);
             }
         }
         
