@@ -12,44 +12,29 @@ import java.util.ArrayDeque;
  */
 public class Solution {
     public boolean isValid(String s){
-        if (s.length() % 2 != 0) return false;
-        
-        ArrayDeque<Character> stack = new ArrayDeque<>();
-        stack.push(s.charAt(0));
-        
-        for (int i = 1; i < s.length(); i++){
 
-            char currentChar = s.charAt(i);
-            if (stack.isEmpty()){
-                stack.push(currentChar);
-                continue;
-            }
-            char topChar = stack.peek();
-            
-            switch (currentChar) {
+        char[] stack = new char[s.length()];
+        int top = -1;
+        
+        for (char ch : s.toCharArray()){
+            switch (ch){
+                case '(':
+                case '{':
+                case '[':
+                    stack[++top] = ch;
+                    break;
                 case ')':
-                    if (topChar == '(') {
-                        stack.pop();
-                    } else 
-                        return false;
+                    if (top == -1 || stack[top--] != '(') return false;
                     break;
                 case '}':
-                    if (topChar == '{') {
-                        stack.pop();
-                    } else
-                        return false;
+                    if (top == -1 || stack[top--] != '{') return false;
                     break;
                 case ']':
-                    if (topChar == '['){
-                        stack.pop();
-                    }else
-                        return false;
+                    if (top == -1 || stack[top--] != '[') return false;
                     break;
-                default:
-                    stack.push(currentChar);
             }
         }
         
-        return stack.isEmpty();
+        return top == -1;
     }
 }
