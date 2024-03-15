@@ -12,7 +12,7 @@ public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
         
-        String path = "/root/mypc/./desktop/newfolder";
+        String path = "/home/../test/.../../hello/";
         sol.simplifyPath(path);
     }
 }
