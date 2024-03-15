@@ -47,6 +47,6 @@ public class Solution {
             simplifiedPath.append(bottom);
         }
         
-        return simplifiedPath.toString();
+        return simplifiedPath.length() == 0 ? "/" : simplifiedPath.toString();
     }
 }
