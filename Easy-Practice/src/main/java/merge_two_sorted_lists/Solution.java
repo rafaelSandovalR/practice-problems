@@ -10,45 +10,40 @@ package merge_two_sorted_lists;
  */
 public class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2){
+        
+        // Check if both lists are empty
         if (list1 == null && list2 == null) return null;
         
-        ListNode head = null;
-        ListNode temp = null;
+        ListNode head = null, ptr = null, smallest;
         
-        while (list1 != null || list2 != null){
-            if (list1 == null) {
-                if (head == null) {
-                    head = list2;
+            while (list1 != null && list2 != null){
+           
+                // Determine which node is smallest and move corresponding list forward
+                if (list1.val <= list2.val){
+                    smallest = list1;
+                    list1 = list1.next;
+
+                } else {
+                    smallest = list2;
+                    list2 = list2.next;
                 }
-                temp.next = list2;
-                break;
-            }
-            if (list2 == null) {
-                if (head == null) {
-                    head = list1;
-                }
-                temp.next = list1;
-                break;
+
+                // Initialize pointer and head
+                if (ptr == null) {
+                    ptr = smallest;
+                    head = smallest;
+                } else {
+                    // Point to next smallest node and move to that node
+                    ptr.next = smallest;
+                    ptr = ptr.next;
+                }           
             }
             
-            if (list1.val <= list2.val){
-                if (head == null){ 
-                    head = list1;
-                } else{
-                    temp.next = list1;
-                }
-                temp = list1;
-                list1 = list1.next;
-            } else {
-                if (head == null) {
-                    head = list2;
-                } else{
-                    temp.next = list2;
-                }
-                temp = list2;
-                list2 = list2.next;
-            }
-        }
+            // Check for instances when one list has not reached the end yet
+            if (list1 != null && ptr != null) ptr.next = list1;
+            if (list2 != null && ptr != null) ptr.next = list2;
+            if (list1 != null && ptr == null) head = list1;
+            if (list2 != null && ptr == null) head = list2;
         
         return head;
     }
