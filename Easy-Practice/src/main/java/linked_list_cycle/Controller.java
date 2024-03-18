@@ -22,6 +22,16 @@ public class Controller {
         beforeTail.next = tail;
         tail.next = afterHead;
         
+        long startTime = System.nanoTime();
         boolean ans = sol.hasCycle(head);
+        long endTime = System.nanoTime();
+        long elapsedTime = endTime - startTime;
+        
+        System.out.println("Execution Time: " + elapsedTime + " Nanoseconds");
+        
+        /*
+            3-17-24     17300       0.493s
+            LeetCode:   4 ms        44.48 MB
+        */
     }
 }

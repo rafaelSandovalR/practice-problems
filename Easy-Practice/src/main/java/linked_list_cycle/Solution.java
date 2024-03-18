@@ -14,16 +14,20 @@ import java.util.Set;
 public class Solution {
     boolean hasCycle(ListNode head){
         
-        if (head == null) return false;
-        
-        Set<ListNode> nodes = new HashSet<>();
-        
-        while (head.next != null){
-            
-            if (!nodes.add(head)) return true;
-            head = head.next;
+        if (head == null || head.next == null) {
+            return false;
         }
         
+        ListNode slow = head;
+        ListNode fast = head;
+        
+        while (fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            
+            if (slow == fast) return true;
+        }
+
         return false;
     }
 }
