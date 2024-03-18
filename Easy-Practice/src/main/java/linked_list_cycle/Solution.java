@@ -4,12 +4,22 @@
  */
 package linked_list_cycle;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author Rsand
  */
 public class Solution {
     boolean hasCycle(ListNode head){
+        Set<ListNode> nodes = new HashSet<>();
         
+        while (head.next != null){
+            
+            if (!nodes.add(head)) return false;
+        }
+        
+        return true;
     }
 }
