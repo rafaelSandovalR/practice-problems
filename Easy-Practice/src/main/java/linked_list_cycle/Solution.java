@@ -17,9 +17,10 @@ public class Solution {
         
         while (head.next != null){
             
-            if (!nodes.add(head)) return false;
+            if (!nodes.add(head)) return true;
+            head = head.next;
         }
         
-        return true;
+        return false;
     }
 }
