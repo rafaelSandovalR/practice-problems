@@ -13,6 +13,9 @@ import java.util.Set;
  */
 public class Solution {
     boolean hasCycle(ListNode head){
+        
+        if (head == null) return false;
+        
         Set<ListNode> nodes = new HashSet<>();
         
         while (head.next != null){
