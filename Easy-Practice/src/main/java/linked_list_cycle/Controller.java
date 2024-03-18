@@ -10,6 +10,18 @@ package linked_list_cycle;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
         
+        ListNode tail = new ListNode(4);
+        ListNode beforeTail = new ListNode(0);
+        ListNode afterHead = new ListNode(2);
+        ListNode head = new ListNode(3);
+        
+        head.next = afterHead;
+        afterHead.next = beforeTail;
+        beforeTail.next = tail;
+        tail.next = afterHead;
+        
+        boolean ans = sol.hasCycle(head);
     }
 }
