@@ -15,6 +15,46 @@ import java.util.List;
 public class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2){
         
+        ListNode head = new ListNode();
+        ListNode nextNode = head;
+        int carry = 0;
+        int sum = 0;
+
+        while (l1 != null || l2 != null || carry > 0) {
+
+            if (l1 != null) {
+                sum += l1.val;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+            }
+            
+            // Add previous carry
+            sum += carry;
+            // Get new carry
+            carry = sum / 10;
+            // Set sum as the value of this node
+            sum = sum % 10;
+            nextNode.val = sum;
+            // Reset Sum
+            sum = 0;
+             
+            if (l1 != null) {
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                l2 = l2.next;
+            }
+            
+            //Create and link next node
+            if (l1 != null || l2 != null || carry > 0) {
+                nextNode.next = new ListNode();
+                nextNode = nextNode.next;
+            }
+        }
+
+        return head;
+        
 /*
         1. Create variable carry to hold carry value after each addition
         2. Create first answer node, prev node, next node, int var for sums
@@ -33,6 +73,7 @@ public class Solution {
         6. return first answer node
 */
 
+/*
         //1, 2
         int carry = 0, sum = 0;
         ListNode ans = null, prev = null, next;
@@ -70,6 +111,7 @@ public class Solution {
         }
         
         return ans;
+*/
     }
 }
 
