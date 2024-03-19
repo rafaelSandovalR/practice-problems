@@ -19,6 +19,7 @@ public class Solution {
         Node prev = dummy;
         Map<Node, Node> corresponding = new HashMap<>();
         
+        // Create a clone list with only matching val values
         while (original != null){
             // Create next node and link to previous
             Node copyTail = new Node(original.val);
@@ -29,6 +30,12 @@ public class Solution {
             prev = prev.next;
             // Move original list to next;
             original = original.next;
+        }
+
+        // Add Random values
+        while (head != null){
+            corresponding.get(head).random = corresponding.get(head.random);
+            head = head.next;
         }
         
         return dummy.next;
