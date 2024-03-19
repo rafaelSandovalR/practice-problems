@@ -24,9 +24,11 @@ public class Solution {
             Node copyTail = new Node(original.val);
             prev.next = copyTail;
             // Map it to the original node
-            corresponding.put(copyTail, original);
+            corresponding.put(original, copyTail);
             // Move prev to this node
             prev = prev.next;
+            // Move original list to next;
+            original = original.next;
         }
         
         return dummy.next;
