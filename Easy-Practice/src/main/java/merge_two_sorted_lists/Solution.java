@@ -11,40 +11,31 @@ package merge_two_sorted_lists;
 public class Solution {
     public ListNode mergeTwoLists(ListNode list1, ListNode list2){
         
-        // Check if both lists are empty
-        if (list1 == null && list2 == null) return null;
+        // Dummy used to start list and return its next value as the head
+        ListNode dummy = new ListNode();
+        ListNode tail = dummy;
         
-        ListNode head = null, ptr = null, smallest;
-        
-            while (list1 != null && list2 != null){
-           
-                // Determine which node is smallest and move corresponding list forward
-                if (list1.val <= list2.val){
-                    smallest = list1;
-                    list1 = list1.next;
-
-                } else {
-                    smallest = list2;
-                    list2 = list2.next;
-                }
-
-                // Initialize pointer and head
-                if (ptr == null) {
-                    ptr = smallest;
-                    head = smallest;
-                } else {
-                    // Point to next smallest node and move to that node
-                    ptr.next = smallest;
-                    ptr = ptr.next;
-                }           
-            }
+        while (list1 != null && list2 != null){
             
-            // Check for instances when one list has not reached the end yet
-            if (list1 != null && ptr != null) ptr.next = list1;
-            if (list2 != null && ptr != null) ptr.next = list2;
-            if (list1 != null && ptr == null) head = list1;
-            if (list2 != null && ptr == null) head = list2;
+            // Compare next list values and assign smallest to tail's next
+            if (list1.val < list2.val){
+                tail.next = list1;
+                list1 = list1.next;
+            } else {
+                tail.next = list2;
+                list2 = list2.next;
+            }
+            // Move to end of tail
+            tail = tail.next;
+        }
         
-        return head;
+        // Append any existing values
+        if (list1 != null){
+            tail.next = list1;
+        } else if (list2 != null){
+            tail.next = list2;
+        }
+        
+        return dummy.next;
     }
 }
