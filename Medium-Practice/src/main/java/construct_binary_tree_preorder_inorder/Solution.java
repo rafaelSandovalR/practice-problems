@@ -6,6 +6,10 @@ package construct_binary_tree_preorder_inorder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+
 
 /**
  *
@@ -14,56 +18,48 @@ import java.util.Arrays;
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder){
         
-        if (preorder.length == 0) return null;
-        
-        ArrayList<Integer> leftPreOrder = new ArrayList<Integer>();
-        ArrayList<Integer> leftInOrder = new ArrayList<Integer>();
-        ArrayList<Integer> rightPreOrder = new ArrayList<Integer>();
-        ArrayList<Integer> rightInOrder = new ArrayList<Integer>();
-        
         int root = preorder[0];
-        int leftChild, rightChild;
+        int leftChild = inorder[0] == root ? null : preorder[1];
+        int rightChild = inorder[inorder.length-1] == root ? null : preorder[2];
+        HashMap<Integer, Integer> inOrderIdxs = new HashMap<>();
+        LinkedList<TreeNode> queue = new LinkedList<>();
         
-        // Create inorder list for left subtree
-        int idx = 0;
-        while (inorder[idx] != root){
-            leftInOrder.add(inorder[idx]);
-            idx++;
+        // Map values to their indices
+        for (int i = 0; i < inorder.length; i++){
+            inOrderIdxs.put(inorder[i], i);
         }
         
-        // Skip root node
-        idx++;
-        
-        // Create inorder list for right subtree
-        while (idx < inorder.length){
-            rightInOrder.add(inorder[idx]);
-            idx++;
-        }
-        
-        // Create preorder lists for both branches
-        for (int i = 1; i < preorder.length; i++){
-            if (leftInOrder.contains(preorder[i])){
-                leftPreOrder.add(preorder[i]);
-            } else {
-                rightPreOrder.add(preorder[i]);
+        for (int i = preorder.length-1; i >= 0; i--){
+            int nodeVal = preorder[i];
+            TreeNode nextNode = new TreeNode(nodeVal);
+            
+            if (!queue.isEmpty()){
+                int currentNodeIdx = inOrderIdxs.get(nodeVal);
+                int nextQueueIdx = inOrderIdxs.get(queue.peek().val);
+                
+                // If index for next in queue is one more than index of current
+                // then next in queue is the right child of current node
+                if (nextQueueIdx == currentNodeIdx + 1){
+                    nextNode.right = queue.pop();
+                }
+                // recheck next in queue
+                nextQueueIdx = inOrderIdxs.get(queue.peek().val);
+                // If it is one less, it is the left child
+                if (nextQueueIdx == currentNodeIdx - 1) {
+                    nextNode.left = queue.pop(); 
+                }
             }
+            
+            queue.add(nextNode);
+
         }
+
         
-        // Convert ArrayLists to arrays
-        int[] leftpreorder = new int[leftPreOrder.size()];
-        Arrays.setAll(leftpreorder, leftPreOrder::get);
-        
-        int[] leftinorder = new int[leftInOrder.size()];
-        Arrays.setAll(leftinorder, leftInOrder::get);
-        
-        int[] rightpreorder = new int[rightPreOrder.size()];
-        Arrays.setAll(rightpreorder, rightPreOrder::get);
-        
-        int[] rightinorder = new int[rightInOrder.size()];
-        Arrays.setAll(rightinorder, rightInOrder::get);
-        
-        
-        
-        return new TreeNode(root, buildTree(leftpreorder,leftinorder),buildTree(rightpreorder,rightinorder));
-        }
+        return null;
+    }
+    
+
+    
 }
+
+
