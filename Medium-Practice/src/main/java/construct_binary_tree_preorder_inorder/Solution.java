@@ -4,11 +4,8 @@
  */
 package construct_binary_tree_preorder_inorder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Map;
 
 
 /**
@@ -18,48 +15,28 @@ import java.util.LinkedList;
 public class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder){
         
-        int root = preorder[0];
-        int leftChild = inorder[0] == root ? null : preorder[1];
-        int rightChild = inorder[inorder.length-1] == root ? null : preorder[2];
-        HashMap<Integer, Integer> inOrderIdxs = new HashMap<>();
-        LinkedList<TreeNode> queue = new LinkedList<>();
+        Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();
         
-        // Map values to their indices
         for (int i = 0; i < inorder.length; i++){
-            inOrderIdxs.put(inorder[i], i);
+            inMap.put(inorder[i], i );
         }
         
-        for (int i = preorder.length-1; i >= 0; i--){
-            int nodeVal = preorder[i];
-            TreeNode nextNode = new TreeNode(nodeVal);
-            
-            if (!queue.isEmpty()){
-                int currentNodeIdx = inOrderIdxs.get(nodeVal);
-                int nextQueueIdx = inOrderIdxs.get(queue.peek().val);
-                
-                // If index for next in queue is one more than index of current
-                // then next in queue is the right child of current node
-                if (nextQueueIdx == currentNodeIdx + 1){
-                    nextNode.right = queue.pop();
-                }
-                // recheck next in queue
-                nextQueueIdx = inOrderIdxs.get(queue.peek().val);
-                // If it is one less, it is the left child
-                if (nextQueueIdx == currentNodeIdx - 1) {
-                    nextNode.left = queue.pop(); 
-                }
-            }
-            
-            queue.add(nextNode);
-
-        }
-
+        TreeNode root = buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
+        return root;
         
-        return null;
     }
     
+    public TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> inMap){
+        if (preStart > preEnd || inStart > inEnd ) return null;
+        
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int inRoot = inMap.get(root.val);
+        int numsLeft = inRoot - inStart;
+        
+        root.left = buildTree(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot -1, inMap);
+        root.right = buildTree(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inMap);
+        
+        return root;
+    }
 
-    
 }
-
-

@@ -11,9 +11,13 @@ package construct_binary_tree_preorder_inorder;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
+        /*
+        int[] preorder = {9,1,2,4,7,3,8,11,6,13,15,14,5,10,12};
+        int[] inorder = {11,4,6,1,7,10,13,12,9,15,3,14,2,8,5};
+        */
         
-        int[] preorder = {3,9,20,2,8,15,7,5,6,4,1,16};
-        int[] inorder = {5,2,9,8,3,6,15,4,20,1,7,16};
+        int[] preorder = {1,4,2,3};
+        int[] inorder = {1,2,3,4};
         
         TreeNode binaryTree = sol.buildTree(preorder, inorder);
  
