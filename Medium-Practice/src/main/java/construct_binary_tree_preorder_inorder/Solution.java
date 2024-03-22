@@ -13,30 +13,23 @@ import java.util.Map;
  * @author Rsand
  */
 public class Solution {
+    int i = 0;
+    int p = 0;
     public TreeNode buildTree(int[] preorder, int[] inorder){
-        
-        Map<Integer, Integer> inMap = new HashMap<Integer, Integer>();
-        
-        for (int i = 0; i < inorder.length; i++){
-            inMap.put(inorder[i], i );
-        }
-        
-        TreeNode root = buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, inMap);
-        return root;
-        
+        return build(preorder, inorder, Integer.MIN_VALUE);        
     }
     
-    public TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> inMap){
-        if (preStart > preEnd || inStart > inEnd ) return null;
+    public TreeNode build(int[] preorder, int[]inorder, int stop){
+        if (p >= preorder.length) return null;
         
-        TreeNode root = new TreeNode(preorder[preStart]);
-        int inRoot = inMap.get(root.val);
-        int numsLeft = inRoot - inStart;
+        if (inorder[i] == stop){
+            i++; 
+            return null;
+        }
         
-        root.left = buildTree(preorder, preStart + 1, preStart + numsLeft, inorder, inStart, inRoot -1, inMap);
-        root.right = buildTree(preorder, preStart + numsLeft + 1, preEnd, inorder, inRoot + 1, inEnd, inMap);
-        
+        TreeNode root = new TreeNode(preorder[p++]);
+        root.left = build(preorder, inorder, root.val);
+        root.right = build(preorder, inorder, stop);
         return root;
     }
-
 }
