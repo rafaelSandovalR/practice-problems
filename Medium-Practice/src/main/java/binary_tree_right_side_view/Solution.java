@@ -13,8 +13,27 @@ import java.util.List;
  */
 public class Solution {
     public List<Integer> rightSideView(TreeNode root){
-        List<Integer> rightSide = new ArrayList<Integer>();
+        TreeNode start = root;
+        List<Integer> rightSideView = new ArrayList<Integer>();
         
+        while (start != null) {
+            rightSideView.add(start.val);
+            start = start.right == null ? start.left : start.right;
+        }
         
+        if (root.left != null) {
+            start = root.left;
+            int listSizeSoFar = rightSideView.size();
+            int leftBranchCount = 0;
+            while (start != null) {
+                leftBranchCount++;
+                if (leftBranchCount > listSizeSoFar) {
+                    rightSideView.add(start.val);
+                }
+                start = start.right == null ? start.left : start.right;
+            }
+        }
+
+        return rightSideView;
     }
 }
