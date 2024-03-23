@@ -24,18 +24,17 @@ public class Solution {
             start = start.right == null ? start.left : start.right;
         }
         
-        if (root.left != null) {
-            start = root.left;
-            int listSizeSoFar = rightSideView.size();
-            int leftBranchCount = 0;
-            while (start != null) {
-                leftBranchCount++;
-                if (leftBranchCount > listSizeSoFar) {
-                    rightSideView.add(start.val);
-                }
-                start = start.right == null ? start.left : start.right;
+        start = root.left;
+        int listSizeSoFar = rightSideView.size();
+        int leftBranchCount = 1;
+        while (start != null) {
+            leftBranchCount++;
+            if (leftBranchCount > listSizeSoFar) {
+                rightSideView.add(start.val);
             }
+            start = start.right == null ? start.left : start.right;
         }
+       
 
         return rightSideView;
     }
