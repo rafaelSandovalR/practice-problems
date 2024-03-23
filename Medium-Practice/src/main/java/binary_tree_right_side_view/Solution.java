@@ -13,10 +13,11 @@ import java.util.List;
  */
 public class Solution {
     public List<Integer> rightSideView(TreeNode root){
-        if (root == null) return null;
+
         
         TreeNode start = root;
         List<Integer> rightSideView = new ArrayList<Integer>();
+        if (root == null) return rightSideView;
         
         while (start != null) {
             rightSideView.add(start.val);
