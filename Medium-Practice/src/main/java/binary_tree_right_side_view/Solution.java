@@ -14,28 +14,33 @@ import java.util.List;
 public class Solution {
     public List<Integer> rightSideView(TreeNode root){
 
-        
-        TreeNode start = root;
         List<Integer> rightSideView = new ArrayList<Integer>();
         if (root == null) return rightSideView;
         
-        while (start != null) {
-            rightSideView.add(start.val);
-            start = start.right == null ? start.left : start.right;
-        }
-        
-        start = root.left;
-        int listSizeSoFar = rightSideView.size();
-        int leftBranchCount = 1;
-        while (start != null) {
-            leftBranchCount++;
-            if (leftBranchCount > listSizeSoFar) {
-                rightSideView.add(start.val);
-            }
-            start = start.right == null ? start.left : start.right;
-        }
-       
+        int maxDepth = addNode(rightSideView, root, 0,0);
 
         return rightSideView;
+    }
+    
+    private int addNode(List<Integer> rightSideView, TreeNode root, int max, int current){
+        
+        if (root == null) return max;
+        
+        // Increment current depth
+        current++;
+        
+        // If current depth is more than max, add value to list
+        if (current > max){
+            rightSideView.add(root.val);
+            max = current;
+        }
+        
+        // Recursively get the max of the right side
+        max = addNode(rightSideView, root.right, max, current);
+        // Using the max of the right side, traverse through left side
+        int leftSideDepth = addNode(rightSideView, root.left, max, current);
+        
+        // Return the latest max depth
+        return Math.max(max, leftSideDepth);
     }
 }
