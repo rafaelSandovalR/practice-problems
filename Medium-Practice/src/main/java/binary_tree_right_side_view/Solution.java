@@ -15,16 +15,15 @@ public class Solution {
     public List<Integer> rightSideView(TreeNode root){
 
         List<Integer> rightSideView = new ArrayList<Integer>();
-        if (root == null) return rightSideView;
         
-        int maxDepth = addNode(rightSideView, root, 0,0);
-
+        addToList(rightSideView, root, 0);
+        
         return rightSideView;
     }
     
-    private int addNode(List<Integer> rightSideView, TreeNode root, int max, int current){
+    private void addToList(List<Integer> rightSideView, TreeNode root, int max){
         
-        if (root == null) return max;
+        if (root == null) return;
         
         // Increment current depth
         current++;
