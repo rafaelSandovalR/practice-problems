@@ -4,38 +4,72 @@
  */
 package average_levels_binary_tree;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+
 
 /**
  *
  * @author Rsand
  */
-public class Solution {
-    public List<Double> averageOfLevels(TreeNode root){
-        List<Double> result = new ArrayList<>();
-        Queue<TreeNode> queue = new LinkedList<>();
-        
-        if (root == null) return result;
-        
-        queue.add(root);
-        
-        while ( !queue.isEmpty() ){
-            int n = queue.size();
-            double sum = 0.0;
-            
-            // for each item in the level calc sum and add their children to queue
-            for (int i = 0; i < n; i++){
-                TreeNode node = queue.poll();
-                sum += node.val;
-                if (node.left != null) queue.offer(node.left);
-                if (node.right != null) queue.offer(node.right);
+class Solution {
+
+    public static List<Double> averageOfLevels(TreeNode root) {
+        // Returns a new anonymous class 
+        return new AbstractList<Double>() {
+
+            private final List<Double> list = new ArrayList<>(); // Stores the calculated averages for each level
+            private final List<TreeNode> level = new ArrayList<>(); // Stores nodes encountered during level-by-level traversal
+
+            // Retreives the average value at a specific level from the list
+            @Override
+            public Double get(int index) {
+                init();
+                return list.get(index);
             }
-            
-            result.add(sum / n);
-        }
-        return result;
+
+            // Returns the total number of levels in the tree
+            @Override
+            public int size() {
+                init();
+                return list.size();
+            }
+
+            // Both previous methods call this.
+            // Ensures that the list is populated with average values before
+            void init() {
+                if (list.isEmpty()) {
+                    level.add(root);
+                    // Until level is empty meaning all levels have been processed
+                    while (!level.isEmpty()) {
+                        levelTraverse(level); //Traverse the current level
+                    }
+                }
+            }
+
+            // Takes list of tree nodes as current level
+            void levelTraverse(List<TreeNode> level) {
+                int count = level.size();
+                long sum = 0;
+                // Iterates through each node in the level
+                for (int i = 0; i < count; i++) {
+                    TreeNode tree = level.get(0);
+                    sum += tree.val;
+                    
+                    // Adds children to level list for processing in the next level
+                    if (tree.left != null) {
+                        level.add(tree.left);
+                    }
+                    if (tree.right != null) {
+                        level.add(tree.right);
+                    }
+                    // Remove head to move to the next node
+                    level.remove(0);
+                }
+                // Adds the calculated average to the list
+                list.add((double) sum / count);
+            }
+        };
     }
 }
