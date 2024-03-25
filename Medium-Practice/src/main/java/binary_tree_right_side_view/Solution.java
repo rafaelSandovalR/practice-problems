@@ -24,22 +24,15 @@ public class Solution {
     private void addToList(List<Integer> rightSideView, TreeNode root, int max){
         
         if (root == null) return;
-        
-        // Increment current depth
-        current++;
-        
+                
         // If current depth is more than max, add value to list
-        if (current > max){
+        if (max == rightSideView.size()) {
             rightSideView.add(root.val);
-            max = current;
         }
         
-        // Recursively get the max of the right side
-        max = addNode(rightSideView, root.right, max, current);
-        // Using the max of the right side, traverse through left side
-        int leftSideDepth = addNode(rightSideView, root.left, max, current);
+        // Traverse the right side first to get the right side view
+        addToList(rightSideView, root.right, max+1);
+        addToList(rightSideView, root.left, max+1);
         
-        // Return the latest max depth
-        return Math.max(max, leftSideDepth);
     }
 }
