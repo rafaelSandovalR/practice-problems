@@ -10,6 +10,11 @@ package kth_smallest_element_in_bst;
  */
 public class Solution {
     public int kthSmallest(TreeNode root, int k){
-        
+        if (root == null) return 0;
+        int left = kthSmallest(root.left, k);
+        if (left == k) return root.left.val;
+        int right = kthSmallest(root.right,k) + left;
+        if (right == k) return root.right.val;
+        return left+right+1;
     }
 }
