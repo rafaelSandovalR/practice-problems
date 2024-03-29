@@ -10,15 +10,19 @@ package kth_smallest_element_in_bst;
  */
 public class Controller {
     public static void main(String[] args) {
-        TreeNode node6 = new TreeNode(1);
-        TreeNode node5 = new TreeNode(4);
-        TreeNode node4 = new TreeNode(2,node6, null);
-        TreeNode node3 = new TreeNode(6);
-        TreeNode node2 = new TreeNode(3,node4,node5);
-        TreeNode root = new TreeNode(5,node2,node3);
+        TreeNode node10 = new TreeNode(11);
+        TreeNode node9 = new TreeNode(13,node10, null);
+        TreeNode node8 = new TreeNode(23);
+        TreeNode node7 = new TreeNode(15,node9, null);
+        TreeNode node6 = new TreeNode(7);
+        TreeNode node5 = new TreeNode(1);
+        TreeNode node4 = new TreeNode(20,node7,node8);
+        TreeNode node3 = new TreeNode(4,node5,node6);
+        TreeNode node2 = new TreeNode(10,node3,node4);
+        TreeNode root = new TreeNode(25,node2,null);
         
         Solution sol = new Solution();
         
-        int output = sol.kthSmallest(root, 3);
+        int output = sol.kthSmallest(root, 5);
     }
 }

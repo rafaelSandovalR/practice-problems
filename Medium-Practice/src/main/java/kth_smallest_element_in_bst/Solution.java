@@ -4,22 +4,42 @@
  */
 package kth_smallest_element_in_bst;
 
+import java.util.ArrayDeque;
+
 /**
  *
  * @author Rsand
  */
 public class Solution {
+    
     public int kthSmallest(TreeNode root, int k){
-        // base case
-        if (root == null) return 0;
-        // for in order traversal, go as far deep left as possible
-        int left = kthSmallest(root.left, k);
-        if (left == k) return root.left.val;
-        if (left + 1 == k) return root.val;
-        // traverse right side
-        int right = kthSmallest(root.right,k);
-        if (right + left == k) return root.right.val;
-        // add up left and right subbranches plus the current node
-        return left+right+1;
+                
+        ArrayDeque<TreeNode> stack = new ArrayDeque<>();
+        TreeNode node = null;
+        
+        // Add root and all surface level left nodes to stack
+        while(root != null){
+            stack.push(root);
+            root = root.left;
+        }
+        
+        while (k > 0){
+            node = stack.pop();
+            
+            // Add right child to stack, if any
+            if (node.right != null){
+                stack.push(node.right);
+                root = stack.peek().left;
+                // From this point down, add all surface level left nodes to stack
+                while (root != null) {
+                    stack.push(root);
+                    root = root.left;
+                }
+            }
+            k--;
+        }
+        
+        return node.val;
     }
+    
 }
