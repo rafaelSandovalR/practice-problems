@@ -21,12 +21,12 @@ public class Solution {
         
         // If it's visited at least one node
         if (prev != null) {
-            min = Math.min(min, root.val - prev);
+            min = Math.min(min, root.val - prev); // Since in order traversal. Prev will always be less than root
         }
         
-        // Visit all larger nodes
         prev = root.val;
 
+        // Visit right branches
         getMinimumDifference(root.right);
 
         return min;
