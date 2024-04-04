@@ -37,13 +37,18 @@ public class Solution {
                     if (islands.isEmpty()){
                         islands.add(island);
                     }
-                    // If so, update island range and last row updated
+
                     else {
                         // Go through list in reverse for all islands found in the previous row
                         for(int i = islands.size()-1; islands.get(i)[0] == row - 1; i--){
-                            
-                            if(islandsConnect(island[1], island[2], islands.get(i)[1], islands.get(i)[2])){
-                                
+                            int[] islandInList = islands.get(i);
+                            if(islandsConnect(island[1], island[2], islandInList[1], islandInList[2])){
+                                // If so, update island range and last row updated
+                                island[1] = Math.min(island[1], islandInList[1]);
+                                island[2] = Math.max(island[2], islandInList[2]);
+                                // Move updated island to the end of the list
+                                islands.remove(i);
+                                islands.add(island);
                             }
                         }
                         
