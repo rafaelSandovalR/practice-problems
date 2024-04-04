@@ -61,6 +61,9 @@ public class Solution {
     }
 
     private boolean islandsConnect(int firstMin, int firstMax, int secondMin, int secondMax) {
-        
+        if (firstMin < secondMin){
+            return secondMin < firstMax;
+        }
+        return firstMin < secondMax;
     }
 }
