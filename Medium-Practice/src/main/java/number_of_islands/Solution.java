@@ -21,12 +21,16 @@ public class Solution {
             for (int col = 0; col < columns; col++){
                 // Determine land ranges within row
                 if (grid[row][col] == '1') {
-                    int[] island = new int[3]; // Index 0 = last row updated, Index 1 = range min, Index 2 = range max
+                    int[] island = new int[3];
+                    // Set last row updated
                     island[0] = row;
+                    // Set Width Range Min Boundary
                     island[1] = col;
-                    while (grid[row][col] == '1') {
+                    // Determine width of current island within current row
+                    while (col+1 < columns && grid[row][col+1] == '1') {
                         col++;
                     }
+                    // Set Width Range Max Boundary
                     island[2] = col;
                 }
                 // Determine if land connects to prexisting land
