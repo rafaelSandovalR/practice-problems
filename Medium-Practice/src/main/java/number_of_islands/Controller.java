@@ -10,6 +10,14 @@ package number_of_islands;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
         
+        char[][] grid = {   {'0','0','1','0','1','0'},
+                            {'0','1','1','1','0','0'},
+                            {'1','0','0','1','0','1'},
+                            {'1','0','0','0','0','0'},
+                            {'1','0','0','1','1','1'}   };
+        
+        int islands = sol.numIslands(grid);
     }
 }
