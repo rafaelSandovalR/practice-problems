@@ -32,13 +32,35 @@ public class Solution {
                     }
                     // Set Width Range Max Boundary
                     island[2] = col;
+                    
+                    // Determine if land connects to prexisting land
+                    if (islands.isEmpty()){
+                        islands.add(island);
+                    }
+                    // If so, update island range and last row updated
+                    else {
+                        // Go through list in reverse for all islands found in the previous row
+                        for(int i = islands.size()-1; islands.get(i)[0] == row - 1; i--){
+                            
+                            if(islandsConnect(island[1], island[2], islands.get(i)[1], islands.get(i)[2])){
+                                
+                            }
+                        }
+                        
+                    }
+                    // If not, add new island to list
+                    islands.add(island);
+                    
                 }
-                // Determine if land connects to prexisting land
-                // If so, update island range and last row updated
-                // If not, add new island to list
+
+                
             }
         }
         
         return islands.size();
+    }
+
+    private boolean islandsConnect(int firstMin, int firstMax, int secondMin, int secondMax) {
+        
     }
 }
