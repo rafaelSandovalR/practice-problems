@@ -33,16 +33,16 @@ public class Solution {
                     // Set Width Range Max Boundary
                     island[2] = col;
                     
-                    // Determine if land connects to prexisting land
-                    if (islands.isEmpty()){
+                    // Add island if none exist or if last island isn't from previous row
+                    if (islands.isEmpty() || islands.get(islands.size()-1)[0] != row - 1){
                         islands.add(island);
                     }
-
+                    // Determine if land connects to prexisting land
                     else {
                         // Go through list in reverse for all islands found in the previous row
-                        for(int i = islands.size()-1; islands.get(i)[0] == row - 1; i--){
+                        for (int i = islands.size() - 1; islands.get(i)[0] == row - 1; i--) {
                             int[] islandInList = islands.get(i);
-                            if(islandsConnect(island[1], island[2], islandInList[1], islandInList[2])){
+                            if (islandsConnect(island[1], island[2], islandInList[1], islandInList[2])) {
                                 // If so, update island range and last row updated
                                 island[1] = Math.min(island[1], islandInList[1]);
                                 island[2] = Math.max(island[2], islandInList[2]);
@@ -50,15 +50,9 @@ public class Solution {
                                 islands.remove(i);
                                 islands.add(island);
                             }
-                        }
-                        
-                    }
-                    // If not, add new island to list
-                    islands.add(island);
-                    
-                }
-
-                
+                        }  
+                    }                    
+                }  
             }
         }
         
