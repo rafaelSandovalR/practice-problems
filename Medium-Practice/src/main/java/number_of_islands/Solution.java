@@ -46,10 +46,7 @@ public class Solution {
                         for (int i = islands.size() - islandsInRow - 1; i >= 0 && islands.get(i)[0] == row - 1; i--) {
                             int[] islandInList = islands.get(i);
                             if (islandsConnect(island[1], island[2], islandInList[1], islandInList[2])) {
-                                // If so, update island range and last row updated
-                                island[1] = Math.min(island[1], islandInList[1]);
-                                island[2] = Math.max(island[2], islandInList[2]);
-                                // Move updated island to the end of the list
+                                // Move updated island edge to the end of the list
                                 islands.remove(i);
                                 islands.add(island);
                                 connected = true;
