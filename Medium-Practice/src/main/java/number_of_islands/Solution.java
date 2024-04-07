@@ -18,9 +18,11 @@ public class Solution {
         ArrayList<int[]> islands = new ArrayList<int[]>();
         
         for (int row = 0; row < rows; row++){
+            int islandsInRow = 0;
             for (int col = 0; col < columns; col++){
                 // Determine land ranges within row
                 if (grid[row][col] == '1') {
+                    boolean connected = false;
                     int[] island = new int[3];
                     // Set last row updated
                     island[0] = row;
@@ -34,13 +36,14 @@ public class Solution {
                     island[2] = col;
                     
                     // Add island if none exist or if last island isn't from previous row
-                    if (islands.isEmpty() || islands.get(islands.size()-1)[0] != row - 1){
+                    if (islands.isEmpty() || (islands.size()-1-islandsInRow > 0 && islands.get(islands.size()-1-islandsInRow)[0] != row - 1)){
                         islands.add(island);
+                        islandsInRow++;
                     }
                     // Determine if land connects to prexisting land
                     else {
                         // Go through list in reverse for all islands found in the previous row
-                        for (int i = islands.size() - 1; islands.get(i)[0] == row - 1; i--) {
+                        for (int i = islands.size() - islandsInRow - 1; i >= 0 && islands.get(i)[0] == row - 1; i--) {
                             int[] islandInList = islands.get(i);
                             if (islandsConnect(island[1], island[2], islandInList[1], islandInList[2])) {
                                 // If so, update island range and last row updated
@@ -49,8 +52,14 @@ public class Solution {
                                 // Move updated island to the end of the list
                                 islands.remove(i);
                                 islands.add(island);
-                            }
-                        }  
+                                connected = true;
+                                islandsInRow++;
+                            } 
+                        } 
+                        if (!connected){
+                            islands.add(island);
+                            islandsInRow++;
+                        }
                     }                    
                 }  
             }
@@ -61,8 +70,8 @@ public class Solution {
 
     private boolean islandsConnect(int firstMin, int firstMax, int secondMin, int secondMax) {
         if (firstMin < secondMin){
-            return secondMin < firstMax;
+            return secondMin <= firstMax;
         }
-        return firstMin < secondMax;
+        return firstMin <= secondMax;
     }
 }
