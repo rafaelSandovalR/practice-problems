@@ -16,34 +16,22 @@ public class Solution {
         int columns = grid[0].length;
         int islandCount = 0;
                
+        // Loop through each cell in the grid
         for (int row = 0; row < rows; row++){
-            ArrayList<int[]> currentIslands = new ArrayList<int[]>();
             for (int col = 0; col < columns; col++){
-                // Determine land ranges within row
-                if (grid[row][col] == '1') {
-                    int[] island = new int[2];
-                    // Set Width Range Min Boundary
-                    island[0] = col;
-                    // Determine width of current island within current row
-                    while (col+1 < columns && grid[row][col+1] == '1') {
-                        col++;
-                    }
-                    // Set Width Range Max Boundary
-                    island[1] = col;
-                    
-                    currentIslands.add(island);
+             
+                // If encounters a new island
+                if (grid[row][col] == '1'){
+                    bfs(grid, row, col); // Perform BFS to explore the island
+                    islandCount++; // Increment island count for new island
                 }
-                
             }
         }
         
         return islandCount;
     }
-
-    private boolean islandsConnect(int firstMin, int firstMax, int secondMin, int secondMax) {
-        if (firstMin < secondMin){
-            return secondMin <= firstMax;
-        }
-        return firstMin <= secondMax;
+    
+    private void bfs(char[][] grid, int row, int col){
+        
     }
 }
