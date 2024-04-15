@@ -5,6 +5,8 @@
 package number_of_islands;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -32,6 +34,32 @@ public class Solution {
     }
     
     private void bfs(char[][] grid, int row, int col){
+        int[] directions = {0,1,0,-1}; // Directions for up, right, down, left;
         
+        // Create a queue to store cells to be explored
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[]{row, col}); // Add starting cell
+        
+        
+        grid[row][col] = '2'; // Mark the starting cell as visited
+        
+        while (!queue.isEmpty()){
+            int[] currentCell = queue.poll(); // Get the next cell to explore
+            int currentRow = currentCell[0];
+            int currentCol = currentCell[1];
+            
+            // Explore all four neighbors of the current cell
+            for (int i = 0; i < directions.length - 1; i++){
+                int newRow = currentRow + directions[i];
+                int newCol = currentCol + directions[i + 1]; // +1 to skip current dir
+                
+                // Check if neighbor is within grid bounds, unvisited land and not already processed
+                if (newRow < grid.length && newCol < grid[0].length && grid[newRow][newCol] == '1'){
+                    grid[newRow][newCol] = '2';
+                    queue.add(new int[]{newRow, newCol});
+                }
+            }
+        }
     }
+   
 }
