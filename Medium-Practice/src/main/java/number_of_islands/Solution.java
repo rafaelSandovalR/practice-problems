@@ -48,9 +48,9 @@ public class Solution {
             int currentCol = currentCell[1];
             
             // Explore all four neighbors of the current cell
-            for (int i = 0; i < directions.length - 1; i++){
+            for (int i = 0; i < directions.length; i++){
                 int newRow = currentRow + directions[i];
-                int newCol = currentCol + directions[i + 1]; // +1 to skip current dir
+                int newCol = currentCol + directions[(i+1) % 4]; // +1 to skip current dir, without going out of bounds
                 
                 // Check if neighbor is within grid bounds, unvisited land and not already processed
                 if (isValid(grid, newRow,newCol)){
