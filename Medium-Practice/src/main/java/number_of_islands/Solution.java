@@ -4,7 +4,6 @@
  */
 package number_of_islands;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -54,12 +53,19 @@ public class Solution {
                 int newCol = currentCol + directions[i + 1]; // +1 to skip current dir
                 
                 // Check if neighbor is within grid bounds, unvisited land and not already processed
-                if (newRow < grid.length && newCol < grid[0].length && grid[newRow][newCol] == '1'){
-                    grid[newRow][newCol] = '2';
-                    queue.add(new int[]{newRow, newCol});
+                if (isValid(grid, newRow,newCol)){
+                    if (grid[newRow][newCol] == '1') {
+                        grid[newRow][newCol] = '2';
+                        queue.add(new int[]{newRow, newCol});
+                    }
                 }
+
             }
         }
+    }
+
+    private boolean isValid(char[][] grid, int newRow, int newCol) {
+        return (newRow >= 0 && newRow < grid.length) && (newCol >= 0 && newCol < grid[0].length);
     }
    
 }
