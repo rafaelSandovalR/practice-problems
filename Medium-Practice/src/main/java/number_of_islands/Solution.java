@@ -23,7 +23,7 @@ public class Solution {
              
                 // If encounters a new island
                 if (grid[row][col] == '1'){
-                    bfs(grid, row, col); // Perform BFS to explore the island
+                    dfs(grid, row, col); // Perform BFS to explore the island
                     islandCount++; // Increment island count for new island
                 }
             }
@@ -32,8 +32,25 @@ public class Solution {
         return islandCount;
     }
     
+    private void dfs(char[][] grid, int row, int col){
+        grid[row][col] = '2';
+        
+        int[] directions = {0,1,0,-1};
+        
+        for (int i = 0; i < directions.length; i++){
+            int newRow = row + directions[i];
+            int newCol = col + directions[(i+1) % 4];
+            
+            if (isValid(grid, newRow, newCol)){
+                if (grid[newRow][newCol] == '1'){
+                    dfs(grid, newRow, newCol); // Recursive call for exploration
+                }
+            }
+        }
+    }
+    
     private void bfs(char[][] grid, int row, int col){
-        int[] directions = {0,1,0,-1}; // Directions for up, right, down, left;
+        int[] directions = {0,1,0,-1}; // Directions for right, down, left, up
         
         // Create a queue to store cells to be explored
         Queue<int[]> queue = new LinkedList<>();
@@ -53,7 +70,7 @@ public class Solution {
                 int newCol = currentCol + directions[(i+1) % 4]; // +1 to skip current dir, without going out of bounds
                 
                 // Check if neighbor is within grid bounds, unvisited land and not already processed
-                if (isValid(grid, newRow,newCol)){
+                if (isValid(grid, newRow, newCol)){
                     if (grid[newRow][newCol] == '1') {
                         grid[newRow][newCol] = '2';
                         queue.add(new int[]{newRow, newCol});
