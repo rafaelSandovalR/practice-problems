@@ -18,19 +18,22 @@ public class Solution {
         int islandCount = 0;
         
         for (int row = 0; row < rows; row++){
-            check(grid, row);
+            islandCount += check(grid, row);
         }
         return islandCount;
     }
     
-    public void check(final char[][] grid, int r){
+    public int check(final char[][] grid, int r){
         int columns = grid[0].length;
+        int islandCount = 0;
         final char[] row = grid[r];
         for (int col = 0; col < columns; col++){
             if (row[col] == '1'){
                 bfs(grid, r, col);
+                islandCount++;
             }
         }
+        return islandCount;
     }
     
     public void bfs(char[][] grid, int row, int col){
