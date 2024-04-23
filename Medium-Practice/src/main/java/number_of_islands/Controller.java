@@ -18,6 +18,10 @@ public class Controller {
                             {'1','0','0','0','0','0'},
                             {'1','0','0','1','1','1'}   };
         
-        int islands = sol.numIslands(grid);
+        char[][] grid2 = {  {'1','0','1','1','1'},
+                            {'1','0','1','0','1'},
+                            {'1','1','1','0','1'}};
+        
+        int islands = sol.numIslands(grid2);
     }
 }

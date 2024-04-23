@@ -12,6 +12,43 @@ import java.util.Queue;
  * @author Rsand
  */
 public class Solution {
+        
+    public int numIslands(final char[][] grid){
+        int rows = grid.length;
+        int islandCount = 0;
+        
+        for (int row = 0; row < rows; row++){
+            check(grid, row);
+        }
+        return islandCount;
+    }
+    
+    public void check(final char[][] grid, int r){
+        int columns = grid[0].length;
+        final char[] row = grid[r];
+        for (int col = 0; col < columns; col++){
+            if (row[col] == '1'){
+                bfs(grid, r, col);
+            }
+        }
+    }
+    
+    public void bfs(char[][] grid, int row, int col){
+        int rows = grid.length;
+        int columns = grid[0].length;
+        grid[row][col] = '2';
+        if (row > 0 && grid[row-1][col] == '1')
+            bfs(grid, row-1, col);
+        if (row+1 < rows && grid[row+1][col] == '1')
+            bfs(grid, row+1, col);
+        if (col > 0 && grid[row][col-1] == '1')
+            bfs(grid, row, col-1);
+        if (col+1 < columns && grid[row][col+1] == '1')
+            bfs(grid, row, col+1);
+            
+    }
+    
+/*
     public int numIslands(char[][] grid){
         int rows = grid.length;
         int columns = grid[0].length;
@@ -76,7 +113,6 @@ public class Solution {
                         queue.add(new int[]{newRow, newCol});
                     }
                 }
-
             }
         }
     }
@@ -84,5 +120,5 @@ public class Solution {
     private boolean isValid(char[][] grid, int newRow, int newCol) {
         return (newRow >= 0 && newRow < grid.length) && (newCol >= 0 && newCol < grid[0].length);
     }
-   
+*/
 }
