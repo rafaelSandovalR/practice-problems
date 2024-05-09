@@ -11,5 +11,8 @@ package snakes_and_ladders;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
+        int[][] board = {{0,0}, {0,0}};
+        int result = sol.snakesAndLadders(board);
+        System.out.println(result);
     }
 }
