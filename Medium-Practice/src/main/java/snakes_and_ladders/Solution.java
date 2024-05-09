@@ -10,12 +10,32 @@ package snakes_and_ladders;
  */
 public class Solution {
     public int snakesAndLadders(int[][] board){
-        int n = board.length;
-        int[] curr = {n-1, 0};
-        int lastColumn = n % 2 == 0 ? 0 : n-1; // Determine if last cell is on the left or right side based on even or odd rows
-        
-        while (curr[0] != 0 && curr[1] != lastColumn){
+        /*
             
-        }
+        
+        */
+        int thisNum = 5;
+        int DivideByThisNum = 6;
+        
+        return thisNum/DivideByThisNum;
     }
+    
+    private int bfs(int[][] board, int row, int col){
+        
+        /*
+            Determine next cell
+                
+        */
+        // Determine what 6 die roll will take you
+        int nextRow = 0;
+        int nextCol = 0;
+        return 0;
+    }
+    
+    /*
+        Method to get coordinates
+        - divide cell number by column length to determine how many rows to subtract from n
+        - if remainder is 0, add a row back
+        - 
+    */
 }
