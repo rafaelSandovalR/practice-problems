@@ -4,43 +4,59 @@
  */
 package snakes_and_ladders;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Rsand
  */
 public class Solution {
     public int snakesAndLadders(int[][] board){
-        /*
         
-        int thisNum = 1 ;
-        int DivideByThisNum = 2;
+        int[][] memo = new int[board.length][board.length];
+        for (int i = 0; i < memo.length; i++){
+            for (int j = 0; j < memo.length; j++){
+                memo[i][j] = -1;
+            }
+        }
         
-        return thisNum%DivideByThisNum;
-*/
-        
-        return minMoves(board, 9, board);
+        return minMoves(board, 1, memo);
     }
     
     private int minMoves(int[][] board, int curr, int[][] memo){
         int n = board.length;
         if (curr == n * n){
-            //return 0;
+            return 0;
         }
         
         // Check memoization table
         int[] coordinates = getCoordinates(curr, n);
-        if (memo[coordinates[0]][coordinates[1]] != -1){
-            //Fix this
-            return coordinates[0];
+        int row = coordinates[0];
+        int col = coordinates[1];
+        if (memo[row][col] != -1){
+            return memo[row][col];
         }
         
         // Initialize min moves
-        
-        // Check for snake or ladder
+        int minMoves = Integer.MAX_VALUE;
+        for (int next = curr + 1; next <= Math.min(curr + 6, n * n); next++){
+            int[] nextCoordinates = getCoordinates(next, n);
+            int nextRow = nextCoordinates[0];
+            int nextCol = nextCoordinates[1];
+            
+            // Check for snake or ladder
+            if (board[nextRow][nextCol] != -1){
+                minMoves = Math.min(minMoves, 1 + minMoves(board, board[nextRow][nextCol], memo));
+            } else{
+                int nextMinMoves = minMoves(board, next, memo);
+                minMoves = Math.min(minMoves, 1 + nextMinMoves);
+            }
+        }
         
         // Store minimum moves for current square
+        memo[row][col] = minMoves;
         
-        return n;
+        return minMoves;
     }
     
     private int[] getCoordinates(int curr, int n){
@@ -60,7 +76,7 @@ public class Solution {
             col = r % 2 == 0 ? c - 1 : n - c;
         }
 
-        System.out.println("Coordinates : [" + row + "] [" + col + "]");
+        //System.out.println("Coordinates : [" + row + "] [" + col + "]");
         return new int[]{row, col};
     }    
 
