@@ -18,20 +18,20 @@ public class Solution {
         return thisNum%DivideByThisNum;
 */
         
-        return minMoves(board, 7, board);
+        return minMoves(board, 9, board);
     }
     
     private int minMoves(int[][] board, int curr, int[][] memo){
         int n = board.length;
         if (curr == n * n){
-            return 0;
+            //return 0;
         }
         
         // Check memoization table
         int[] coordinates = getCoordinates(curr, n);
         if (memo[coordinates[0]][coordinates[1]] != -1){
             //Fix this
-            return memo[curr / board.length][curr % board.length];
+            return coordinates[0];
         }
         
         // Initialize min moves
@@ -44,15 +44,23 @@ public class Solution {
     }
     
     private int[] getCoordinates(int curr, int n){
-        // Get canonical row
+        // Get canonical row & col
         int r = curr / n;
-        // Get actual row based on Boustrophedon style
-        int row = (n - 1) - r;
-        
-        // Get column based on even/odd row
         int c = curr % n;
-        int col = r % 2 == 0 ? c - 1 : n - c;
         
+        // Get actual row based on Boustrophedon style & if remainder exists
+        int row = c != 0 ? (n - 1) - r : n - r;
+        
+        int col;
+        // Get actual column based on even/odd row & if remainder exists
+        if (c == 0){
+            // If no remainder, it's either the first or last column
+            col = r % 2 == 0 ? 0 : n - 1;
+        } else {
+            col = r % 2 == 0 ? c - 1 : n - c;
+        }
+
+        System.out.println("Coordinates : [" + row + "] [" + col + "]");
         return new int[]{row, col};
     }    
 
