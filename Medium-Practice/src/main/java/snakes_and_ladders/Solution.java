@@ -20,22 +20,19 @@ public class Solution {
         return thisNum/DivideByThisNum;
     }
     
-    private int bfs(int[][] board, int row, int col){
+    private int minMoves(int[][] board, int curr, int[][] memo){
+        if (curr == board.length * board.length){
+            return 0;
+        }
         
-        /*
-            Determine next cell
-                
-        */
-        // Determine what 6 die roll will take you
-        int nextRow = 0;
-        int nextCol = 0;
-        return 0;
+        // Check memoization table
+        
+        // Initialize min moves
+        
+        // Check for snake or ladder
+        
+        // Store minimum moves for current square
     }
     
-    /*
-        Method to get coordinates
-        - divide cell number by column length to determine how many rows to subtract from n
-        - if remainder is 0, add a row back
-        - 
-    */
+
 }
