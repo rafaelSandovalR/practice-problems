@@ -27,8 +27,7 @@ public class Solution {
         }
         
         // Check memoization table
-        int row = getRow(curr, n);
-        int col = getCol(curr, n);
+        int coordinates[][] = getCoordinates(curr, n);
         if (memo[curr / board.length][curr % board.length] != -1){
             return memo[curr / board.length][curr % board.length];
         }
@@ -41,16 +40,17 @@ public class Solution {
         
         return n;
     }
-
-    private int getRow(int curr, int n) {
-       int row = (curr - 1) / n;
-       return row;
-    }
     
-    private int getCol(int curr, int n) {
-        int col = (curr - 1) % n;
-        return col;
-    }
-    
+    private int[][] getCoordinates(int curr, int n){
+        int row = curr / n;
+        
+        int col = curr % n;
+        
+        if (row % 2 == 0){
+            
+        } 
+        
+        return new int [row][col];
+    }    
 
 }
