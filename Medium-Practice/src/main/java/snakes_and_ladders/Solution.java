@@ -11,13 +11,14 @@ package snakes_and_ladders;
 public class Solution {
     public int snakesAndLadders(int[][] board){
         /*
-            
         
-        */
         int thisNum = 1 ;
         int DivideByThisNum = 2;
         
         return thisNum%DivideByThisNum;
+*/
+        
+        return minMoves(board, 7, board);
     }
     
     private int minMoves(int[][] board, int curr, int[][] memo){
@@ -27,8 +28,9 @@ public class Solution {
         }
         
         // Check memoization table
-        int coordinates[][] = getCoordinates(curr, n);
-        if (memo[curr / board.length][curr % board.length] != -1){
+        int[] coordinates = getCoordinates(curr, n);
+        if (memo[coordinates[0]][coordinates[1]] != -1){
+            //Fix this
             return memo[curr / board.length][curr % board.length];
         }
         
@@ -41,16 +43,17 @@ public class Solution {
         return n;
     }
     
-    private int[][] getCoordinates(int curr, int n){
-        int row = curr / n;
+    private int[] getCoordinates(int curr, int n){
+        // Get canonical row
+        int r = curr / n;
+        // Get actual row based on Boustrophedon style
+        int row = (n - 1) - r;
         
-        int col = curr % n;
+        // Get column based on even/odd row
+        int c = curr % n;
+        int col = r % 2 == 0 ? c - 1 : n - c;
         
-        if (row % 2 == 0){
-            
-        } 
-        
-        return new int [row][col];
+        return new int[]{row, col};
     }    
 
 }
