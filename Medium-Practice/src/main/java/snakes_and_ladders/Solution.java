@@ -14,24 +14,42 @@ public class Solution {
             
         
         */
-        int thisNum = 5;
-        int DivideByThisNum = 6;
+        int thisNum = 1 ;
+        int DivideByThisNum = 2;
         
-        return thisNum/DivideByThisNum;
+        return thisNum%DivideByThisNum;
     }
     
     private int minMoves(int[][] board, int curr, int[][] memo){
-        if (curr == board.length * board.length){
+        int n = board.length;
+        if (curr == n * n){
             return 0;
         }
         
         // Check memoization table
+        int row = getRow(curr, n);
+        int col = getCol(curr, n);
+        if (memo[curr / board.length][curr % board.length] != -1){
+            return memo[curr / board.length][curr % board.length];
+        }
         
         // Initialize min moves
         
         // Check for snake or ladder
         
         // Store minimum moves for current square
+        
+        return n;
+    }
+
+    private int getRow(int curr, int n) {
+       int row = (curr - 1) / n;
+       return row;
+    }
+    
+    private int getCol(int curr, int n) {
+        int col = (curr - 1) % n;
+        return col;
     }
     
 
