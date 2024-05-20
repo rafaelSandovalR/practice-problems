@@ -5,6 +5,8 @@
 package snakes_and_ladders;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -20,10 +22,10 @@ public class Solution {
             }
         }
         
-        return minMoves(board, 1, memo);
+        return minMoves(board, 1, memo, new HashSet<>());
     }
     
-    private int minMoves(int[][] board, int curr, int[][] memo){
+    private int minMoves(int[][] board, int curr, int[][] memo, Set<Integer> visited){
         int n = board.length;
         if (curr == n * n){
             return 0;
@@ -40,17 +42,22 @@ public class Solution {
         // Initialize min moves
         int minMoves = Integer.MAX_VALUE;
         for (int next = curr + 1; next <= Math.min(curr + 6, n * n); next++){
+            
+            if (visited.contains(next)) continue; // Skip visited squares to avoid cycles
+            visited.add(next); // Mark the next square as visited
+            
             int[] nextCoordinates = getCoordinates(next, n);
             int nextRow = nextCoordinates[0];
             int nextCol = nextCoordinates[1];
             
             // Check for snake or ladder
             if (board[nextRow][nextCol] != -1){
-                minMoves = Math.min(minMoves, 1 + minMoves(board, board[nextRow][nextCol], memo));
+                minMoves = Math.min(minMoves, 1 + minMoves(board, board[nextRow][nextCol], memo, visited));
             } else{
-                int nextMinMoves = minMoves(board, next, memo);
-                minMoves = Math.min(minMoves, 1 + nextMinMoves);
+                minMoves = Math.min(minMoves, 1 + minMoves(board, next, memo, visited));
             }
+            
+            visited.remove(next); // Remove the square for visited after exploring its possibilites
         }
         
         // Store minimum moves for current square
