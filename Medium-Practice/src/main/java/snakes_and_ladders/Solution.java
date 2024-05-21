@@ -39,6 +39,12 @@ public class Solution {
         return -1;
     }
     
-   
+   private int getBoardValue(int[][] board, int num){
+       int n = board.length;
+       int r = (num - 1) / n;
+       int x = n - 1 - r;
+       int y = r % 2 == 0 ? num - 1 - r * n : n + r * n - num;
+       return board[x][y];
+   }
 
 }
