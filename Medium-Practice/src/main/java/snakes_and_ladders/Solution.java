@@ -54,7 +54,7 @@ public class Solution {
     */
 
     // DFS Solution
-    int res = -1;
+    int res = -1; // Minimum number of moves found
     public int snakesAndLadders(int[][] board){
         int n = board.length;
         dfs(board, new LinkedList<Integer>(){{add(1);}}, new boolean[n * n + 1], 0, n);
@@ -62,28 +62,32 @@ public class Solution {
     }
     
     private void dfs(int[][] board, List<Integer> curr, boolean[] visited, int move, int n){
-        if(curr.isEmpty()) return;
+        if(curr.isEmpty()) return; // Base case: No more paths to explore
         
-        List<Integer> nextList = new LinkedList<>();
+        List<Integer> nextList = new LinkedList<>(); // Stores next squares to explore
         
-        for (int i : curr){
-            if (visited[i]) continue;
-            visited[i] = true;
+        for (int i : curr){ // Loop througb all squares in the current list
+            if (visited[i]) continue; // Skip already explored squares
+            visited[i] = true; // Mark the current square as visited
             
-            if (i == n * n){
+            if (i == n * n){ // Check if final square is reached
                 res = move;
                 return;
             }
             
-            for (int j = 1; j <= 6 && i + j <= n*n; j++){
+            for (int j = 1; j <= 6 && i + j <= n*n; j++){ // Explore all possible next squares based on dice roll
                 int next = i + j;
                 int value = getBoardValue(board, next);
-                if (value > 0) next = value;
-                if (!visited[next]) nextList.add(next);
+                if (value > 0) next = value; // Handle snake or ladder
+                if (!visited[next]) nextList.add(next); // Add next square to exploration list if not visited
             }
-            dfs(board, nextList, visited, move+1, n);
-            return;
-        }   
+        }
+        dfs(board, nextList, visited, move + 1, n); // revursively explore next squares (DFS)
+        
+        // **Important for DFS:** Backtrack after exploring all possibilities from the current square
+        // This ensures exploration continues on other branches of the search tree
+        return; 
+        
     }
 
     private int getBoardValue(int[][] board, int num) {
@@ -93,4 +97,5 @@ public class Solution {
         int y = r % 2 == 0 ? (num - 1 - r * n) : (n + r * n - num); // Column index based on even/odd row
         return board[x][y];
     }
+    
 }
