@@ -5,6 +5,7 @@
 package snakes_and_ladders;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -12,6 +13,7 @@ import java.util.Queue;
  * @author Rsand
  */
 public class Solution {
+    /*
     // BFS Solution
     public int snakesAndLadders(int[][] board){
         int n = board.length;
@@ -48,5 +50,47 @@ public class Solution {
         int y = r % 2 == 0 ? (num - 1 - r * n) : (n + r * n - num); // Column index based on even/odd row
         return board[x][y];
     }
+    
+    */
 
+    // DFS Solution
+    int res = -1;
+    public int snakesAndLadders(int[][] board){
+        int n = board.length;
+        dfs(board, new LinkedList<Integer>(){{add(1);}}, new boolean[n * n + 1], 0, n);
+        return res;
+    }
+    
+    private void dfs(int[][] board, List<Integer> curr, boolean[] visited, int move, int n){
+        if(curr.isEmpty()) return;
+        
+        List<Integer> nextList = new LinkedList<>();
+        
+        for (int i : curr){
+            if (visited[i]) continue;
+            visited[i] = true;
+            
+            if (i == n * n){
+                res = move;
+                return;
+            }
+            
+            for (int j = 1; j <= 6 && i + j <= n*n; j++){
+                int next = i + j;
+                int value = getBoardValue(board, next);
+                if (value > 0) next = value;
+                if (!visited[next]) nextList.add(next);
+            }
+            dfs(board, nextList, visited, move+1, n);
+            return;
+        }   
+    }
+
+    private int getBoardValue(int[][] board, int num) {
+        int n = board.length;
+        int r = (num - 1) / n; // Row number
+        int x = n - 1 - r; // Actual row index based on Boustophedon style
+        int y = r % 2 == 0 ? (num - 1 - r * n) : (n + r * n - num); // Column index based on even/odd row
+        return board[x][y];
+    }
 }
