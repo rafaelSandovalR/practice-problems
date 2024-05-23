@@ -10,9 +10,19 @@ package snakes_and_ladders;
  */
 public class Controller {
     public static void main(String[] args) {
-        Solution sol = new Solution();
-        int[][] board = {{-1,-1,-1,-1}, {-1,-1,-1,-1}, {-1,-1,-1,-1}, {-1,-1,-1,-1}};
-        int result = sol.snakesAndLadders(board);
+        BFS_Solution sol = new BFS_Solution();
+        BFS_Deque_Solution sol2 = new BFS_Deque_Solution();
+        
+        int[][] emptyBoard = {  {-1, -1, -1, -1},
+                                {-1, -1, -1, -1},
+                                {-1, -1, -1, -1},
+                                {-1, -1, -1, -1}};
+        
+        int[][] board = {{-1, -1, -1, -1},
+                         {-1, -1, -1,  5},
+                         { 2, 12, -1, -1},
+                         {-1, -1, -1, 13}};
+        int result = sol2.snakesAndLadders(emptyBoard);
         System.out.println(result);
     }
 }
