@@ -97,18 +97,27 @@ public class BFS_Linear_Solution {
                      * that are pushed onto the BFS queue, and saves the
                      * processing of those unnecessary squares.
                      */
-                    else {
-                        if (move < maxOpenMove) continue; // If already moved to open square skip through lesser moves
-                        maxOpenMove = move;
+                }
+                else {
+                    if (move < maxOpenMove) {
+                        continue; // If already moved to open square skip through lesser moves
                     }
-                    
-                    if (0 == count[nextSquare]){
-                        
-                    }
-            }
-            
-        }
-        
+                    maxOpenMove = move;
+                }
 
+                /*
+                    * If square not yet visited, then mark square as visited using the
+                    * minimum number of moves to get to that square, and push that new
+                    * square onto the BFS queue to later use as another square to move from.
+                 */
+                if (0 == count[nextSquare]) {
+                    count[nextSquare] = (byte) (count[currSquare] + 1);
+                    bfsQueue[bfsQueueWrite++] = (short) nextSquare;
+                    bfsQueueWrite %= bfsQueueLen; // Logic for circular queue wrapping
+                } 
+            }
+        }
+
+            return -1; // Could not reach the end;
     }
 }
