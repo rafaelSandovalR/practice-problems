@@ -50,5 +50,65 @@ public class BFS_Linear_Solution {
         int bfsQueueWrite = 0; // Keeps track of the index at which the next element will be added to the queue
         
         bfsQueue[bfsQueueWrite++] = 1; // Adds starting square
+        
+        /**
+         * The count[] array, indexed by square number, is used to contain both
+         * the min number of moves to get to a square & also indicate if the
+         * square has ever been visited before.
+         * 
+         * A value of zero indicates the square has NOT been visited yet.
+         * 
+         * A non-zero value indicates the square has been visited and that
+         * value is 1 plus the minimum number of moves needed to get the square.
+         * 
+         * If a square has already been visited, we don't need to move there again.
+         */
+        
+        byte[] count = new byte[endSquare + 1];
+        count[1] = 1; // Mark the starting location as already visited.
+
+        // Loop to get a next current square number from the BFS queue and move
+        while (bfsQueueRead != bfsQueueWrite){
+            int currSquare = bfsQueue[bfsQueueRead++];
+            bfsQueueRead %= bfsQueueLen; // Logic for circular queue wrapping
+            
+            if (currSquare + 6 >= endSquare) return count[currSquare]; // When endsquare is within reach
+            
+            // Loop through all possible moves based off 6 sided dice
+            int maxOpenMove = 0;
+            for (int move = 6; move >= 1; move--){
+                int nextSquare = currSquare + move;
+                
+                // Snake/Ladder handling
+                if (brd[nextSquare] >= 0){
+                    // Check if ladder sends you to the end, while assigning the value to nextSquare
+                    if ((nextSquare = brd[nextSquare]) == endSquare) return count[currSquare];
+                    
+                    /**
+                     * Else moved to an open square 1 to 6 moves ahead. Don't
+                     * move to any open squares that are closer than the
+                     * farthest open square we visited in the 1 to 6 moves
+                     * ahead. For example, if we were able to move to an open
+                     * square 5 moves ahead, then there is no reason to move to
+                     * an open square that is 1,2,3, or 4 moves ahead. This does
+                     * NOT apply to moving to any snakes or ladders that are 1
+                     * to 6 moves ahead, and the snakes or ladders must be
+                     * taken. This optimization can reduce the number of squares
+                     * that are pushed onto the BFS queue, and saves the
+                     * processing of those unnecessary squares.
+                     */
+                    else {
+                        if (move < maxOpenMove) continue; // If already moved to open square skip through lesser moves
+                        maxOpenMove = move;
+                    }
+                    
+                    if (0 == count[nextSquare]){
+                        
+                    }
+            }
+            
+        }
+        
+
     }
 }
