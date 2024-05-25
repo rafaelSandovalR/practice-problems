@@ -4,16 +4,22 @@
  */
 package implement_trie;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Rsand
  */
 public class Trie {
+    node root = new node();
+    
     public Trie(){
         
     }
     
     public void insert(String word){
+        
     }
     
     public boolean search(String word){
@@ -21,6 +27,22 @@ public class Trie {
     }
     
     public boolean startsWith(String prefix){
+        
+    }
+    
+    private class node{
+        boolean[] contains;
+        List<node> children;
+        
+        public node(){
+            contains = new boolean[27]; // index 15 stands for * and the rest are lower case letters % 27
+            children = new ArrayList<>();
+        }
+        
+        public void addChild(node child){
+            children.add(child);
+        }
+        
         
     }
 }
