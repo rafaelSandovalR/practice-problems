@@ -30,6 +30,7 @@ public class Trie {
             } else{
                 Node newChild = new Node(charKey);
                 currentNode.addChild(newChild);
+                currentNode = newChild;
             }
         }
         currentNode.isWord = true;
@@ -76,7 +77,7 @@ public class Trie {
         }
         
         public void addChild(Node child){
-            childrenMap.put(letter, child);
+            childrenMap.put(child.letter, child);
         }
         
         
