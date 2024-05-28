@@ -4,9 +4,8 @@
  */
 package implement_trie;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  *
@@ -20,49 +19,15 @@ public class Trie {
     }
     
     public void insert(String word){
-        char[] charArray = word.toCharArray();
-        Node currentNode = root;
-
-        for (int i = 0; i < charArray.length; i++){
-            char charKey = charArray[i];
-            if (currentNode.childrenMap.containsKey(charKey)){
-                currentNode = currentNode.childrenMap.get(charKey);
-            } else{
-                Node newChild = new Node(charKey);
-                currentNode.addChild(newChild);
-                currentNode = newChild;
-            }
-        }
-        currentNode.isWord = true;
+        root.insert(word, 0);
     }
     
     public boolean search(String word){
-        char[] charArray = word.toCharArray();
-        Node currentNode = root;
-        
-        for(int i = 0; i < charArray.length; i++){
-            char charKey = charArray[i];
-            if (!currentNode.childrenMap.containsKey(charKey)){
-                return false;
-            }
-            currentNode = currentNode.childrenMap.get(charKey);
-        }
-        
-        return currentNode.isWord;
+        return root.search(word, 0);
     }
     
     public boolean startsWith(String prefix){
-        char[] charArray = prefix.toCharArray();
-        Node currentNode = root;
-
-        for (int i = 0; i < charArray.length; i++) {
-            char charKey = charArray[i];
-            if (!currentNode.childrenMap.containsKey(charKey)) {
-                return false;
-            }
-            currentNode = currentNode.childrenMap.get(charKey);
-        }
-        return true;
+        return root.startsWith(prefix, 0);
     }
     
     private class Node{
@@ -71,16 +36,42 @@ public class Trie {
         HashMap<Character, Node> childrenMap;
         
         public Node(char letter){
-            this.isWord = false;
             this.letter = letter;
-            this.childrenMap = new HashMap<>();
+            childrenMap = new HashMap<>();
         }
         
         public void addChild(Node child){
             childrenMap.put(child.letter, child);
         }
         
+        private void insert(String word, int idx){
+            if (idx >= word.length()) return;
+            char currentChar = word.charAt(idx);
+            Node currentNode = childrenMap.get(currentChar);
+            if (currentNode == null){
+                currentNode = new Node(currentChar);
+                childrenMap.put(currentChar, currentNode);
+            }
+            if (idx == word.length() - 1) currentNode.isWord = true;
+            currentNode.insert(word, idx+1);
+        }
         
+        private boolean search(String word, int idx){
+            if (idx >= word.length()) return false;
+            Node currentNode = childrenMap.get(word.charAt(idx));
+            if (currentNode == null) return false;
+            if (idx == word.length() - 1 && currentNode.isWord) return true;
+            return currentNode.search(word, idx+1);
+        }
+        
+        private boolean startsWith(String prefix, int idx){
+            if (idx >= prefix.length()) return false;
+            Node currentNode = childrenMap.get(prefix.charAt(idx));
+            if (currentNode == null) return false;
+            if (idx == prefix.length() - 1) return true;
+            
+            return currentNode.startsWith(prefix, idx + 1);
+        }
     }
 }
 
