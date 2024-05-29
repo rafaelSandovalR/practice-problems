@@ -12,58 +12,29 @@ import java.util.List;
  * @author Rsand
  */
 public class Solution {
+    private static final String[] LETTERS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
     public List<String> letterCombinations(String digits){
         List<String> ans = new ArrayList<>();
-        if (digits.length() == 0){
-            ans.add("");            
-            return ans;
-        }
-        char[][] matrix = new char[digits.length()][];
+        if (digits.length() == 0) return ans; // Base case for empty input
         
-        for (int i = 0; i < digits.length(); i++){
-            switch(digits.charAt(i)){
-                case '2': 
-                    matrix[i] = new char[]{'a','b','c'};
-                    break;
-                case '3':
-                    matrix[i] = new char[]{'d', 'e', 'f'};
-                    break;
-                case '4':
-                    matrix[i] = new char[]{'g', 'h', 'i'};
-                    break;
-                case '5':
-                    matrix[i] = new char[]{'j', 'k', 'l'};
-                    break;
-                case '6':
-                    matrix[i] = new char[]{'m', 'n', 'o'};
-                    break;
-                case '7':
-                    matrix[i] = new char[]{'p', 'q', 'r', 's'};
-                    break;
-                case '8':
-                    matrix[i] = new char[]{'t', 'u', 'v'};
-                    break;
-                case '9':
-                    matrix[i] = new char[]{'w', 'x', 'y', 'z'};
-                    break;
-            }
-        }
-        
-        getCombo(0,0,"",ans, matrix);
+        getCombo(digits, 0, new StringBuilder(), ans);
         
         return ans;
     }
     
-    private void getCombo(int row, int col, String combo, List<String> list, char[][] matrix){
-        if (row >= matrix.length || col >= matrix[row].length){
-            list.add(combo);
-             return;
+    private void getCombo(String digits, int index, StringBuilder current, List<String> result){
+        if (index == digits.length()){ // Base Case: processed all digits
+            result.add(current.toString());
+            return;
         }
+               
+        String letters = LETTERS[digits.charAt(index) - '0']; // Look up the letters for current digits
         
-        String newCombo = combo.concat(String.valueOf(matrix[row][col]));
-        
-        getCombo(row + 1, col, newCombo, list, matrix);
-        getCombo(row, col + 1, combo, list, matrix);
-                
+        for (int i = 0; i < letters.length(); i++){
+            current.append(letters.charAt(i)); // Add letter to combination
+            getCombo(digits, index + 1, current, result); // Recursive for the next digit
+            current.deleteCharAt(current.length() - 1); // Backtrack: remove the added letter
+        }
     }
 }
