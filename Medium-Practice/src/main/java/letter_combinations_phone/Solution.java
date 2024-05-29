@@ -49,6 +49,21 @@ public class Solution {
             }
         }
         
+        getCombo(0,0,"",ans, matrix);
+        
         return ans;
+    }
+    
+    private void getCombo(int row, int col, String combo, List<String> list, char[][] matrix){
+        if (row >= matrix.length || col >= matrix[row].length){
+            list.add(combo);
+             return;
+        }
+        
+        String newCombo = combo.concat(String.valueOf(matrix[row][col]));
+        
+        getCombo(row + 1, col, newCombo, list, matrix);
+        getCombo(row, col + 1, combo, list, matrix);
+                
     }
 }
