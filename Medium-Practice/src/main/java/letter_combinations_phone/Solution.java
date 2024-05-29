@@ -4,6 +4,7 @@
  */
 package letter_combinations_phone;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,6 +13,11 @@ import java.util.List;
  */
 public class Solution {
     public List<String> letterCombinations(String digits){
+        List<String> ans = new ArrayList<>();
+        if (digits.length() == 0){
+            ans.add("");            
+            return ans;
+        }
         char[][] matrix = new char[digits.length()][];
         
         for (int i = 0; i < digits.length(); i++){
