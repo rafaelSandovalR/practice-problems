@@ -12,28 +12,43 @@ public class Solution {
     public ListNode sortList(ListNode head){
         if (head == null || head.next == null) return head;
         
-        ListNode current = head;
+
+        ListNode mid = getMiddle(head);
+        ListNode left = head;
+        ListNode right = mid.next;
+        mid.next = null;
         
-        while(current != null){
-            ListNode minNode = current; // Assume current is min initially 
-            ListNode search = current.next; // Pointer to search for smallest node
-            
-            while (search != null){
-                if (search.val < minNode.val){
-                    minNode = search; // Update min
-                }
-                search = search.next;
-            }
-            
-            // Swap values in current and minNode
-            int temp = current.val;
-            current.val = minNode.val;
-            minNode.val = temp;
-            
-            current = current.next; // Move to the next unsorted node
+        left = sortList(left);
+        right = sortList(right);
+        
+        return merge(left, right);        
+    }
+    
+    private ListNode getMiddle(ListNode slow){
+        ListNode fast = slow;
+        
+        while (fast != null && fast.next != null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
+        return slow;
+    }
+    
+    private ListNode merge(ListNode left, ListNode right){
+        ListNode dummyHead = new ListNode(0);
+        ListNode tail = dummyHead;
         
-        
-        return head;
+        while (left != null && right != null){
+            if (left.val < right.val){
+                tail.next = left;
+                left = left.next;
+            } else {
+                tail.next = right;
+                right = right.next;
+            }
+            tail = tail.next;
+        }
+        tail.next = (left != null) ? left : right;
+        return dummyHead.next;
     }
 }
