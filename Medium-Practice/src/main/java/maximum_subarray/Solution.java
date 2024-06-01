@@ -15,9 +15,18 @@ public class Solution {
         int current = nums[0];
         
         while (ptr < nums.length){
-            if (nums[ptr] > current) current = 0;
-            current += nums[ptr++];
-            max = Math.max(max, current);
+            
+            /**
+             * Reset current sum of sub-array if:
+             *  1) The next number is larger than the current sum
+             * AND
+             *  2) The current sum is a negative number
+             */
+            if (nums[ptr] > current && current < 0){
+                current = 0;
+            }
+            current += nums[ptr++]; // Add the next number to the current sum
+            max = Math.max(max, current); // Check if new sum is larger than the max
          
         }
         
