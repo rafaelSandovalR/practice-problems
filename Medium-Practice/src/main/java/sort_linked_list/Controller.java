@@ -10,12 +10,13 @@ package sort_linked_list;
  */
 public class Controller {
     public static void main(String[] args) {
-        ListNode end = new ListNode(3);
-        ListNode tail = new ListNode(1, end);
-        ListNode mid = new ListNode(2, tail);
-        ListNode head = new ListNode(4,mid);
+        ListNode endEnd = new ListNode(0);
+        ListNode end = new ListNode(4, endEnd);
+        ListNode tail = new ListNode(3, end);
+        ListNode mid = new ListNode(5, tail);
+        ListNode head = new ListNode(-1,mid);
         
-        Solution sol = new Solution();
+        Solution2 sol = new Solution2();
         ListNode sorted = sol.sortList(head);
     }
 }

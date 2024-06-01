@@ -54,4 +54,5 @@ public class Solution {
         tail.next = (left != null) ? left : right; // Append the remaining nodes
         return dummyHead.next; // Return the head of the merged list (skipping the dummy node)
     }
+
 }
