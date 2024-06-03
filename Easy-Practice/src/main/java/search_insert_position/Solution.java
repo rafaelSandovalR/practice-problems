@@ -15,13 +15,17 @@ public class Solution {
     
     private int binarySearch(int[] nums, int start, int end, int target){
         
-        int mid = start + (end - start) / 2;
+        int mid = start + (end - start) / 2; // Find middle using Integer overflow safeguard
 
-        if (nums[mid] == target) return mid;
+        if (nums[mid] == target) return mid; // Return index if target is found
         
+        // If target is not found and target is larger than the last number checked, 
+        // the target would be placed one index ahead, if it is smaller then the 
+        // target would be placed at current index
         if (start == end) return nums[mid] < target ? mid + 1 : mid;
 
+        // Search right half
         if (nums[mid] < target) return binarySearch(nums, mid + 1, end, target);
-        else return binarySearch(nums, start, mid, target);
+        else return binarySearch(nums, start, mid, target); // Search left half
     }
 }
