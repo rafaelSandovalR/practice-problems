@@ -15,20 +15,24 @@ public class DivideAndConquer_Solution {
     
     private int maxSubArrayHelper(int[] nums, int left, int right){
         
-        if (left == right) return nums[left];
+        if (left == right) return nums[left]; // Base case: Single element array
         
         int mid = left + (right - left) / 2;
         
+        // Recursive calls for left and right halves
         int leftSum = maxSubArrayHelper(nums, left, mid);
         int rightSum = maxSubArrayHelper(nums, mid + 1, right);
         
+        // Find maximum crossing sum
         int crossSum = maxCrossingSum(nums, left, mid, right);
         
+        // Return maximum of three
         return Math.max(Math.max(leftSum, rightSum), crossSum);
     }
     
+    // Get the max sum starting from the center and scanning left then right
     private int maxCrossingSum(int[] nums, int left, int mid, int right){
-        int leftMax = Integer.MAX_VALUE;
+        int leftMax = Integer.MIN_VALUE;
         int sum = 0;
         for (int i = mid; i >= left; i--){
             sum += nums[i];
