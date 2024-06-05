@@ -15,18 +15,7 @@ public class Solution {
         
         int[] minHeap = new int[k];
         
-        for (int i = 0; i < k; i++) {
-            minHeap[i] = Integer.MAX_VALUE;
-        }
-        
-        
-        for (int i = 0; i < k; i++){
-            insert(minHeap, nums[i]);
-        }
-        
-        //test
-        minHeap[2] = 3;
-        //
+        heapify(nums, minHeap);
         
         for (int i = k; i < nums.length; i++){
             if (nums[i] > minHeap[0]){
@@ -63,9 +52,7 @@ public class Solution {
         while (smallestChildIdx >= 0){
             smallestChildIdx = getSmallestChildIdx(minHeap, idx);
             if (smallestChildIdx < 0) break;
-            int temp = minHeap[idx];
-            minHeap[idx] = minHeap[smallestChildIdx];
-            minHeap[smallestChildIdx] = temp;
+            swap(minHeap, idx, smallestChildIdx);
             idx = smallestChildIdx;
         }
     }
@@ -84,5 +71,26 @@ public class Solution {
         else if (leftChild >= size) return rightChild;
         else if (minHeap[leftChild] > minHeap[rightChild]) return rightChild;
         else return leftChild;
+    }
+
+    private void heapify(int[] nums, int[] minHeap) {
+        for (int i = 0; i < minHeap.length; i++){
+            minHeap[i] = nums[i];
+        }
+        
+        for (int parent = ((minHeap.length - 3) / 2); parent >= 0; parent--){
+
+            int smallestChild = getSmallestChildIdx(minHeap, parent);
+            
+            if (minHeap[parent] < minHeap[smallestChild]){
+                swap(minHeap, parent, smallestChild);
+            }
+        }
+    }
+    
+    private void swap(int[] minHeap, int x, int y){
+        int temp = minHeap[x];
+        minHeap[x] = minHeap[y];
+        minHeap[y] = temp;
     }
 }
