@@ -24,28 +24,19 @@ public class Solution {
         /**
          * Go through the remainder of the values in input
          * and add them to the min heap (replace top) and
-         * ensure heap is maintained
+         * ensure heap is maintained 
          */
         
+        for (int i = k; i < nums.length; i++){
+            if (nums[i] > minHeap[0]){
+                minHeap[0] = nums[i];
+                siftDown(minHeap, 0, minHeap.length);
+            }
+        }
         
-        
-        return 0; // Return the top of min heap
+        return minHeap[0]; // Return the top of min heap
     }
-    
-    private void insert(int[] heap, int val){
-        // Add element to the back of min heap
-        
-        // Bubble it up to it's proper place   
-    }
-    
-    private void remove(int[] heap){
-        // Replace first element with last element
-        
-        // Sift down to proper place
-        
-    }
-    
-
+      
     private void heapify(int[] heap) {
         /**
          * Starting with the first non-leaf node:

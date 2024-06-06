@@ -15,6 +15,7 @@ public class Controller {
         
         int[] nums = {3,2,1,5,6,4};
         int[] nums2 = {5,2,4,1,3,6,0};
-        int ans = sol2.findKthLargest(nums2, 7);
+        int[] nums3 = {-1,2,0};
+        int ans = sol2.findKthLargest(nums3, 2);
     }
 }
