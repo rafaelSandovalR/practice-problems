@@ -13,6 +13,7 @@ import java.util.Arrays;
 public class Solution {
     public int findKthLargest(int[] nums, int k){
         
+        // if (nums.length == 1) return nums[0];
         int[] minHeap = new int[k];
         
         heapify(nums, minHeap);
@@ -63,12 +64,12 @@ public class Solution {
         int rightChild = idx * 2 + 2;
 
         
-        if (leftChild >= size && rightChild >= size){
+        if (leftChild > size && rightChild > size){
             return -1;
         }
         
-        if (rightChild >= size) return leftChild;
-        else if (leftChild >= size) return rightChild;
+        if (rightChild > size) return leftChild;
+        else if (leftChild > size) return rightChild;
         else if (minHeap[leftChild] > minHeap[rightChild]) return rightChild;
         else return leftChild;
     }
@@ -78,12 +79,25 @@ public class Solution {
             minHeap[i] = nums[i];
         }
         
-        for (int parent = ((minHeap.length - 3) / 2); parent >= 0; parent--){
+        if (minHeap.length == 1) return;
+        
+        for (int parent = ((minHeap.length - 2) / 2); parent >= 0; parent--){
 
             int smallestChild = getSmallestChildIdx(minHeap, parent);
             
-            if (minHeap[parent] < minHeap[smallestChild]){
+            if (minHeap[parent] > minHeap[smallestChild]){
                 swap(minHeap, parent, smallestChild);
+                
+                int siftParent = smallestChild;
+                smallestChild = getSmallestChildIdx(minHeap, siftParent);
+                
+                while (smallestChild != -1){
+                    if (minHeap[siftParent] > minHeap[smallestChild]){
+                        swap(minHeap, siftParent, smallestChild);
+                    }
+                    siftParent = smallestChild;
+                    smallestChild = getSmallestChildIdx(minHeap, siftParent);
+                }
             }
         }
     }
