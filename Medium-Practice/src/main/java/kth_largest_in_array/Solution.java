@@ -13,98 +13,74 @@ import java.util.Arrays;
 public class Solution {
     public int findKthLargest(int[] nums, int k){
         
-        // if (nums.length == 1) return nums[0];
+        // Build initial min heap
         int[] minHeap = new int[k];
-        
-        heapify(nums, minHeap);
-        
-        for (int i = k; i < nums.length; i++){
-            if (nums[i] > minHeap[0]){
-                remove(minHeap);
-                insert(minHeap, nums[i]);
-            }
-
-        }
-        
-        return minHeap[0];
-    }
-    
-    private void insert(int[] minHeap, int val){
-        int idx = minHeap.length - 1;
-        minHeap[idx] = val;
-        int parentIdx = (idx - 1) / 2;
-
-        while (idx >= 0 && val < minHeap[parentIdx]){
-            int temp = minHeap[parentIdx];
-            minHeap[parentIdx] = val;
-            minHeap[idx] = temp;
-            
-            idx = parentIdx;
-            parentIdx = (idx - 1) / 2;
-        }
-    }
-    
-    private void remove(int[] minHeap){
-        int heapSize = minHeap.length;
-        int idx = 0;
-        minHeap[idx] = minHeap[heapSize - 1];
-        int smallestChildIdx = 0;
-        
-        while (smallestChildIdx >= 0){
-            smallestChildIdx = getSmallestChildIdx(minHeap, idx);
-            if (smallestChildIdx < 0) break;
-            swap(minHeap, idx, smallestChildIdx);
-            idx = smallestChildIdx;
-        }
-    }
-    
-    private int getSmallestChildIdx(int[] minHeap, int idx){
-        int size = minHeap.length - 1;
-        int leftChild = idx * 2 + 1;
-        int rightChild = idx * 2 + 2;
-
-        
-        if (leftChild > size && rightChild > size){
-            return -1;
-        }
-        
-        if (rightChild > size) return leftChild;
-        else if (leftChild > size) return rightChild;
-        else if (minHeap[leftChild] > minHeap[rightChild]) return rightChild;
-        else return leftChild;
-    }
-
-    private void heapify(int[] nums, int[] minHeap) {
-        for (int i = 0; i < minHeap.length; i++){
+        for (int i = 0; i < k; i++){
             minHeap[i] = nums[i];
         }
         
-        if (minHeap.length == 1) return;
+        heapify(minHeap);
         
-        for (int parent = ((minHeap.length - 2) / 2); parent >= 0; parent--){
+        /**
+         * Go through the remainder of the values in input
+         * and add them to the min heap (replace top) and
+         * ensure heap is maintained
+         */
+        
+        
+        
+        return 0; // Return the top of min heap
+    }
+    
+    private void insert(int[] heap, int val){
+        // Add element to the back of min heap
+        
+        // Bubble it up to it's proper place   
+    }
+    
+    private void remove(int[] heap){
+        // Replace first element with last element
+        
+        // Sift down to proper place
+        
+    }
+    
 
-            int smallestChild = getSmallestChildIdx(minHeap, parent);
-            
-            if (minHeap[parent] > minHeap[smallestChild]){
-                swap(minHeap, parent, smallestChild);
-                
-                int siftParent = smallestChild;
-                smallestChild = getSmallestChildIdx(minHeap, siftParent);
-                
-                while (smallestChild != -1){
-                    if (minHeap[siftParent] > minHeap[smallestChild]){
-                        swap(minHeap, siftParent, smallestChild);
-                    }
-                    siftParent = smallestChild;
-                    smallestChild = getSmallestChildIdx(minHeap, siftParent);
-                }
-            }
+    private void heapify(int[] heap) {
+        /**
+         * Starting with the first non-leaf node:
+         * 1) Swap node with its smallest child
+         * 2) If that smallest child is a non-leaf node: swap with its smallest child
+         * 3) Move towards first node
+         */
+        int len = heap.length;
+        for (int parent = (len - 2) / 2; parent >= 0; parent--){
+            siftDown(heap, parent, len);
         }
     }
     
-    private void swap(int[] minHeap, int x, int y){
-        int temp = minHeap[x];
-        minHeap[x] = minHeap[y];
-        minHeap[y] = temp;
+    private void siftDown(int[] heap, int parent, int heapSize){
+        int smallest = parent;
+        int leftChild = 2 * parent + 1;
+        int rightChild = 2 * parent + 2;
+        
+        if (leftChild < heapSize && heap[leftChild] < heap[smallest]){
+            smallest = leftChild;
+        }
+        if (rightChild < heapSize && heap[rightChild] < heap[smallest]){
+            smallest = rightChild;
+        }
+        
+        if (smallest != parent){
+            swap(heap, parent, smallest);
+            siftDown(heap, smallest, heapSize);
+        }
+    }
+    
+    
+    private void swap(int[] heap, int x, int y){
+        int temp = heap[x];
+        heap[x] = heap[y];
+        heap[y] = temp;
     }
 }

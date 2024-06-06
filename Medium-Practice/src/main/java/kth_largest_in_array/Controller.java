@@ -11,9 +11,10 @@ package kth_largest_in_array;
 public class Controller {
     public static void main(String[] args) {
         Solution_QuickSelect sol = new Solution_QuickSelect();
+        Solution sol2 = new Solution();
         
         int[] nums = {3,2,1,5,6,4};
         int[] nums2 = {5,2,4,1,3,6,0};
-        int ans = sol.findKthLargest(nums2, 1);
+        int ans = sol2.findKthLargest(nums2, 7);
     }
 }
