@@ -12,17 +12,11 @@ import java.util.Arrays;
  */
 public class Solution {
     public int singleNumber(int[] nums){
-        int ans = -1;
-        Arrays.sort(nums);
-        
-        for (int i = 0, j = 1; j < nums.length; i+=2, j+=2){
-            if (j >= nums.length) ans = nums[i];
-            else if (nums[i] != nums[j]){
-                ans = nums[i];
-                break;
-            }
+        int ans = 0;
+        for (int i = 0; i < nums.length; i++){
+            ans ^= nums[i];
         }
-        
+
         return ans;
     }
 }
