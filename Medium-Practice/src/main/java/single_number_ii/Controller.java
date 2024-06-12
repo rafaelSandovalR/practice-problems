@@ -10,7 +10,7 @@ package single_number_ii;
  */
 public class Controller {
     public static void main(String[] args) {
-        int[] nums = {1,2,3};
+        int[] nums = {1,2,1,2,1,-3,2};
         Solution sol = new Solution();
         
         int single = sol.singleNumber(nums);
