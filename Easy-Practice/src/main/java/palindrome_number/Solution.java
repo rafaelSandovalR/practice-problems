@@ -10,35 +10,17 @@ package palindrome_number;
  */
 public class Solution {
     public boolean isPalindrome(int x){
-        if (x < 0) return false;
-        if (x <= 9) return true;
+        if (x < 0) return false; // Base case: Negative numbers cannot be palindromes
+
+        int sum = 0;    // Stores the reversed number
+        int n = x;      // Working copy of input
         
-        // Figure out the most significant factor
-        int high = 0;
-        for (int i = 1, res = x; res > 9; i++){
-            res /= 10;
-            high = i;
+        while (n != 0) {
+            int r = (int) n % 10;   // Extract the rightmost digit
+            sum = sum * 10 + r;     // Append the extracted digit to reversed number
+            n /= 10;                // Remove the rightmost digit from the working copy
         }
-        
-        high = (int)Math.pow(10, high);
-        
-        int reverse = 0;
-        for (int res = x; res > 0; res /= 10, high /= 10) {
-            reverse += (res % 10) * high;
-        }
-        
-        
-        /*
-        
-        for (int low = 10, i = 1; low <= high; low *= 10, high /= 10, i*=10){
-            int front = (x % low) / i;
-            int back = Math.max(x/high, (x/high) % i);
-            
-            if (front != back) return false;
-            x = x % high;
-        }
-        */
-        
-        return x == reverse;
+
+        return (sum == x);
     }
 }
