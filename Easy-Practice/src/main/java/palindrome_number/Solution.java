@@ -29,6 +29,7 @@ public class Solution {
             int back = Math.max(x/high, (x/high) % i);
             
             if (front != back) return false;
+            x = x % high;
         }
         
         return true;
