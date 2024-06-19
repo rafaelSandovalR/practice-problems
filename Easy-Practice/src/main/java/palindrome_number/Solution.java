@@ -22,7 +22,13 @@ public class Solution {
         
         high = (int)Math.pow(10, high);
         
-        // Check for palindrome from both ends
+        int reverse = 0;
+        for (int res = x; res > 0; res /= 10, high /= 10) {
+            reverse += (res % 10) * high;
+        }
+        
+        
+        /*
         
         for (int low = 10, i = 1; low <= high; low *= 10, high /= 10, i*=10){
             int front = (x % low) / i;
@@ -31,7 +37,8 @@ public class Solution {
             if (front != back) return false;
             x = x % high;
         }
+        */
         
-        return true;
+        return x == reverse;
     }
 }
