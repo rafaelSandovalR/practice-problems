@@ -31,24 +31,25 @@ public class Solution {
          * add 1 = 99
          * Divide = 99 / 10 = 9
          */
-        int inputSize = digits.length;
-        int num = 0;
-        for (int n : digits){
-            num += n;
-            num *= 10;
+        int n = digits.length;
+        int digitToIncrease = -1;
+        int[] sum;
+        
+        for (int i = digits.length - 1; i >= 0; i--){
+            if (digits[i] < 9) {
+                digitToIncrease = i;
+                break;
+            }
         }
-        num /= 10;
-        num += 1;
         
-        int factorOfTen = (int)Math.pow(10, inputSize);
-        boolean isSameSize = num / factorOfTen == 0;
-        
-        int[] sum = isSameSize ? new int[inputSize] : new int[inputSize + 1];
-        
-        for (int i = sum.length - 1; i >= 0; i--){
-            sum[i] = num % 10;
-            num /= 10;
+        if (digitToIncrease >= 0){
+            sum = digits;
+            sum[digitToIncrease] += 1;
+        } else{
+            sum = new int[n+1];
+            sum[0] = 1;
         }
+        
         return sum;
     }
 }

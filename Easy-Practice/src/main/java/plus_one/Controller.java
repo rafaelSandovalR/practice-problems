@@ -10,6 +10,8 @@ package plus_one;
  */
 public class Controller {
     public static void main(String[] args) {
-        
+        Solution sol = new Solution();
+        int[] digits = {0};
+        int[] result = sol.plusOne(digits);
     }
 }
