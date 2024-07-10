@@ -10,52 +10,26 @@ package plus_one;
  */
 public class Solution {
     public int[] plusOne(int[] digits){
-        
-        /**
-         * - Build actual integer of input
-         * - Add 1
-         * - Divide by size of input array + 1 to see if answer is a decimal place larger
-         *      - if answer is 0, then output array is the same size
-         *      - else output array is + 1 larger
-         * - Build output array by using int / size of array
-         *      - Then removing the most leftmost digit with % size of array
-         */
-        
-        /**
-         * Actual int = 99
-         * add 1 = 100
-         * Divide = 100 / 10 (10 ^ 2 cuz input array is size 2) = 10
-         * 
-         * 
-         * Actual int = 98
-         * add 1 = 99
-         * Divide = 99 / 10 = 9
-         */
+               
         int n = digits.length;
-        int digitToIncrease = -1;
-        int[] sum;
         
-        // Determine index of digit to increase. First non-nine number from right to left
-        for (int i = digits.length - 1; i >= 0; i--){
-            if (digits[i] < 9) {
-                digitToIncrease = i;
-                break;
+        // Loop starting from end of array
+        for (int i = n-1; i >= 0; i++){
+            // Replace any 9s with 0
+            if (digits[i] == 9) {
+                digits[i] = 0;
+            }
+            // If encounter any number < 9, increase by 1 and return array
+            else{
+                digits[i]++;
+                return digits;
             }
         }
         
-        // If adding one results in same amount of digits, increase the proper digit and replace any 9s necessary
-        if (digitToIncrease >= 0){
-            sum = digits;
-            sum[digitToIncrease] += 1;
-            for (int i = digitToIncrease + 1; i < n; i++){
-                sum[i] = 0;
-            }
-            
-        } else{ // If adding one results in an extra digit, create new array and set first value to 1
-            sum = new int[n+1];
-            sum[0] = 1;
-        }
-        
-        return sum;
+        // If no number < 9, then need to create an array with one more digit
+        digits = new int[n+1];
+        // Array should start with one and the rest zeroes
+        digits[0] = 1;
+        return digits;
     }
 }
