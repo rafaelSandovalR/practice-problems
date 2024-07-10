@@ -45,6 +45,10 @@ public class Solution {
         if (digitToIncrease >= 0){
             sum = digits;
             sum[digitToIncrease] += 1;
+            for (int i = digitToIncrease + 1; i < n; i++){
+                sum[i] = 0;
+            }
+            
         } else{
             sum = new int[n+1];
             sum[0] = 1;
