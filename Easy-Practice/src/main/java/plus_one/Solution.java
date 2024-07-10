@@ -35,6 +35,7 @@ public class Solution {
         int digitToIncrease = -1;
         int[] sum;
         
+        // Determine index of digit to increase. First non-nine number from right to left
         for (int i = digits.length - 1; i >= 0; i--){
             if (digits[i] < 9) {
                 digitToIncrease = i;
@@ -42,6 +43,7 @@ public class Solution {
             }
         }
         
+        // If adding one results in same amount of digits, increase the proper digit and replace any 9s necessary
         if (digitToIncrease >= 0){
             sum = digits;
             sum[digitToIncrease] += 1;
@@ -49,7 +51,7 @@ public class Solution {
                 sum[i] = 0;
             }
             
-        } else{
+        } else{ // If adding one results in an extra digit, create new array and set first value to 1
             sum = new int[n+1];
             sum[0] = 1;
         }
