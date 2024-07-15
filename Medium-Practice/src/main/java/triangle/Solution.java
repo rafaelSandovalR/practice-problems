@@ -13,13 +13,16 @@ import java.util.List;
 public class Solution {
     public int minimumTotal(List<List<Integer>> triangle){
         
-        int size = 0;
-        for (List list : triangle){
-            size += list.size();
+        for (int row = triangle.size() - 1; row > 0; row--){
+            
+            for (int left = 0, right = 1; right < triangle.get(row).size(); left++, right++){
+                int leftCell = triangle.get(row).get(left);
+                int rightCell = triangle.get(row).get(right);
+                int minSum = triangle.get(row - 1).get(left) + Math.min(leftCell, rightCell);
+                
+                triangle.get(row - 1).set(left, minSum);
+            }
         }
-        int[] dp = new int[size];
-        
-        
-        
+        return triangle.get(0).get(0);
     }
 }
