@@ -12,19 +12,21 @@ import java.util.Arrays;
  */
 public class Solution {
     public int majorityElement(int[] nums){
+/**
+ * ORIGINAL SOLUTION
+         * Arrays.sort(nums);
+         *
+         * int count = 1; int ptr = 0; int majoritySize = (nums.length / 2) + 1;
+         *
+         * while (count < majoritySize){ if (nums[ptr] == nums[ptr + 1])
+         * count++; else count = 1;
+         *
+         * ptr++; }
+         *
+         * return nums[ptr];
+ */
+
         Arrays.sort(nums);
-        
-        int count = 1;
-        int ptr = 0;
-        int majoritySize = (nums.length / 2) + 1;
-        
-        while (count < majoritySize){
-            if (nums[ptr] == nums[ptr + 1]) count++;
-            else count = 1;
-            
-            ptr++;
-        }
-        
-        return nums[ptr];
+        return nums[nums.length / 2];
     }
 }
