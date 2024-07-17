@@ -10,11 +10,12 @@ package container_with_most_water;
  */
 public class Controller {
     public static void main(String[] args) {
-        Solution s = new Solution();
+        Solution2 s = new Solution2();
         
         int[] heights = new int[] {1,8,6,2,5,4,8,3,7};
+        int[] heights2 = new int[] {1,2,4,3};
         
-        int result = s.maxArea(heights);
+        int result = s.maxArea(heights2);
         
         System.out.println(result);
         
