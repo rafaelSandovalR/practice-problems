@@ -20,11 +20,8 @@ public class Solution2 {
             
             maxArea = Math.max(maxArea,area);
             
-            if (height[left] < height[right]){
-                left++;
-            } else{
-                right--;
-            }
+            while (left < right && height[left] <= h) left++;
+            while (left < right && height[right] <= h) right--;
         }
         return maxArea;
     }
