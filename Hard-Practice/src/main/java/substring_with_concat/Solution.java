@@ -19,39 +19,38 @@ public class Solution {
         List<Integer> answer = new ArrayList<>();
         
         int wordsLength = words[0].length();
-        int concatStart = 0;
-        int wordStart = 0;
+        int wordsQty = words.length;
+        boolean[] found = new boolean[wordsQty];
+        int count = 0;
         
-
-        String[] copy = Arrays.copyOf(words, words.length);
-        Arrays.sort(copy);
-        
-        Map<String, Integer[]> test = new HashMap<>();
-        
-        test.put("good",new Integer[]{1,1});
-        test.put("best",new Integer[]{1,1});
-        test.put("word",new Integer[]{2,2});
-        
-        String t = "wordgoodbestword";
-        
-        int end = wordsLength;
-
-        int numOfWords = 0;
-        while(end < words.length){
-            String check = t.substring(wordStart,end);
+        for (int start = 0, wordStart = 0, end = wordsLength; end < s.length(); wordStart += wordsLength, end += wordsLength){
             
-            if(test.containsKey(check) && test.get(check)[0] > 0){
+            String currentWord = s.substring(wordStart,end);
+            boolean wordFound = false;
 
-                
-                test.get(check)[0] -= 1;
-                numOfWords++;
-            } else {
-                test.forEach((word, qty) -> qty[0] = qty[1] );
+            
+            for (int i = 0; i < wordsQty; i++){
+                if (!found[i] && currentWord.equals(words[i])){
+                    found[i] = true;
+                    wordFound = true;
+                    count++;
+                    break;
+                }
             }
-            
-            end += wordsLength;
+   
+            if (!wordFound || count == wordsQty){
+                if (count == wordsQty){
+                    answer.add(start);
+                }
+                found = new boolean[wordsQty];
+                start = end;
+                count = 0;
+            }
         }
         
+        return answer;
+        
+        // (end - start) / wordsLength should be equal to count
     }
 
 }
