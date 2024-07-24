@@ -5,7 +5,6 @@
 package substring_with_concat;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,58 +17,45 @@ public class Solution {
     public List<Integer> findSubstring(String s, String[] words){
         List<Integer> answer = new ArrayList<>();
         
-        int wordsLength = words[0].length();
+        int wordLength = words[0].length();
         int wordsQty = words.length;
-        boolean[] found = new boolean[wordsQty];
-        int[] order = new int[wordsQty];
-        int orderCount = 0;
         int count = 0;
         
-        for (int start = 0, wordStart = 0, end = wordsLength; end < s.length(); wordStart += wordsLength, end += wordsLength){
-            
-            String currentWord = s.substring(wordStart,end);
-            boolean wordFound = false;
-
-            // Check if word can be added to concat
-            for (int i = 0; i < wordsQty; i++){
-                if (!found[i] && currentWord.equals(words[i])){
-                    found[i] = true;
-                    wordFound = true;
-                    count++;
-                    order[i] = orderCount++;
-                    break;
-                }
+        Map<String, Integer> qtyMap = new HashMap<>();
+        Map<String, Integer> foundMap = new HashMap<>();
+        
+        // Fill maps with words and their qty
+        for (String word : words){
+            if (qtyMap.containsKey(word)){
+                qtyMap.put(word, qtyMap.get(word) + 1);
+            } else{
+                qtyMap.put(word, 1);
+                foundMap.put(word, 0);
             }
-  
-            // Reset
-            if (!wordFound){
-                found = new boolean[wordsQty];
-                order = new int[wordsQty];
-                start = wordStart;
+        }
+
+        for (int start = 0, current = 0, end = wordLength; end <= s.length(); current += wordLength, end += wordLength){
+           
+            String currentWord = s.substring(current, current + wordLength);
+            int qtyAvail = qtyMap.get(currentWord);
+            
+            
+            if (qtyMap.containsKey(currentWord)){
+                int currentQty = foundMap.get(currentWord) + 1;
+                foundMap.put(currentWord, currentQty);
+                count++;
                 
-                if (count > 0){
-                    start = wordStart;
-                    wordStart -= wordsLength;
-                    end -= wordsLength;
+                while (currentQty > qtyAvail){
+                    String startingWord = s.substring(start, start + wordLength);
+                    foundMap.put(startingWord, foundMap.get(startingWord) - 1);
+                    start += wordLength;
+                    currentQty = foundMap.get(currentWord);
+                    count--;
                 }
-
-                count = 0;
             }
             
-            // If all words found
             if (count == wordsQty){
                 answer.add(start);
-                start += wordsLength;
-                count--;
-                int first = 0;
-                
-                for (int i = 0; i < wordsQty; i++){
-                    if (order[i] < order[first]){
-                        first = i;
-                    }                
-                }
-                order[first] = orderCount++;
-                found[first] = false;  
             }
         }
         
