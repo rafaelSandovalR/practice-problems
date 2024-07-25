@@ -37,10 +37,9 @@ public class Solution {
         for (int start = 0, current = 0, end = wordLength; end <= s.length(); current += wordLength, end += wordLength){
            
             String currentWord = s.substring(current, current + wordLength);
-            int qtyAvail = qtyMap.get(currentWord);
-            
             
             if (qtyMap.containsKey(currentWord)){
+                int qtyAvail = qtyMap.get(currentWord);
                 int currentQty = foundMap.get(currentWord) + 1;
                 foundMap.put(currentWord, currentQty);
                 count++;
@@ -52,6 +51,10 @@ public class Solution {
                     currentQty = foundMap.get(currentWord);
                     count--;
                 }
+            } else {
+                start = end;
+                count = 0;
+                foundMap.replaceAll((key, value) -> 0);
             }
             
             if (count == wordsQty){
