@@ -19,6 +19,7 @@ public class Solution {
         
         int wordLength = words[0].length();
         int wordsQty = words.length;
+        int windowSize = wordLength * wordsQty;
         int count = 0;
         
         Map<String, Integer> qtyMap = new HashMap<>();
@@ -33,38 +34,41 @@ public class Solution {
                 foundMap.put(word, 0);
             }
         }
+        
 
-        for (int start = 0, current = 0, end = wordLength; end <= s.length(); current += wordLength, end += wordLength){
+        for (int start = 0, currentStart = 0, currentEnd = wordLength, end = windowSize; end <= s.length(); start++, end = start + windowSize){
            
-            String currentWord = s.substring(current, current + wordLength);
+            String currentWord = s.substring(currentStart, currentEnd);
             
-            if (qtyMap.containsKey(currentWord)){
-                int qtyAvail = qtyMap.get(currentWord);
+            while (qtyMap.containsKey(currentWord) && currentEnd <= end){
+                int avail = qtyMap.get(currentWord);
                 int currentQty = foundMap.get(currentWord) + 1;
+                
+                if (currentQty > avail){
+                    break;
+                }
+                
                 foundMap.put(currentWord, currentQty);
+                currentStart += wordLength;
+                currentEnd += wordLength;
                 count++;
                 
-                while (currentQty > qtyAvail){
-                    String startingWord = s.substring(start, start + wordLength);
-                    foundMap.put(startingWord, foundMap.get(startingWord) - 1);
-                    start += wordLength;
-                    currentQty = foundMap.get(currentWord);
-                    count--;
+                if (count == wordsQty){
+                    answer.add(start);
+                    break;
                 }
-            } else {
-                start = end;
-                count = 0;
-                foundMap.replaceAll((key, value) -> 0);
+                
+                currentWord = s.substring(currentStart, currentEnd);
             }
             
-            if (count == wordsQty){
-                answer.add(start);
-            }
+            count = 0;
+            foundMap.replaceAll((key, value) -> 0);
+            currentStart = start + 1;
+            currentEnd = currentStart + wordLength;
+            
         }
         
         return answer;
-        
-        // (end - start) / wordsLength should be equal to count
     }
 
 }
