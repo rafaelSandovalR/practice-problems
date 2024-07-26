@@ -13,11 +13,12 @@ import java.util.List;
 public class Controller {
     public static void main(String[] args) {
         
-        String s = "aaaaaaaaaa";
-        String[] words = {"aa","aa"};
-        Solution sol = new Solution();
+        String s = "barfoofoobarthefoobarman";
+        String[] words = {"bar","foo","the"};
+        Solution2 sol = new Solution2();
+        Test test = new Test();
         
-        List<Integer> answer = sol.findSubstring(s, words);
+        List<Integer> answer = test.findSubstring(s, words);
         
     }
 }
