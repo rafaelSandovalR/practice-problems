@@ -4,12 +4,20 @@
  */
 package substring_with_concat;
 
+import java.util.List;
+
 /**
  *
  * @author Rsand
  */
 public class Controller {
     public static void main(String[] args) {
+        
+        String s = "aaaaaaaaaa";
+        String[] words = {"aa","aa"};
+        Solution sol = new Solution();
+        
+        List<Integer> answer = sol.findSubstring(s, words);
         
     }
 }

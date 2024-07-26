@@ -27,6 +27,9 @@ public class Solution {
 
         Map<String, Integer> qtyMap = new HashMap<>();
         for (String word : words) {
+            /** 
+             * 1ST WAY OF INITIALIZING OR INCREMENTING
+             */
             qtyMap.put(word, qtyMap.getOrDefault(word, 0) + 1); // Initialize or increment
         }
 
@@ -45,7 +48,12 @@ public class Solution {
                 if (qtyMap.containsKey(currentWord)) {
 
                     // Valid word: Update count and check if we have too many occurences
+                    
+                    /**
+                     * 2ND WAY OF INITIALIZING OR INCREMENTING
+                     */
                     foundMap.merge(currentWord, 1, Integer::sum);
+                    
                     if (foundMap.get(currentWord) <= qtyMap.get(currentWord)) {
                         count++;
                     } else {
