@@ -15,60 +15,70 @@ import java.util.Map;
  */
 public class Solution {
     public List<Integer> findSubstring(String s, String[] words){
-        List<Integer> answer = new ArrayList<>();
-        
-        int wordLength = words[0].length();
+        List<Integer> result = new ArrayList<>();
+        int stringSize = s.length();
         int wordsQty = words.length;
-        int windowSize = wordLength * wordsQty;
-        int count = 0;
-        
-        Map<String, Integer> qtyMap = new HashMap<>();
-        Map<String, Integer> foundMap = new HashMap<>();
-        
-        // Fill maps with words and their qty
-        for (String word : words){
-            if (qtyMap.containsKey(word)){
-                qtyMap.put(word, qtyMap.get(word) + 1);
-            } else{
-                qtyMap.put(word, 1);
-                foundMap.put(word, 0);
-            }
-        }
-        
+        int wordLength = words[0].length();
 
-        for (int start = 0, currentStart = 0, currentEnd = wordLength, end = windowSize; end <= s.length(); start++, end = start + windowSize){
-           
-            String currentWord = s.substring(currentStart, currentEnd);
-            
-            while (qtyMap.containsKey(currentWord) && currentEnd <= end){
-                int avail = qtyMap.get(currentWord);
-                int currentQty = foundMap.get(currentWord) + 1;
-                
-                if (currentQty > avail){
-                    break;
-                }
-                
-                foundMap.put(currentWord, currentQty);
-                currentStart += wordLength;
-                currentEnd += wordLength;
-                count++;
-                
-                if (count == wordsQty){
-                    answer.add(start);
-                    break;
-                }
-                
-                currentWord = s.substring(currentStart, currentEnd);
-            }
-            
-            count = 0;
-            foundMap.replaceAll((key, value) -> 0);
-            currentStart = start + 1;
-            currentEnd = currentStart + wordLength;
-            
+        // Early return if there are no words or the string is too short
+        if (wordsQty == 0 || stringSize < wordsQty * wordLength) {
+            return result;
         }
-        
-        return answer;
+
+        Map<String, Integer> qtyMap = new HashMap<>();
+        for (String word : words) {
+            qtyMap.put(word, qtyMap.getOrDefault(word, 0) + 1); // Initialize or increment
+        }
+
+        // Main sliding window loop
+        for (int i = 0; i < wordLength; i++) {
+
+            Map<String, Integer> foundMap = new HashMap<>(); // Count of found words in current window
+            int count = 0; // Count of valid words found so far
+            int start = i; // Start index of the sliding window
+
+            // Iterate over possible starting positions within each partition
+            for (int j = i; j <= stringSize - wordLength; j += wordLength) {
+                String currentWord = s.substring(j, j + wordLength);
+
+                // Check if current word is valid and increment count if within limit
+                if (qtyMap.containsKey(currentWord)) {
+
+                    // Valid word: Update count and check if we have too many occurences
+                    foundMap.merge(currentWord, 1, Integer::sum);
+                    if (foundMap.get(currentWord) <= qtyMap.get(currentWord)) {
+                        count++;
+                    } else {
+
+                        // We have too many of this word, so shrink the window until valid
+                        while (foundMap.get(currentWord) > qtyMap.get(currentWord)) {
+                            String leftMostWord = s.substring(start, start + wordLength);
+                            foundMap.merge(leftMostWord, -1, Integer::sum);
+                            if (foundMap.get(leftMostWord) < qtyMap.get(leftMostWord)) {
+                                count--;
+                            }
+                            start += wordLength;
+                        }
+                    }
+                } else {
+                    // Invalid word: Reset window
+                    foundMap.clear();
+                    count = 0;
+                    start = j + wordLength;
+                    continue;
+                }
+
+                // Check if current window has all the words
+                if (count == wordsQty) {
+                    result.add(start);
+                    String leftMostWord = s.substring(start, start + wordLength);
+                    foundMap.merge(leftMostWord, -1, Integer::sum);
+                    count--;
+                    start += wordLength;
+                }
+            }
+        }
+        return result;
     }
 
 }
