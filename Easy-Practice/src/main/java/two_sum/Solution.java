@@ -15,29 +15,19 @@ import java.util.HashMap;
 public class Solution {
     public int[] twoSum(int[] nums, int target){
         
-        int[] answer = new int[2];
         
-        var map = new HashMap<Integer, ArrayList<Integer>>();
+        var map = new HashMap<Integer, Integer>();
         
         for (int i = 0; i < nums.length; i++){
-            map.put(nums[i], map.getOrDefault(nums[i], new ArrayList<Integer>()));
-            map.get(nums[i]).add(i);
-        }
-        
-        for (Integer num : map.keySet()){
-            int diff = target - num;
+            int complement = target - nums[i];
             
-            if (diff == num && map.get(num).size() == 2){
-                answer[0] = map.get(num).get(0);
-                answer[1] = map.get(num).get(1);
-
-            } else if (map.containsKey(diff)){
-                answer[0] = map.get(num).get(0);
-                answer[1] = map.get(diff).get(0);
+            if (map.containsKey(complement)){
+                return new int[] {map.get(complement), i};
             }
+            
+            map.put(nums[i], i);
         }
-
         
-        return answer;
+        return new int[]{};
     }
 }

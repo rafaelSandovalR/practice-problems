@@ -9,5 +9,11 @@ package two_sum;
  * @author Rsand
  */
 public class Controller {
-    
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        int[] nums = {3,2,3};
+        
+        sol.twoSum(nums,6);
+    }
 }
