@@ -13,8 +13,9 @@ import java.util.HashMap;
  * @author Rsand
  */
 public class Solution {
+    
+    // HashMap Approach
     public int[] twoSum(int[] nums, int target){
-        
         
         var map = new HashMap<Integer, Integer>();
         
@@ -29,5 +30,24 @@ public class Solution {
         }
         
         return new int[]{};
+    }
+    
+    
+    // Brute Force Approach
+    public int[]twoSumAlt(int[] nums, int target){
+        
+        // Iterates through potential distances between elements
+        for (int i = 1; i < nums.length; i++){
+            
+            // Checks pairs with the current distance 'i'
+            for (int j = i; j < nums.length; j++){
+                
+                if (nums[j] + nums[j-i] == target){
+                    return new int[] {j, j-i};
+                }
+            }
+        }
+        
+        return null;
     }
 }

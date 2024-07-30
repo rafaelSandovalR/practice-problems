@@ -12,8 +12,8 @@ public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
         
-        int[] nums = {3,2,3};
+        int[] nums = {1,6,3,2,3,0};
         
-        sol.twoSum(nums,6);
+        sol.twoSumAlt(nums,6);
     }
 }
