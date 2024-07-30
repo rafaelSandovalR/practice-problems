@@ -4,11 +4,6 @@
  */
 package longest_substr_no_repeat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-
 
 /**
  *
@@ -27,6 +22,7 @@ class Solution {
         int max = 0;
         for (int i = 0, left = 0; i < s.length(); i++) {
             char c = s.charAt(i);
+            int test = c;
             left = Math.max(left, index[c]); // Update left to the position right after the last occurrence of the character
 
             // Calculate the length of the current substring and update max
