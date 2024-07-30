@@ -4,7 +4,9 @@
  */
 package two_sum;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  *
@@ -14,21 +16,27 @@ public class Solution {
     public int[] twoSum(int[] nums, int target){
         
         int[] answer = new int[2];
-        Arrays.sort(nums);
         
-        for(int i = 0, j = nums.length - 1; i < j;){
+        var map = new HashMap<Integer, ArrayList<Integer>>();
+        
+        for (int i = 0; i < nums.length; i++){
+            map.put(nums[i], map.getOrDefault(nums[i], new ArrayList<Integer>()));
+            map.get(nums[i]).add(i);
+        }
+        
+        for (Integer num : map.keySet()){
+            int diff = target - num;
             
-            if(nums[i] + nums[j] == target){
-                answer[0] = i;
-                answer[1] = j;
-            }
-            
-            if (nums[i] + nums[j] < target){
-                i++;
-            } else{
-                j--;
+            if (diff == num && map.get(num).size() == 2){
+                answer[0] = map.get(num).get(0);
+                answer[1] = map.get(num).get(1);
+
+            } else if (map.containsKey(diff)){
+                answer[0] = map.get(num).get(0);
+                answer[1] = map.get(diff).get(0);
             }
         }
+
         
         return answer;
     }
