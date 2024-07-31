@@ -10,9 +10,8 @@ import java.util.HashMap;
  *
  * @author Rsand
  */
-public class Solution {
-    public int longestConsecutive(int[] nums){
-        
+class Solution {
+    public int longestConsecutive(int[] nums) {
         var map = new HashMap<Integer, Boolean>();
         int max = 0;
         
