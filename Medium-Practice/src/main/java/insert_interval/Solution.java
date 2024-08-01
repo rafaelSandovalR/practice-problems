@@ -15,48 +15,47 @@ public class Solution {
         if (n == 0) return new int[][] {{newInterval[0],newInterval[1]}};
         int start = -2, end = -1, insert = -1;
         
+        // Loop to determine start and end indices to overlapping intervals
+        // AND index to insert in case there is no overlap
         for (int i = 0; i < n; i++){
             
+            // Case no overlap: Determine which index the new interval should be inserted into
             if (intervals[i][0] < newInterval[0]) insert = i + 1;
-                
-            if (overlap(intervals[i], newInterval)){
-                if (start < 0) start = i;
-                end = i;
+             
+            // If current interval overlaps with new interval
+            if (Math.max(intervals[i][0], newInterval[0]) <= Math.min(intervals[i][1], newInterval[1])){
+                if (start < 0) start = i; // If start hasn't been initiated, set start
+                end = i; // End will be updated until the last overlapping occurence
             }
         }
         
+        // Determine how many intervals after merging/inserting
+        // If no overlap: new array will be one more than old
+        // Else: condense merged qty into 1 to get new qty
         int newIntervalQty = start < 0 ? n + 1 : n - end + start;
-        insert = insert < 0 ? 0 : insert;
-        int[][] result = new int[newIntervalQty][2];
         
-        for (int i = 0, j = 0; i < newIntervalQty; i++, j++){
+        insert = insert < 0 ? 0 : insert; // If insert was never initiated (newInterval[0] < intervals[0][0]), set insert to 0
+
+        
+        // Create and fill new array with merged/inserted ranges
+        int[][] result = new int[newIntervalQty][2];
+        for (int i = 0, j = 0; i < newIntervalQty; i++, j++){ // i: index to place in result, j: index to grab from in intervals
             
-            if (start < 0 && i == insert){
+            if (start < 0 && i == insert){ // If no overlaps existed, insert new interval at 'insert' index
                 result[i] = newInterval;
-                j--;
-            } else if (i == start){
+                j--; // Adjust pointer due to insertion
+            } else if (i == start){ // If overlaps exist, merge from start to end, place at start index
                 result[i][0] = Math.min(intervals[start][0], newInterval[0]);
                 result[i][1] = Math.max(intervals[end][1], newInterval[1]);
-            } else if (i == start + 1){
-                j = end + 1;
-                result[i] = intervals[j];
+            } else if (i == start + 1){ // Only the iteration after merging
+                j = end + 1; // Adjust pointer to be after the merged intervals
+                result[i] = intervals[j]; // Copy over interval
             } else {
                 result[i] = intervals[j];
             }
 
         }
         return result;
-    }
-
-    private boolean overlap(int[] interval, int[] newInterval) {
-        
-        int min1 = interval[0],  min2 = newInterval[0];
-        int max1 = interval[1],  max2 = newInterval[1];
-        
-        if (min2 >= min1 && min2 <= max1) return true;
-        if (min1 >= min2 && min1 <= max2) return true;
-        
-        return false;
     }
 
 }
