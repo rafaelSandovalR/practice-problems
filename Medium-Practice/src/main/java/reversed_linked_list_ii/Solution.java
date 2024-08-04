@@ -11,7 +11,23 @@ package reversed_linked_list_ii;
 public class Solution {
     public ListNode reverseBetween(ListNode head, int left, int right){
 
+        ListNode beforeReversed = head, reversedEnd = null, reversedStart = null, afterReversed = null, curr = null, prev = null, next = null;
         
+        while (beforeReversed.next.val != left){
+            beforeReversed = beforeReversed.next;
+        }
+        
+        reversedEnd = beforeReversed.next;
+        prev = reversedEnd;
+        curr = reversedEnd.next;
+        next = curr.next;
+        
+        while (curr.val != right){
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+            next = next.next;
+        }
         
     }
 }
