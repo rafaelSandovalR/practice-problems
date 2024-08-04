@@ -18,9 +18,12 @@ public class Controller {
         ListNode n2 = new ListNode(2,n3);
         ListNode head = new ListNode(1,n2);
         
+        ListNode test2 = new ListNode(5);
+        ListNode test1 = new ListNode(3, test2);
+        
         Solution sol = new Solution();
         
-        ListNode reversed = sol.reverseBetween(head, 2, 6);
+        ListNode reversed = sol.reverseBetween(test1, 1, 1);
         
     }
 }

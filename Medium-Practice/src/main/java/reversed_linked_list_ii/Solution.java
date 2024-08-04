@@ -13,23 +13,27 @@ public class Solution {
         if (head.next == null) return head;
 
         ListNode before = head, end = null, prev = null, curr = head, next = head.next;
+        int pos = 1;
         
-        while (curr != null && curr.val < left && next != null){
+        while (pos < left){
             prev = curr;
             curr = curr.next;
             next = next.next;
+            ++pos;
         }
         
         before = prev;
         end = curr;
         
-        while (curr.val >= left && curr.val <= right){
+        while (pos <= right){
             curr.next = prev;
             prev = curr;
             curr = next;
             next = next == null ? null : next.next;
+            ++pos;
         }
        
+
         before.next = prev;
         end.next = curr;
         
