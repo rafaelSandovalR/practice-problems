@@ -33,8 +33,12 @@ public class Solution {
             ++pos;
         }
        
+        if (before != null){
+            before.next = prev;
+        } else {
+            head = prev;
+        }
 
-        before.next = prev;
         end.next = curr;
         
         return head;
