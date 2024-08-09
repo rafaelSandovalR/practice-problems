@@ -9,30 +9,27 @@ package binary_tree_inorder_postorder;
  * @author Rsand
  */
 public class Solution {
+    int p = 0;
     public TreeNode buildTree(int[] inorder, int[] postorder){
         
-        return getNode(inorder, postorder, postorder.length, true);
+        p = postorder.length - 1;
+        return getNode(inorder, postorder, 0, p);
     }
     
-    private TreeNode getNode(int[] io, int[] po, int len, boolean left){
+    private TreeNode getNode(int[] io, int[] po, int start, int end){
         
-        if (len == 0) return null;
+        if (end < start) return null;
         
-        TreeNode root = left
-                ? new TreeNode(po[len - 1])
-                : len > 2
-                        ? new TreeNode(po[len - 2])
-                        : null;
+        TreeNode root = new TreeNode( po[p--] );
         
-        if (root == null) return null;
-        
-        int LPI = 0;
-        while (io[LPI] != root.val){
-            LPI++;
+        int idx = start;
+        while (io[idx] != root.val){
+            idx++;
         }
         
-        root.left = getNode(io, po, LPI, true);
-        root.right = getNode(io, po, LPI, false);
+        root.right = getNode(io, po, idx+1,  end);
+        root.left = getNode(io, po, start, idx-1);
+
         
         return root;
     }
