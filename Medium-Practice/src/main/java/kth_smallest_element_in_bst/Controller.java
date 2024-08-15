@@ -4,6 +4,11 @@
  */
 package kth_smallest_element_in_bst;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Rsand
@@ -24,5 +29,23 @@ public class Controller {
         Solution sol = new Solution();
         
         int output = sol.kthSmallest(root, 5);
+        
+        Solution sol2 = new Solution();
+        
+        int numRuns = 100;
+        List<Long> times = new ArrayList<>();
+        
+        for (int i = 0; i < numRuns; i++){
+            long start = System.nanoTime();
+            sol2.kthSmallest(root, 5);
+            long end = System.nanoTime();
+            times.add(end - start);
+        }
+        
+        long totalTime = times.stream().mapToLong(Long::longValue).sum();
+        double averageTime = (double) totalTime / numRuns / 1000000;
+        System.out.println("Average time taken: " + averageTime + " milliseconds");
+                
+        
     }
 }
