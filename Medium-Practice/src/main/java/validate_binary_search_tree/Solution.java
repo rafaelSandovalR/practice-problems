@@ -22,11 +22,29 @@ public class Solution {
         if (root == null) return true;
         
         if (leftBranch){
-            if (root.val > stack.peek()) return false;
-            if (stack.size() > 1 && stack.peek() > stack.get(1) && root.val < stack.get(1)) return false;
+            if (root.val >= stack.peek()) return false;
+            
+            int prevSmallest = stack.peek();
+            
+            
+            for (int x : stack){ 
+                if (x < prevSmallest){
+                    prevSmallest = x;
+                    break;
+                }
+            }
+            if (stack.size() > 1 && (prevSmallest != stack.peek() && root.val <= prevSmallest)) return false;
         } else{
-            if (root.val < stack.peek()) return false;
-            if (stack.size() > 1 && stack.peek() > stack.get(1) && root.val > stack.get(1)) return false;
+            if (root.val <= stack.peek()) return false;
+            
+            int prevLargest = stack.peek();
+            for (int x : stack){
+                if (x > prevLargest){
+                    prevLargest = x;
+                    break;
+                }
+            }
+            if (stack.size() > 1 && (prevLargest != stack.peek() && root.val >= prevLargest)) return false;
         }
         
         stack.push(root.val);
