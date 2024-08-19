@@ -12,11 +12,22 @@ import java.util.LinkedList;
  */
 public class Solution {
     public boolean isValidBST(TreeNode root){
-        var stack = new LinkedList<Integer>();
-        stack.push(root.val);
-        return isValid(root.left, stack, true) && isValid(root.right, stack, false);
+        return isValid(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
     
+    private boolean isValid(TreeNode node, long min, long max){
+        if (node == null) return true; // Base case: singular node is valid
+        
+        if (node.val <= min || node.val >= max) return false; // If value is out of range
+        
+        // Traverse through left and right branches
+        // Left branch range: previous min -> current val       right branch range: current val -> previous max
+        return isValid(node.left, min, node.val) && isValid(node.right, node.val, max);
+    }
+    
+    
+    /* ORIGINAL SOLUTION: OVERLY COMPLEX
+
     private boolean isValid(TreeNode root, LinkedList<Integer> stack, boolean leftBranch){
         
         if (root == null) return true;
@@ -55,4 +66,5 @@ public class Solution {
         
         return validSubTree;
     }
+    */
 }
