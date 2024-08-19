@@ -13,36 +13,28 @@ import java.util.LinkedList;
 public class Solution {
     public boolean isValidBST(TreeNode root){
         var stack = new LinkedList<Integer>();
-
-        return scanTree(root, stack);
+        stack.push(root.val);
+        return isValid(root.left, stack, true) && isValid(root.right, stack, false);
     }
     
-    public boolean scanTree(TreeNode root, LinkedList<Integer> stack){
+    private boolean isValid(TreeNode root, LinkedList<Integer> stack, boolean leftBranch){
         
         if (root == null) return true;
         
-        TreeNode left = root.left;
-        TreeNode right = root.right;
-        boolean leftValid, rightValid;
-        
-        if (stack.isEmpty()) stack.push(root.val);
-        
-        if (left != null && left.val < root.val){
-            
-            if (stack.size() > 1 && left.val > stack.get(1)){
-                stack.push(left.val);
-                leftValid = scanTree(left, stack);
-            }
-
+        if (leftBranch){
+            if (root.val > stack.peek()) return false;
+            if (stack.size() > 1 && stack.peek() > stack.get(1) && root.val < stack.get(1)) return false;
+        } else{
+            if (root.val < stack.peek()) return false;
+            if (stack.size() > 1 && stack.peek() > stack.get(1) && root.val > stack.get(1)) return false;
         }
         
-        if (right != null && right.val > root.val){
-            
-            if (stack.size() > 1 && right.val < stack.get(1)){
-                stack.push(right.val);
-                
-            }
-
-        } 
+        stack.push(root.val);
+        
+        boolean validSubTree = isValid(root.left, stack, true) && isValid(root.right, stack, false);
+        
+        stack.pop();
+        
+        return validSubTree;
     }
 }
