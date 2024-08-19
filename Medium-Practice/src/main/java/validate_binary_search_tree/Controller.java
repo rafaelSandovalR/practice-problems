@@ -10,4 +10,19 @@ package validate_binary_search_tree;
  */
 public class Controller {
     
+    public static void main(String[] args) {
+
+        TreeNode node7 = new TreeNode(6);
+        TreeNode node6 = new TreeNode(4);
+        TreeNode node5 = new TreeNode(2);
+        TreeNode node4 = new TreeNode(0);
+        TreeNode node3 = new TreeNode(5, node6, node7);
+        TreeNode node2 = new TreeNode(1, node4, node5);
+        TreeNode root = new TreeNode(3, node2, node3);
+
+        Solution sol = new Solution();
+        
+        boolean result = sol.isValidBST(root);
+    }
+
 }
