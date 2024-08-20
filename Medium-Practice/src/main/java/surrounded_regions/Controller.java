@@ -10,6 +10,17 @@ package surrounded_regions;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        char[][] board = {
+            {'X', 'X', 'X', 'X', 'O', 'X'},
+            {'O', 'X', 'X', 'O', 'O', 'X'},
+            {'X', 'O', 'X', 'O', 'O', 'O'},
+            {'X', 'O', 'O', 'O', 'X', 'O'},
+            {'O', 'O', 'X', 'X', 'O', 'X'},
+            {'X', 'O', 'X', 'O', 'X', 'X'}};
+        
+        sol.solve(board);
         
     }
 }
