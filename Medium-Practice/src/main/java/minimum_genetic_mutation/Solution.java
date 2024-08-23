@@ -14,8 +14,9 @@ public class Solution {
         
         // Convert all strings to char arrays
         char[] start = startGene.toCharArray();
-        char[] end = endGene.toCharArray();
-        char[][] bankGraph = new char[bank.length][];
+        final char[] end = endGene.toCharArray();
+        final char[][] bankGraph = new char[bank.length][];
+        int[] explored = new int[bank.length];
         boolean containsEnd = false; // Flag to check if end is in bank
         
         // Convert and add each bank record to 2d char array
@@ -29,7 +30,7 @@ public class Solution {
         
         // Arrays to keep track of differences of between each bank record and start or end genes
         int[] startDiffCount = new int[bank.length];
-        int[] endDiffCount = new int[bank.length];
+        final int[] endDiffCount = new int[bank.length];
         
         // Populate difference count arrays
         for (int letter = 0; letter < 8; letter++){
@@ -37,10 +38,29 @@ public class Solution {
                 char letterScanned = bankGraph[bankRecord][letter];
                 if (letterScanned != start[letter]) startDiffCount[letter]++;
                 if (letterScanned != end[letter]) endDiffCount[letter]++;
-                
-                
+
             }
         }
+        int[] queue = new int[bank.length];
+        int write = 0;
+        int read = 0;
+        
+        // Find the candidate genes to add to queue
+        for (int i = 0; i < startDiffCount.length; i++){
+            if (startDiffCount[i] == 1 && explored[i] == 0){
+                queue[write++] = i;
+            }
+        }
+                
+        while (read != write){
+            bfs(bankGraph, bankGraph[queue[read]], end, endDiffCount, explored);
+        }
+        
 
+    }
+    
+    private void bfs(char[][] bank, char[] start, char[] end, int[]endDiffCount, int[] explored){
+        
+        
     }
 }
