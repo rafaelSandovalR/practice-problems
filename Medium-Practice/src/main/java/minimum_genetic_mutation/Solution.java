@@ -63,7 +63,19 @@ public class Solution {
             
             int[] diffCount = scanDifferences(bankGraph, gene);
             
-            
+            for (int i = 0; i < diffCount.length; i++){
+                
+                if (diffCount[i] == 0){
+                    boolean inQueue = false;
+                    for (int j = read; j < write; j++){
+                        if (queue[j] == i) inQueue = true;
+                    }
+                    
+                    if (!inQueue){
+                        queue[write++] = i;
+                    } 
+                }
+            }
             
             
         }
