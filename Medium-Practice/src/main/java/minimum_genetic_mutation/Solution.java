@@ -16,7 +16,7 @@ public class Solution {
         char[] start = startGene.toCharArray();
         final char[] end = endGene.toCharArray();
         final char[][] bankGraph = new char[bank.length][];
-        int[] explored = new int[bank.length];
+        int[] count = new int[bank.length];
         boolean containsEnd = false; // Flag to check if end is in bank
         
         // Convert and add each bank record to 2d char array
@@ -28,9 +28,9 @@ public class Solution {
         
         if (!containsEnd) return -1; // If not found, it can't be solved
         
-        // Arrays to keep track of differences of between each bank record and start or end genes
+        // Arrays to keep track of differences of between each bank record and start/end genes
         int[] startDiffCount = new int[bank.length];
-        final int[] endDiffCount = new int[bank.length];
+        final int[] endDiffCount = new int[bank.length]; // May not need this ***
         
         // Populate difference count arrays
         for (int letter = 0; letter < 8; letter++){
@@ -47,20 +47,43 @@ public class Solution {
         
         // Find the candidate genes to add to queue
         for (int i = 0; i < startDiffCount.length; i++){
-            if (startDiffCount[i] == 1 && explored[i] == 0){
+            if (startDiffCount[i] == 1 && count[i] == 0){
                 queue[write++] = i;
             }
         }
+        
+        int[] prev = new int[bank.length];
                 
         while (read != write){
-            bfs(bankGraph, bankGraph[queue[read]], end, endDiffCount, explored);
+            int geneIdx = queue[read]; 
+            char[] gene = bankGraph[geneIdx];
+            count[geneIdx] = prev[read] + 1;
+            
+            if (new String(gene).equals(endGene)) return count[geneIdx];
+            
+            int[] diffCount = scanDifferences(bankGraph, gene);
+            
+            
+            
+            
         }
         
-
+        return -1;
     }
     
-    private void bfs(char[][] bank, char[] start, char[] end, int[]endDiffCount, int[] explored){
+    private int[] scanDifferences(char[][] bank, char[] gene){
         
+        int[] diffCount = new int[bank.length];
+        for (int letter = 0; letter < 8; letter++) {
+            for (int bankRecord = 0; bankRecord < bank.length; bankRecord++) {
+                char letterScanned = bank[bankRecord][letter];
+                if (letterScanned != gene[letter]) {
+                    diffCount[letter]++;
+                }
+            }
+        }
         
+        return diffCount;
     }
+    
 }
