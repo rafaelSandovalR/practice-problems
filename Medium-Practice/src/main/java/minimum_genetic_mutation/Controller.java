@@ -9,5 +9,14 @@ package minimum_genetic_mutation;
  * @author Rsand
  */
 public class Controller {
-    
+    public static void main(String[] args) {
+        Solution sol = new Solution();
+        
+        String startGene = "AACCGGTT";
+        String endGene = "AAACGGTA";
+        
+        String[] bank = {"AACCGGTA", "AACCGCTA", "AAACGGTA"};
+        
+        int minGeneticMutations = sol.minMutation(startGene, endGene, bank);
+    }
 }

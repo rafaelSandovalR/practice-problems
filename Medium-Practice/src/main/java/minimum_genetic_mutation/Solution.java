@@ -14,13 +14,14 @@ public class Solution {
         
         // Convert all strings to char arrays
         int n = bank.length + 1; // number of genes including startGene
-        char[] start = startGene.toCharArray();
-        final char[][] bankGraph = new char[n][];
+         
+        char[][] bankGraph = new char[n][];
+        bankGraph[0] = startGene.toCharArray(); // Add start gene to bank
         int[] mutationCount = new int[n];
         boolean containsEnd = false; // Flag to check if end is in bank
         
         // Convert and add each bank record to 2d char array
-        int idx = 0;
+        int idx = 1;
         for (String gene : bank){
             bankGraph[idx++] = gene.toCharArray();
             if (endGene.equals(gene)) containsEnd = true; // Raise flag
@@ -54,9 +55,7 @@ public class Solution {
                     queue[write++] = i;
                     prev[read] = geneIdx;
                 }
-            }
-            
-            
+            }       
         }
         
         return -1;
@@ -70,16 +69,16 @@ public class Solution {
             }
         }
         return result;
-    }
+    } 
     
     private int[] scanDifferences(char[][] bank, char[] gene){
-        
-        int[] diffCount = new int[bank.length];
+        int n = bank.length;
+        int[] diffCount = new int[n];
         for (int letter = 0; letter < 8; letter++) {
-            for (int bankRecord = 0; bankRecord < bank.length; bankRecord++) {
+            for (int bankRecord = 0; bankRecord < n; bankRecord++) {
                 char letterScanned = bank[bankRecord][letter];
                 if (letterScanned != gene[letter]) {
-                    diffCount[letter]++;
+                    diffCount[bankRecord]++;
                 }
             }
         }
