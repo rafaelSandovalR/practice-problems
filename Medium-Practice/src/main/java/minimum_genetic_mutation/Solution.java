@@ -41,29 +41,31 @@ public class Solution {
         while (read != write){
             int geneIdx = queue[read];  // Current Gene Index
             char[] gene = bankGraph[geneIdx]; // Current Gene
-            mutationCount[geneIdx] = prev[read] + 1; // Increment mutation count
+            mutationCount[geneIdx] = mutationCount[prev[read]] + 1; // Increment mutation count
             
             // If endGene is found
-            if (new String(gene).equals(endGene)) return mutationCount[geneIdx];
+            if (new String(gene).equals(endGene)) return mutationCount[geneIdx] - 1; // Adjust for adding start gene
             
             // Generate array indicating how many mutations away current gene is from each bank gene
             int[] diffCount = scanDifferences(bankGraph, gene);
             
-            // Loop to enqueue valid indices
+            // Loop to enqueue valid indices (Valid: Different only by one letter)
             for (int i = 0; i < n; i++){    
-                if (diffCount[i] == 0 && !inQueue(queue, i, read, write)){
-                    queue[write++] = i;
-                    prev[read] = geneIdx;
+                if (diffCount[i] == 1 && mutationCount[i] == 0 && !inQueue(queue, i, write)){
+                    queue[write] = i;
+                    prev[write++] = geneIdx;
                 }
-            }       
+            }
+            
+            read++;
         }
         
         return -1;
     }
     
-    private boolean inQueue(int[] queue, int value, int read, int write){
+    private boolean inQueue(int[] queue, int value, int write){
         boolean result = false;
-        for (int j = read; j < write; j++) {
+        for (int j = 0; j < write; j++) {
             if (queue[j] == value) {
                 result = true;
             }
