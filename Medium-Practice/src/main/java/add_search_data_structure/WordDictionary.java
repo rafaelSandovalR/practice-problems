@@ -32,35 +32,44 @@ public class WordDictionary {
         }
         
         private void insert(String word, int idx){
-            if (idx >= word.length()) return;
-            int i = word.charAt(idx) - 'a';
-            if (children[i] == null) children[i] = new Node();
-            if (idx == word.length() - 1) children[i].isEnd = true;
-            children[i].insert(word, idx+1);
+            if (idx >= word.length()) return; // Reached the end of input word
+            int i = word.charAt(idx) - 'a'; // Convert character value into valid index
+            
+            // Create child node (representing current char) for current node if doesn't exist yet
+            if (children[i] == null) children[i] = new Node(); 
+            
+            if (idx == word.length() - 1) children[i].isEnd = true; // If last index, then mark as end of word
+            children[i].insert(word, idx+1); // Recursive call while incrementing index
         }
         
         private boolean search(String word, int idx){
-            if (idx >= word.length()) return false;
+            if (idx >= word.length()) return false; // Reached end of input word
             
-            char character = word.charAt(idx);
+            char character = word.charAt(idx); // Character at current index
             Node node;
             
+            // '.' handling
             if (character == '.'){
+                
+                // Go through each possible child letter that '.' can represent
                 for (int i = 0; i < 26; i++){
-                    node = children[i];
+                    node = children[i]; // Set next possible child as current node
+                    
+                    // If child with that letter exists
                     if (node != null){
+                        // If end of the input word and current node is marked as end of a word
                         if (idx == word.length() - 1 && node.isEnd) return true;
-                        if(node.search(word, idx+1)) return true;
+                        if(node.search(word, idx+1)) return true; // Recursion
                     }
                 }
-                return false;
+                return false; // Character was '.' and there were no children for it to represent
             }
             
-            node = children[character - 'a'];
-            if (node == null) return false;
-            if (idx == word.length() - 1 && node.isEnd) return true;
+            node = children[character - 'a']; // Set child based on current letter
+            if (node == null) return false; // No child with that letter
+            if (idx == word.length() - 1 && node.isEnd) return true; // End of input word and current node marked as end
             
-            return node.search(word, idx+1);
+            return node.search(word, idx+1); // Recursion
             
         }
     }
