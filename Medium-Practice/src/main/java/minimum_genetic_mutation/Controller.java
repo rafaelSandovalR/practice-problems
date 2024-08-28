@@ -12,10 +12,10 @@ public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
         
-        String startGene = "AACCGGTT";
-        String endGene = "AAACGGTA";
+        String startGene = "AAAACCCC";
+        String endGene = "CCCCCCCC";
         
-        String[] bank = {"AACCGGTA", "AACCGCTA", "AAACGGTA"};
+        String[] bank = {"AAAACCCA","AAACCCCA","AACCCCCA","AACCCCCC","ACCCCCCC","CCCCCCCC","AAACCCCC","AACCCCCC"};
         
         int minGeneticMutations = sol.minMutation(startGene, endGene, bank);
     }
