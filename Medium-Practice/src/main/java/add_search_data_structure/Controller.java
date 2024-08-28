@@ -12,12 +12,12 @@ public class Controller {
     public static void main(String[] args) {
         WordDictionary dictionary = new WordDictionary();
         
-        dictionary.addWord("bad");
-        dictionary.addWord("dad");
-        dictionary.addWord("mad");
-        dictionary.search("pad");
-        dictionary.search("bad");
-        dictionary.search(".ad");
-        dictionary.search("b..");
+        dictionary.addWord("a");
+        dictionary.addWord("a");
+        boolean res1 = dictionary.search(".");
+        boolean res2 = dictionary.search("a");
+        boolean res3 = dictionary.search("aa");
+        boolean res4 = dictionary.search(".a");
+        boolean res5 = dictionary.search("a.");
     }
 }

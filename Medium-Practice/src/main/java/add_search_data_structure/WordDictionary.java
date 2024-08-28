@@ -43,18 +43,16 @@ public class WordDictionary {
             if (idx >= word.length()) return false;
             
             char character = word.charAt(idx);
-            Node node = null;
+            Node node;
             
             if (character == '.'){
-                if (idx == word.length() - 1) return true;
-                boolean found = false;
                 for (int i = 0; i < 26; i++){
                     node = children[i];
                     if (node != null){
-                        if(search(word, idx+1)) return true;
+                        if (idx == word.length() - 1 && node.isEnd) return true;
+                        if(node.search(word, idx+1)) return true;
                     }
                 }
-                
                 return false;
             }
             
