@@ -22,11 +22,23 @@ public class Solution {
     
     private void helper(int n, int k, ArrayList<List<Integer>> mainList, ArrayList<Integer> subList){
         
-        if (k == 0) {
-            mainList.add(subList);
+        if(k == 0){
+            mainList.add(List.copyOf(subList));
             return;
         }
+        
+        if (n < 1 || n < k) {
+            return;
+        }
+        
         subList.add(n);
-        helper(n-1, k-1, mainList, subList);
+        helper(n-1, k-1, mainList,subList);
+        
+        subList.remove(subList.size()-1); // Backtrack: remove the last value added
+        
+        helper(n-1, k, mainList,subList);
+
+
+        
     }
 }
