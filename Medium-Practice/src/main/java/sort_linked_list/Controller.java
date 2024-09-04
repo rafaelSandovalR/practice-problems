@@ -16,7 +16,7 @@ public class Controller {
         ListNode mid = new ListNode(5, tail);
         ListNode head = new ListNode(-1,mid);
         
-        Solution2 sol = new Solution2();
+        Solution3 sol = new Solution3();
         ListNode sorted = sol.sortList(head);
     }
 }

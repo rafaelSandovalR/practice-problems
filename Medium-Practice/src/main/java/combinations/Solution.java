@@ -27,7 +27,7 @@ public class Solution {
             return;
         }
         
-        if (n < 1 || n < k) { // Pruning: If n (current number) is less than 1 or k, no valid combination exists
+        if (n < 1 || n < k) { // Pruning (early termination): If n (current number) is less than 1 or k, no valid combination exists
             return;
         }
         
