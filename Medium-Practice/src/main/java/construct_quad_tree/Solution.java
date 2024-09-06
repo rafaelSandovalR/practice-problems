@@ -20,7 +20,7 @@ public class Solution {
         
         Node current = new Node();
 
-        if (isUniform(grid)) {
+        if (isUniform(grid, rowRange, colRange)) {
             current.isLeaf = true;
             current.val = grid[0][0] == 1;
         } else {
@@ -44,12 +44,15 @@ public class Solution {
         return current;
     }
     
-    private boolean isUniform(int[][] grid){
-        int value = grid[0][0];
-        int n = grid.length;
+    private boolean isUniform(int[][] grid, int[] rowRange, int[] colRange){
+        int rowStart = rowRange[0];
+        int colStart = colRange[0];
         
-        for (int i = 0; i < n; i++){
-            for (int j = 0; j < n; j++){
+        int value = grid[rowStart][colStart];
+        int n = rowRange[1] - rowRange[0] + 1;
+        
+        for (int i = rowStart; i < n; i++){
+            for (int j = colStart; j < n; j++){
                 if (grid[i][j] != value) return false;
             }
         }

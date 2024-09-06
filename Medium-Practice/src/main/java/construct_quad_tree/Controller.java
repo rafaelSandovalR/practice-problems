@@ -10,6 +10,8 @@ package construct_quad_tree;
  */
 public class Controller {
     public static void main(String[] args) {
-        
+        int[][] grid = {{1,1,0,0},{1,1,0,0},{1,1,1,1},{1,1,1,1}};
+        Solution sol = new Solution();
+        Node QuadTree = sol.construct(grid);
     }
 }
