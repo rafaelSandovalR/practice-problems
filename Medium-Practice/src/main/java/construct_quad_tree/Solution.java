@@ -19,13 +19,14 @@ public class Solution {
         int n = rowRange[1] - rowRange[0] + 1;
         
         Node current = new Node();
+        int rowStart = rowRange[0];
+        int colStart = colRange[0];
+        current.val = grid[rowStart][colStart] == 1;
 
         if (isUniform(grid, rowRange, colRange)) {
             current.isLeaf = true;
-            current.val = grid[0][0] == 1;
         } else {
-            int rowStart = rowRange[0];
-            int colStart = colRange[0];
+
             int rowEnd = rowRange[1];
             int colEnd = colRange[1];
             
@@ -52,7 +53,7 @@ public class Solution {
         int n = rowRange[1] - rowRange[0] + 1;
         
         for (int i = rowStart; i < n; i++){
-            for (int j = colStart; j < n; j++){
+            for (int j = colStart; j < colStart + n; j++){
                 if (grid[i][j] != value) return false;
             }
         }
