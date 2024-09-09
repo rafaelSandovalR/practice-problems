@@ -52,7 +52,7 @@ public class Solution {
         int value = grid[rowStart][colStart];
         int n = rowRange[1] - rowRange[0] + 1;
         
-        for (int i = rowStart; i < n; i++){
+        for (int i = rowStart; i < rowStart + n; i++){
             for (int j = colStart; j < colStart + n; j++){
                 if (grid[i][j] != value) return false;
             }
