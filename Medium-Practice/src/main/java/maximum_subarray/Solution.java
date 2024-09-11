@@ -22,6 +22,10 @@ public class Solution {
              * AND
              *  2) The current sum is a negative number
              */
+            
+            // You can also represent this like:
+            // current = Math.max(nums[ptr] + current , nums[ptr])
+            // In other words, does the previously calculated sum positively contribute to the current number?
             if (nums[ptr] > current && current < 0){
                 current = 0;
             }
