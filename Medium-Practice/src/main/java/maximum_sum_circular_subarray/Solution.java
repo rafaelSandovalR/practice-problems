@@ -22,7 +22,17 @@ public class Solution {
             rightMax[i] = Math.max(currentSum, rightMax[i+1]); // The max of the current sum or the previous max
         }
         
+        // Calculate max subarray (Kadane's algorithm) as well as each wrap around sums
         
+        currentSum = nums[0];
+        int max = nums[0];
+        
+        for (int i = 1; i < n; i++){
+            
+            // Kadane's algorithm
+            currentSum = Math.max(currentSum + nums[i], nums[i]);
+            max = Math.max(max, currentSum);
+        }
         
         return 0;
     }
