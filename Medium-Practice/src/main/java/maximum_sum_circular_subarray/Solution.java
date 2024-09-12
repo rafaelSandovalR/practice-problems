@@ -14,39 +14,74 @@ public class Solution {
         int current = nums[0];
         int max = nums[0];
         
-        int start = 0;
-        int maxEnd = 0;
-        int maxStart = 0;
         
-        for (int i = 1; i < n; i++){
+        for (int i = 1, j = n-1, count = 1; count < n; count++){
             
-            if (current + nums[i] > nums[i]){
-                current += nums[i];
-            } else {
-                current = nums[i];
-                start = i;
+            int rightSum = current + nums[i];
+            int leftSum = current + nums[j];
+            
+            if (rightSum >= leftSum && rightSum >= nums[i]){
+                current = rightSum;
+                i++;
+            } else if (leftSum >= nums[j] && leftSum >= nums[j]){
+                current = leftSum;
+                j--;
+            } else{
+                
+                if (nums[i] == nums[j]){
+                    if (rightIsBiggerOrEqual(nums, i , j)){
+                        current = nums[i];
+                        j = i - 1;
+                        i++;
+                    } else {
+                        current = nums[j];
+                        i = j + 1;
+                        j--;
+                    }
+                } else if (nums[i] > nums[j]){
+                    current = nums[i];
+                    j = i - 1;
+                    i++;
+                } else {
+                    current = nums[j];
+                    i = j + 1;
+                    j--;
+                }  
             }
+           
             
-            if (current > max){
-                max = current;
-                maxStart = start;
-                maxEnd = i;
-            }
+            max = Math.max(max, current);
             
+            i = (i + n) % n;
+            j = (j + n) % n;
         }
         
-        int prev = (maxStart - 1 + n) % n;
-        int max2 = 0;
-        current = 0;
+        return max;
+    }
+    
+    private boolean rightIsBiggerOrEqual(int[] nums, int i, int j){
+        int n = nums.length;
         
-        for (int i = prev; i != maxEnd;){
-            current += nums[i];
-            max2 = Math.max(current, max2);
-            i--;
-            i += n;
-            i %= n;
+        int leftMax = 0;
+        int leftCurrent = 0;
+        int rightMax = 0;
+        int rightCurrent = 0;
+        
+        while (i != j){
+            
+            rightCurrent += nums[i];
+            leftCurrent += nums[j];
+            
+            rightMax = Math.max(rightCurrent, rightMax);
+            leftMax = Math.max(leftCurrent, leftMax);
+            
+            i++;
+            j--;
+            
+            i = (i + n) % n;
+            j = (j + n) % n;
         }
         
-        return Math.max(max, max + max2);
+        return rightMax >= leftMax;
     }
 }
