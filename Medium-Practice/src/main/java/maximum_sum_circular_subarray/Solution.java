@@ -10,78 +10,20 @@ package maximum_sum_circular_subarray;
  */
 public class Solution {
     public int maxSubarraySumCircular(int[] nums){
+
         int n = nums.length;
-        int current = nums[0];
-        int max = nums[0];
+        int[] rightMax = new int[n]; // Array to hold max suffix sums at each index
+        rightMax[n-1] = nums[n-1]; // Set the last sum as the last number in nums
+        int currentSum = nums[n-1]; // Calculates running sum at each index
         
-        
-        for (int i = 1, j = n-1, count = 1; count < n; count++){
-            
-            int rightSum = current + nums[i];
-            int leftSum = current + nums[j];
-            
-            if (rightSum >= leftSum && rightSum >= nums[i]){
-                current = rightSum;
-                i++;
-            } else if (leftSum >= nums[j] && leftSum >= nums[j]){
-                current = leftSum;
-                j--;
-            } else{
-                
-                if (nums[i] == nums[j]){
-                    if (rightIsBiggerOrEqual(nums, i , j)){
-                        current = nums[i];
-                        j = i - 1;
-                        i++;
-                    } else {
-                        current = nums[j];
-                        i = j + 1;
-                        j--;
-                    }
-                } else if (nums[i] > nums[j]){
-                    current = nums[i];
-                    j = i - 1;
-                    i++;
-                } else {
-                    current = nums[j];
-                    i = j + 1;
-                    j--;
-                }  
-            }
-           
-            
-            max = Math.max(max, current);
-            
-            i = (i + n) % n;
-            j = (j + n) % n;
+        // Iterate nums in reverse order
+        for (int i = n-2; i >= 0; i--){
+            currentSum += nums[i]; // Add current number to runnign sum
+            rightMax[i] = Math.max(currentSum, rightMax[i+1]); // The max of the current sum or the previous max
         }
         
-        return max;
-    }
-    
-    private boolean rightIsBiggerOrEqual(int[] nums, int i, int j){
-        int n = nums.length;
         
-        int leftMax = 0;
-        int leftCurrent = 0;
-        int rightMax = 0;
-        int rightCurrent = 0;
         
-        while (i != j){
-            
-            rightCurrent += nums[i];
-            leftCurrent += nums[j];
-            
-            rightMax = Math.max(rightCurrent, rightMax);
-            leftMax = Math.max(leftCurrent, leftMax);
-            
-            i++;
-            j--;
-            
-            i = (i + n) % n;
-            j = (j + n) % n;
-        }
-        
-        return rightMax >= leftMax;
+        return 0;
     }
 }
