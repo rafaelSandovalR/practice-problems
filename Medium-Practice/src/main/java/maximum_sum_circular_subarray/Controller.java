@@ -10,8 +10,8 @@ package maximum_sum_circular_subarray;
  */
 public class Controller {
     public static void main(String[] args) {
-        int[] nums = {5,-3,5};
-        Solution sol = new Solution();
+        int[] nums = {1,-2,3,-2};
+        Solution2 sol = new Solution2();
         int maxSubArray = sol.maxSubarraySumCircular(nums);
     }
 }

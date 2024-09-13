@@ -7,6 +7,8 @@ package maximum_sum_circular_subarray;
 /**
  *
  * @author Rsand
+ * 
+ * Solution using prefix and suffix sums
  */
 public class Solution {
     public int maxSubarraySumCircular(int[] nums){
