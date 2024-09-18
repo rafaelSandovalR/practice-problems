@@ -7,6 +7,8 @@ package kth_largest_in_array;
 /**
  *
  * @author Rsand
+ * \
+ * NOT A WORKING SOLUTION ON LEETCODE
  */
 public class Solution_QuickSelect {
     public int findKthLargest(int[] nums, int k){
