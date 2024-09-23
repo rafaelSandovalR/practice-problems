@@ -13,39 +13,53 @@ import java.util.List;
  */
 public class Solution {
     public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k){
+        int n1 = nums1.length;
+        int n2 = nums2.length;
         
         var res = new ArrayList<List<Integer>>();
-        int count = 0;
-        int ptr1 = 0;
-        int ptr2 = 0;
+        int count = 1;
+        int left1st = 0, left2nd = 1;
+        int right1st = 0, right2nd = 1;
+        
+        // Add the first of both lists
+        var first = new ArrayList<Integer>();
+        first.add(nums1[0]);
+        first.add(nums2[0]);
+        res.add(first);
         
         while (count < k){
-            int num1 = nums1[ptr1];
-            int num2 = nums2[ptr2];
+            var subList = new ArrayList<Integer>();
             
-            if (num1 <= num2){
+            int leftA = nums1[left1st], leftB = nums2[left2nd];
+            int rightA = nums2[right1st], rightB = nums1[right2nd];
+            
+            int leftSum = leftA + leftB;
+            int rightSum = rightA + rightB;
+            
+            if (leftSum <= rightSum){
+                subList.add(leftA);
+                subList.add(leftB);
                 
-                for (int i = ptr2; i < nums2.length; i++){
-                    var subList = new ArrayList<Integer>();
-                    subList.add(num1);
-                    subList.add(nums2[i]);
-                    res.add(subList);
-                    count++;
-                    if (count == k) break;
+                left2nd++;
+                
+                if (left2nd == n2){
+                    left1st++;
+                    left2nd = 0;
                 }
-                ptr1++;
             } else {
+                subList.add(rightB);
+                subList.add(rightA);
+
+                right2nd++;
                 
-                for (int i = ptr1; i < nums1.length; i++){
-                    var subList = new ArrayList<Integer>();
-                    subList.add(num2);
-                    subList.add(nums1[i]);
-                    res.add(subList);
-                    count++;
-                    if (count == k) break;
+                if (right2nd == n1){
+                    right1st++;
+                    right2nd = 0;
                 }
-                ptr2++;
             }
+            
+            res.add(subList);
+            count++;
         }
         
         return res;
