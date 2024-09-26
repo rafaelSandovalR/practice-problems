@@ -31,38 +31,38 @@ public class Solution {
         res.add(first);
         
         while (res.size() < k){
-            var subList = new ArrayList<Integer>();
             
-            int leftA = nums1[left1st], leftB = nums2[left2nd];
-            int rightA = nums2[right1st], rightB = nums1[right2nd];
+            int i = 0;
+            int min = Integer.MAX_VALUE;
+            int index = -1;
             
-            int leftSum = leftA + leftB;
-            int rightSum = rightA + rightB;
-            
-            if (leftSum <= rightSum){
-                subList.add(leftA);
-                subList.add(leftB);
-                
-                left2nd++;
-                
-                if (left2nd == n2){
-                    left1st++;
-                    left2nd = 0;
+            // Find the next smallest pair among the pairs formed by elements from 'nums1'
+            // and their corresponding  next elements from 'nums2'
+            while (i < n1 && arr[i] != 0){
+                if (arr[i] < n2 && nums1[i] + nums2[arr[i]] < min){
+                    index = i;
+                    min = nums1[i] + nums2[arr[i]];
                 }
-            } else {
-                subList.add(rightB);
-                subList.add(rightA);
-
-                right2nd++;
-                
-                if (right2nd == n1){
-                    right1st++;
-                    right2nd = 0;
-                }
+                i++;
             }
             
-            res.add(subList);
-            count++;
+            // Check if there's any unused element in 'nums1' that can form a smaller pair
+            if (i < n1){
+                if (arr[i] < n2 && nums1[i] + nums2[arr[i]] < min){
+                    index = i;
+                    min = nums1[i] + nums2[arr[i]];
+                }
+                i++;
+            }
+            
+            // Add the found smallest pair to the result
+            var newPair = new ArrayList<Integer>();
+            newPair.add(nums1[index]);
+            newPair.add(nums2[arr[index]]);
+            res.add(newPair);
+            
+            // Move to the next element in 'nums2' for the element at 'index' in 'nums1'
+            arr[index]++;
         }
         
         return res;
