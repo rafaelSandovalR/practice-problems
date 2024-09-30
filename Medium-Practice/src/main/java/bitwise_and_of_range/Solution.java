@@ -10,14 +10,16 @@ package bitwise_and_of_range;
  */
 public class Solution {
     public int rangeBitwiseAnd(int left, int right){
-        int count = 0;
+        int count = 0; // Counter to track the number of right shifts
         
+        // Right shift both numbers until they become equal (converge to a common prefix)
         while (left != right){
-            left >>= 1;
+            left >>= 1; // Right shift 'left' by 1 (divide by 2)
             right >>= 1;
             count++;
         }
         
+        // 'left' now holds the common prefix. Left-shift it by 'count' to restore it to its original position
         return (left << count);
     }
 }
