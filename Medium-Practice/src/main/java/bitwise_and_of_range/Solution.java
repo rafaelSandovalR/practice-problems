@@ -22,4 +22,15 @@ public class Solution {
         // 'left' now holds the common prefix. Left-shift it by 'count' to restore it to its original position
         return (left << count);
     }
+    
+    public int alt(int left, int right){
+        
+        while (right > left){
+            // Clear the least significant set bit in 'right'
+            right = right & (right - 1);
+        }
+        
+        // 'right' now holds the common prefix which is the bitwise AND of all numbers in the range
+        return right;
+    }
 }
