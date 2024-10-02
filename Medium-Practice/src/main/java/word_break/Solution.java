@@ -21,26 +21,28 @@ public class Solution {
         for (String word : wordDict){
             map.add(word);
         }
+ 
+        return verify(s, map, 0 , 1);
+  
+    }
+    
+    private boolean verify(String s, HashSet<String> map, int start, int end){
         
-
-        int start = 0;
-        int end = 1;
         
-        while (end < s.length()){
+        if (start == s.length()) return true;
+        boolean check = false;
+        
+        while (check == false && end <= s.length()){
             
-            String check = s.substring(start,end);
+            String subString = s.substring(start, end);
             
-            while (!map.contains(check) && end < s.length() - 1){
-                check = s.substring(start, ++end);
+            if (map.contains(subString)) {
+                check = verify(s, map, end, end + 1);
             }
-            
-            if (!map.contains(check)) return false;
-            
-            start = end + 1;
-            end++;
+            if (check == false)
+                end++;
         }
         
-        return true;
-        
+        return check;
     }
 }
