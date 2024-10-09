@@ -39,6 +39,7 @@ public class Controller {
         triangle.add(row4);
         
         AltSolution sol = new AltSolution();
-        int min = sol.minimumTotal(triangle);
+        DPSolution test = new DPSolution();
+        int min = test.minimumTotal(triangle);
     }
 }
