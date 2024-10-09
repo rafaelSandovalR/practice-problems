@@ -16,13 +16,14 @@ public class Controller {
     
     public static void main(String[] args) {
         List<String> dictionary = new ArrayList<String>();
-        //dictionary.add("leet");
-        //dictionary.add("code");
-        dictionary.add("aaaa");
-        dictionary.add("aaa");
+
+        dictionary.add("cats");
+        dictionary.add("and");
+        dictionary.add("sand");
+        dictionary.add("dog");
         
-        Solution sol = new Solution();
-        boolean ans = sol.wordBreak("aaaaaaa", dictionary);
+        DPBottomUpSolution sol = new DPBottomUpSolution();
+        boolean ans = sol.wordBreak("catsanddog", dictionary);
     }
     
 }

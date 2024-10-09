@@ -4,8 +4,10 @@
  */
 package word_break;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -14,35 +16,46 @@ import java.util.List;
 public class Solution {
     public boolean wordBreak(String s, List<String> wordDict){
         
-        // Use set for easy lookup
-        var map = new HashSet<String>();
+        TrieNode root = new TrieNode();
         
-        // Add all words to set
+        // Build Trie with each word
         for (String word : wordDict){
-            map.add(word);
-        }
- 
-        return verify(s, map, 0 , 1);
-  
-    }
-    
-    private boolean verify(String s, HashSet<String> map, int start, int end){
-        
-        
-        if (start == s.length()) return true;
-        boolean check = false;
-        
-        while (check == false && end <= s.length()){
-            
-            String subString = s.substring(start, end);
-            
-            if (map.contains(subString)) {
-                check = verify(s, map, end, end + 1);
+            TrieNode curr = root;
+            for (char c : word.toCharArray()){
+                if (!curr.children.containsKey(c)){
+                    curr.children.put(c, new TrieNode());
+                }
+                curr = curr.children.get(c);
             }
-            if (check == false)
-                end++;
+            
+            curr.isWord = true; // Mark end of word in the Trie
         }
         
-        return check;
+        // Dynamic programming with Trie
+        boolean[] dp = new boolean[s.length()];
+        for (int i = 0; i < s.length(); i++){
+            if (i == 0 || dp[i - 1]){ // Can we start a new word here?
+                TrieNode curr = root;
+                for (int j = i; j < s.length(); j++){
+                    char c = s.charAt(j);
+                    
+                    if (!curr.children.containsKey(c)) break; // No words start with this prefix
+                    
+                    curr = curr.children.get(c);
+                    if (curr.isWord) dp[j] = true; // Found a word ending at index j
+                }
+            }
+        }
+        
+        return dp[s.length() - 1];
+    }
+}
+
+class TrieNode{
+    boolean isWord;
+    Map<Character, TrieNode> children;
+    
+    TrieNode(){
+        this.children = new HashMap<>();
     }
 }
