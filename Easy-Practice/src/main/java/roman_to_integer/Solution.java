@@ -76,8 +76,11 @@ public class Solution {
      
      
      for(int i=0; i < s.length()-1 && s.length() > 1; i++){
-         if(m.get(s.charAt(i)) >= m.get(s.charAt(i+1))) {output+=m.get(s.charAt(i)); }
-         else {output -= m.get(s.charAt(i)); }
+         int firstVal = m.get(s.charAt(i));
+         int secondVal = m.get(s.charAt(i+1));
+         
+         if (firstVal >= secondVal) output += firstVal;
+         else output -= firstVal;
      }
      
      //this catches single character strings and the last character.
