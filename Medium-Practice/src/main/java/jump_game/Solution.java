@@ -45,4 +45,19 @@ public class Solution {
         
         return true;
     }
+    
+    public boolean canJump2(int[] nums){
+        int goal = nums.length - 1; // The goal is to reach the final index
+        
+        // Iterate through all nums from the end backwards
+        for (int i = goal - 1; i >= 0; i--){
+            
+            // If there is an index which holds a value (jumps) that reaches the goal
+            if (i + nums[i] >= goal){
+                goal = i; // Set the new goal to be this index
+            }
+        }
+        
+        return goal == 0; // If goal has been replaced all the way to index 0, then there exists a path from beginning to end
+    }
 }
