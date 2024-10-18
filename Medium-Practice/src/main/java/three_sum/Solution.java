@@ -7,8 +7,10 @@ package three_sum;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -19,6 +21,17 @@ public class Solution {
         List list = new ArrayList<>();
         Arrays.sort(nums);
         
+        if (nums[0] == 0 && nums[1] == 0 && nums[nums.length-1] == 0){
+            List<Integer> sub = new ArrayList<>();
+            sub.add(0);
+            sub.add(0);
+            sub.add(0);
+            list.add(sub);
+            return list;
+        }
+        
+        // Map to store existing combinations
+        var existingFirst = new HashMap<Integer, Set>();
         
         List<Integer> prev = new ArrayList<>();
         int rightPrev = nums.length - 1;
@@ -59,7 +72,14 @@ public class Solution {
                     sub.add(nums[mid]);
                     sub.add(nums[right]);
 
-                    if (different(prev, sub)) {
+
+                    if (!existingFirst.containsKey(nums[left])){
+                        var comboMids = new HashSet<Integer>();
+                        comboMids.add(nums[mid]);
+                        existingFirst.put(nums[left], comboMids);
+                        list.add(sub);
+                    } else if (!existingFirst.get(nums[left]).contains(nums[mid])){
+                        existingFirst.get(nums[left]).add(nums[mid]);
                         list.add(sub);
                     }
 
@@ -69,30 +89,7 @@ public class Solution {
             }
         }
 
-        
-//        int sum = nums[left] + nums[mid] + nums[right];
-//        if (sum == 0){
-//            List<Integer> remaining = new ArrayList<>();
-//            remaining.add(nums[left]);
-//            remaining.add(nums[mid]);
-//            remaining.add(nums[right]);
-//            
-//            if (different(prev, remaining))
-//                list.add(remaining);
-//        }
-
-        
-
-        
         return list;
     }
     
-    private boolean different(List<Integer> prev, List<Integer> curr){
-        if (prev.size() == 0) return true;
-        for (int i = 0; i < 3; i++){
-            if (prev.get(i) != curr.get(i)) return true;
-        }
-        
-        return false;
-    }
 }
