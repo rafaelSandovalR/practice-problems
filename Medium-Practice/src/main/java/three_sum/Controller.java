@@ -11,7 +11,8 @@ package three_sum;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        int[] nums = {-1,0,1,2,-1,-4};
+        int[] nums = {-4,-2,-2,-2,0,1,2,2,2,3,3,4,4,6,6};
+        int[] nums2 = {0,1,1};
         sol.threeSum(nums);
     }
 }

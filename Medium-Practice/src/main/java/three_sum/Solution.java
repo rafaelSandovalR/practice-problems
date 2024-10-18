@@ -6,7 +6,9 @@ package three_sum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -16,54 +18,68 @@ public class Solution {
     public List<List<Integer>> threeSum(int[] nums){
         List list = new ArrayList<>();
         Arrays.sort(nums);
-        int left = 0;
-        int right = nums.length-1;
-        int mid = nums[left] + nums[right] < 0 ? right - 1 : 1;
+        
         
         List<Integer> prev = new ArrayList<>();
+        int rightPrev = nums.length - 1;
         
-        while (mid - 1 > left || mid + 1 < right){
+        for (int left = 0, mid = 1, right = nums.length-1; left < mid && mid < right; left++, mid = left + 1, right = rightPrev){
             
-            int sum = nums[left] + nums[mid] + nums[right];
+            int leftVal = nums[left];
+            int midVal = nums[mid];
+            int rightVal = nums[right];
+            int sum = leftVal + midVal + rightVal;
             
-            while (sum < 0 && mid < right - 1){
-                sum = nums[left] + nums[++mid] + nums[right];
+            // Set right starting point using left and leftmost mid
+            while (sum > 0 & right > mid){
+                rightVal = nums[--right];
+                sum = leftVal + midVal + rightVal;
             }
+            rightPrev = right;
             
-            while (sum > 0 && mid > left + 1){
-                sum = nums[left] + nums[--mid] + nums[right];
+            // Determine all combinations with this left
+            while (mid < right){
+                leftVal = nums[left];
+                midVal = nums[mid];
+                rightVal = nums[right];
+                sum = leftVal + midVal + rightVal;
+                
+                while (sum < 0 && mid < right) {
+                    sum = nums[left] + nums[++mid] + nums[right];
+                }
+
+                while (sum > 0 && mid < right) {
+                    sum = nums[left] + nums[mid] + nums[--right];
+                }
+
+                if (sum == 0 && mid < right) {
+                    List<Integer> sub = new ArrayList<>();
+                    System.out.println("[" + nums[left] + ", " + nums[mid] + "," + nums[right]);
+                    sub.add(nums[left]);
+                    sub.add(nums[mid]);
+                    sub.add(nums[right]);
+
+                    if (different(prev, sub)) {
+                        list.add(sub);
+                    }
+
+                    prev = sub;
+                    mid++;
+                }
             }
-            
-            
-            if (sum < 0) left++;
-            else if (sum > 0) right--;
-            else {
-                List<Integer> sub = new ArrayList<>();
-                sub.add(nums[left]);
-                sub.add(nums[mid]);
-                sub.add(nums[right]);
-                
-                if (different(prev, sub)) list.add(sub);
-                
-                prev = sub;
-                
-                if (mid - left < right - mid) right--;
-                else left++;
-            }
-            
-            mid = nums[left] + nums[right] < 0 ? right - 1 : left + 1;
         }
+
         
-        int sum = nums[left] + nums[mid] + nums[right];
-        if (sum == 0){
-            List<Integer> remaining = new ArrayList<>();
-            remaining.add(nums[left]);
-            remaining.add(nums[mid]);
-            remaining.add(nums[right]);
-            
-            if (different(prev, remaining))
-                list.add(remaining);
-        }
+//        int sum = nums[left] + nums[mid] + nums[right];
+//        if (sum == 0){
+//            List<Integer> remaining = new ArrayList<>();
+//            remaining.add(nums[left]);
+//            remaining.add(nums[mid]);
+//            remaining.add(nums[right]);
+//            
+//            if (different(prev, remaining))
+//                list.add(remaining);
+//        }
 
         
 
