@@ -16,7 +16,6 @@ public class Solution {
         
         int[] count = new int[128];
         int[] foundCount = new int[128];
-        int[] firstOccur = new int[128]; // NEED TO SET THIS TO -1 DEFAULT
         
         int charCount = 0; // Holds the amount of distinct characters in 't'
         int charFound = 0; // Holds the amount of distinct characters found in window
@@ -32,14 +31,14 @@ public class Solution {
         for (int i = 0; i < s.length(); i++){
             char c = s.charAt(i);
             if (count[c] > 0){
-                if (firstOccur[c] == -1) firstOccur[c] = i; // Set first occurence of each character
                 foundCount[c]++; // Update found
                 
                 // Increment count of fully accounted for characters
                 if (foundCount[c] == count[c]){
                     charFound++;
                 } else if (foundCount[c] > count[c]){ // If too many of 'c'
- 
+
+                    
                 }
                 
                 // If all characters found and current substring length is less than minLen
@@ -52,12 +51,4 @@ public class Solution {
         return minSubString;
     }
     
-    private int reset(int[] firstOccur, int[]foundCount, int prevStart, char c){
-        int nextStart = 0;
-        
-        for(int i = 65; i < 123; i++){
-            if (foundCount[i] > 0 && firstOccur[i] <= prevStart){
-            }
-        }
-    }
 }
