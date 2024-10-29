@@ -15,6 +15,7 @@ public class Solution {
         boolean[] rows = new boolean[m];
         boolean[] cols = new boolean[n];
         
+        // Loop to flag the rows and columns containing zeroes
         for(int r = 0; r < m; r++){
             for(int c = 0; c < n; c++){
                if (matrix[r][c] == 0){
@@ -24,6 +25,8 @@ public class Solution {
             }
         }
         
+        
+        // Loop to set flagged rows and columns to zeroes
         for (int r = 0; r < m; r++) {
             for (int c = 0; c < n; c++) {
                 if (rows[r] || cols[c]) {
