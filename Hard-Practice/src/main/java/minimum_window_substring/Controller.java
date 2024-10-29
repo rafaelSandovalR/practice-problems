@@ -11,9 +11,10 @@ package minimum_window_substring;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        String s = "ADOBECODEBANC";
-        String t = "ABC";
+        String s = "abc";
+        String x = "abcdd";
+        String t = "a";
         
-        String min = sol.minWindow(s, t);
+        String min = sol.minWindow(s,t);
     }
 }
