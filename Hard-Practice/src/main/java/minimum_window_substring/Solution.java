@@ -28,45 +28,40 @@ public class Solution {
         
         // Sliding window loop
         for (int start = -1, end = 0; end < s.length(); end++){
-            char c = s.charAt(end);
+            char c = s.charAt(end); // c is character at end
             if (count[c] > 0){
-                if (start == -1) start = end;
-                foundCount[c]++; // Update found
+                if (start == -1) start = end; // Set first starting point
+                foundCount[c]++; // Update found count
                 
                 // Increment count of fully accounted for characters
-                if (foundCount[c] == count[c]){
-                    charFound++;
-                } else if (foundCount[c] > count[c]){ // If too many of 'c'
-
-                    // Scan from start to end 
-                    for (int next = start; next <= end; next++){
-                        char curr = s.charAt(next);
-                        // If valid character, decrement from foundCount
-                        if (count[curr] >= 1){
-                            // If decrementing from a completed character, update charFound
-                            if (foundCount[curr] == count[curr]) charFound--;
-                            
-                            foundCount[curr]--;
-
-                        }
-                        
-                        // When character that caused overflow found, start substring from there
-                        if (curr == c){
-                            curr = s.charAt(++next);
-                            while(count[curr] < 1){
-                                curr = s.charAt(++next);
-                            }
-                            start = next;
-                            break;
-                        }
+                if (foundCount[c] == count[c]) charFound++;
+                
+                // If substring contains at least the same chars as in 't'
+                if (charFound == charCount){
+                    
+                    // Truncate prefix as much as possible while still being a valid substring
+                    // start can be moved if starting char was found more than enough OR its not a valid char
+                    c = s.charAt(start); // c is character at start
+                    while (foundCount[c] > count[c] || count[c] == 0){
+                        if (count[c] > 0) foundCount[c]--; // Subtract char from found if valid
+                        c = s.charAt(++start);
                     }
                     
-                }
-                
-                // If all characters found and current substring length is less than minLen
-                if (charFound == charCount && end - start < minLen){
-                    minSubString = s.substring(start, end + 1); // Update result string
-                    minLen = end - start;
+                    // Update min string/len if smaller than previous
+                    if (end - start < minLen){
+                        minSubString = s.substring(start, end + 1); // Update result string
+                        minLen = end - start;
+                    }
+                    
+                    // Update charFound (if applicable) & foundCount due to truncating starting character
+                    if (foundCount[c] == count[c]) charFound--;
+                    foundCount[c]--;              
+
+                    // Move start to next valid character if possible
+                    if (start < end) c = s.charAt(++start);
+                    while (count[c] == 0 && start < end) {
+                        c = s.charAt(++start);
+                    }
                 }
             }
         }
