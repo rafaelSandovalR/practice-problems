@@ -19,6 +19,8 @@ public class Solution2 {
         
         int n = nums.length;
         // Iterate through the array until the third-to-last element
+        // and while nums[i] is <= 0 because otherwise it would be impossible
+        // to find two other numbers to make zero
         for(int i = 0; i < n-2 && nums[i] <= 0; i++){
             // Skip duplicate numbers to avoid duplicate triplets
             if (i != 0 && nums[i-1] == nums[i]) continue;
