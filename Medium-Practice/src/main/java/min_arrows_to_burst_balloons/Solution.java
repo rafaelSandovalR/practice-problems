@@ -16,21 +16,26 @@ public class Solution {
         if (points.length == 1) return 1;
         int res = 0;
         
-        
+        // Sort 2D array by its second value (end points of balloons)
         Arrays.sort(points, Comparator.comparingInt(a -> a[1]));
         
         for (int i = 0; i < points.length; i++){
 
-            res++;
+            res++; // Increment arrow count
             
-            int arrow = points[i][1];
+            int arrow = points[i][1]; // Position arrow at righ boundary of balloon
             
+            // Loop while next balloon will be popped by arrow
             while (i+1 < points.length && points[i+1][0] <= arrow){
-                i++;
+                i++; // Move to next balloon
             }
         }
 
         return res;
     }
     
+    
+    public int findMinArrowShots(int[][] points){
+        
+    }
 }
