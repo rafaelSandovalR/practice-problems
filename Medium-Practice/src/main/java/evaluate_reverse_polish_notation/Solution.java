@@ -12,38 +12,34 @@ public class Solution {
     public int evalRPN(String[] tokens){
         int[] stack = new int[tokens.length];
         int top = -1;
+        int a = 0, b = 0;
         
         for (String token : tokens){
-            
-            if (isNumeric(token)) {
-                stack[++top] = Integer.valueOf(token);
-                continue;
-            }
-            
-            int calc = stack[top--];
-            
             switch(token){
-                case "+" : calc += stack[top--];
-                break;
-                case "-" : calc -= stack[top--];
-                break;
-                case "*" : calc *= stack[top--];
-                break;
-                case "/" : calc = stack[top--] / calc;
-            }              
-            
-            stack[++top] = calc;
+                case "+" : 
+                    b = stack[top--];
+                    a = stack[top--];
+                    stack[++top] = Integer.valueOf(a + b);
+                    break;
+                case "-" : 
+                    b = stack[top--];
+                    a = stack[top--];
+                    stack[++top] = Integer.valueOf(a - b);
+                    break;
+                case "*" : 
+                    b = stack[top--];
+                    a = stack[top--];
+                    stack[++top] = Integer.valueOf(a * b);
+                    break;
+                case "/" :
+                    b = stack[top--];
+                    a = stack[top--];
+                    stack[++top] = Integer.valueOf(a / b);
+                    break;
+                default:
+                    stack[++top] = Integer.valueOf(token);   
+            }
         }
-        
         return stack[top];
-    }
-    
-    private boolean isNumeric(String str){
-        try{
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException e){
-            return false;
-        }
     }
 }
