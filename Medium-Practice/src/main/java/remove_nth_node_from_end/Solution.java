@@ -15,23 +15,25 @@ public class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n){
         Deque<ListNode> deque = new ArrayDeque<>();
         ListNode temp = head;
+        ListNode prev = null;
         
         while (temp != null){
             
-            if (deque.size() == n + 1){
-                deque.pollFirst();
+            if (deque.size() == n){
+                prev = deque.pollFirst();
             }
             
             deque.add(temp);
             
             temp = temp.next;
         }
-        
-        ListNode pre = deque.poll();
+
         deque.poll();
         ListNode post = deque.poll();
         
-        pre.next = post;
+        if (prev == null) return null;
+        
+        prev.next = post;
         
         return head;
     }
