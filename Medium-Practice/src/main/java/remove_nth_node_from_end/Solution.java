@@ -13,28 +13,26 @@ import java.util.Deque;
  */
 public class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n){
-        Deque<ListNode> deque = new ArrayDeque<>();
-        ListNode temp = head;
-        ListNode prev = null;
-        
-        while (temp != null){
-            
-            if (deque.size() == n){
-                prev = deque.pollFirst();
-            }
-            
-            deque.add(temp);
-            
-            temp = temp.next;
-        }
 
-        deque.poll();
-        ListNode post = deque.poll();
+        ListNode dummy = new ListNode(); // Dummy node simplifies edge cases
+        dummy.next = head;
+        ListNode first = dummy;
+        ListNode second = dummy;
         
-        if (prev == null) return null;
+        // Move 'first' n+1 steps ahead
+        for (int i = 1; i <= n + 1; i++){
+            first = first.next;
+        }
         
-        prev.next = post;
+        // Move both pointers until 'first' reaches the end
+        while (first != null){
+            first = first.next;
+            second = second.next;
+        }
         
-        return head;
+        // Remove the target node
+        second.next = second.next.next;
+        
+        return dummy.next;
     }
 }
