@@ -37,4 +37,34 @@ public class Solution {
         
         return rotatedHead;  
     }
+    
+    public ListNode rotateRight2(ListNode head, int k){
+        if (head == null || head.next == null || k == 0) return head;
+        
+        ListNode tail = head;
+        int len = 1;
+        
+        // Calculate the length of list and connect the tail to the head
+        while (tail.next != null){
+            tail = tail.next;
+            len++;
+        }
+        tail.next = head;
+        
+        // Normalize k
+        k = k % len;
+        int stepsToNewHead = len - k;
+        
+        // Find new tail and new head
+        ListNode newTail = tail;
+        while (stepsToNewHead --> 0){
+            newTail = newTail.next;
+        }
+        ListNode newHead = newTail.next;
+        
+        // Break the circular list
+        newTail.next = null;
+        return newHead;
+                
+    }
 }
