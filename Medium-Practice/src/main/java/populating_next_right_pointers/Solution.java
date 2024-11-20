@@ -10,66 +10,31 @@ package populating_next_right_pointers;
  */
 public class Solution {
     public Node connect(Node root){
-
-        prepNext(root);
-        traverse(root);
+        // Start with the root of the tree
+        Node node = root;
+        
+        // Iterate through each level of the tree
+        while (node != null){
+            // Create a dummy node to serve as the head of the next level
+            Node dummy = new Node();
+            // Use a 'needle' node to traverse and connect nodes at the next level
+            for (Node needle = dummy; node != null; node = node.next){
+                // If a left child exists, connect it to the 'needle' and move the 'needle'
+                if (node.left != null){
+                    needle.next = node.left;
+                    needle = needle.next; 
+                }
+                // If a right child exists, connect it to the 'needle' and move the 'needle'
+                if (node.right != null){
+                    needle.next = node.right;
+                    needle = needle.next;
+                }
+            }
+            // Move to the next level by starting from the dummy node's next
+            node = dummy.next;
+        }
+        
+        // Return the original root of the tree
         return root;
-    }
-    
-    // Method to set all 'next' pointers to their parent node
-    private void prepNext(Node root){
-        if (root == null) return;
-        if (root.left != null) root.left.next = root;
-        if (root.right != null) root.right.next = root;
-        
-        prepNext(root.left);
-        prepNext(root.right);
-    }
-    
-    private void traverse(Node root){
-        // Variables to simplify following code
-        Node left = root.left;
-        Node right = root.right;
-        
-        // Case 1: Root has two children
-        if (left != null && right != null){ 
-            left.next = right;
-            right.next = getRight(right.next, right);
-        } 
-        // Case 2: Root only has left child
-        else if (left != null){ 
-            left.next = getRight(left.next, left);
-        } 
-        // Case 3: Root only has right child
-        else if (right != null){ 
-            right.next = getRight(right.next, right);
-        } 
-        // Case 4: Root has no children
-        else {
-            return; 
-        }
-        
-        // Traverse left and right subtrees
-        if (left != null) traverse(left);
-        if (right != null) traverse(right);
-    }
-    
-    private Node getRight(Node next, Node curr){
-        
-        
-        if (next.left == curr && next.right != null) return getRight(next.right, next);
-       
-        
-        if (next.right == curr || next.right == null){
-            if (next.next == null) return null;
-            return getRight(next.next, next);
-        }
-        
-        
-        if (next.left != null) return next.left;
-        
-        if (next.right != null) return next.right;
-        
-        return null;
     }
 }
