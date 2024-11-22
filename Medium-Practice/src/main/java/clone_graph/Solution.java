@@ -35,9 +35,9 @@ public class Solution {
                     clone.neighbors.add(map.get(neighbor)); // Add the clone to this clone's neighbors
                 } else{ 
                     Node neighborClone = new Node(neighbor.val);  // Else create clone
-                    map.put(original, neighborClone);       // Map to original
+                    map.put(neighbor, neighborClone);       // Map to original
                     clone.neighbors.add(neighborClone);           // Add to current clone's neighbor list
-                    queue.offer(neighborClone);                  // Add to queue
+                    queue.offer(neighbor);                  // Add to queue
                 }
             }
 
