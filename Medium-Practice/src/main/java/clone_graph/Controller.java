@@ -28,8 +28,9 @@ public class Controller {
         n4.neighbors.add(n3);
         
         Solution sol = new Solution();
+        RecursiveSolution rSol = new RecursiveSolution();
         
         Node clone = sol.cloneGraph(n1);
-        
+        Node rClone = rSol.cloneGraph(n1);
     }
 }

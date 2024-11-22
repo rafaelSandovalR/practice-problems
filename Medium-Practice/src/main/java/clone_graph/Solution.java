@@ -16,7 +16,7 @@ public class Solution {
     public Node cloneGraph(Node node){
         if (node == null) return null; // Base case: empty input
         
-        Deque<Node> queue = new ArrayDeque<>(); // Queue to create clone nodes
+        Deque<Node> queue = new ArrayDeque<>(); // Queue of originals that need to be cloned fully
         Map<Node, Node> map = new HashMap<>(); // Map clones to originals
         
         map.put(node, new Node(node.val));
@@ -30,14 +30,14 @@ public class Solution {
             
             for (Node neighbor : original.neighbors){
                 
-                // If neighbor already cloned and added to map
+                // If neighbor already cloned & mapped
                 if (map.containsKey(neighbor)){
                     clone.neighbors.add(map.get(neighbor)); // Add the clone to this clone's neighbors
                 } else{ 
                     Node neighborClone = new Node(neighbor.val);  // Else create clone
-                    map.put(neighbor, neighborClone);       // Map to original
+                    map.put(neighbor, neighborClone);       // Map to original neighbor
                     clone.neighbors.add(neighborClone);           // Add to current clone's neighbor list
-                    queue.offer(neighbor);                  // Add to queue
+                    queue.offer(neighbor);                  // Add original neighbor to queue
                 }
             }
 
