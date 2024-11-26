@@ -30,15 +30,14 @@ public class Solution {
             
             for (Node neighbor : original.neighbors){
                 
-                // If neighbor already cloned & mapped
-                if (map.containsKey(neighbor)){
-                    clone.neighbors.add(map.get(neighbor)); // Add the clone to this clone's neighbors
-                } else{ 
+                if (!map.containsKey(neighbor)){
                     Node neighborClone = new Node(neighbor.val);  // Else create clone
                     map.put(neighbor, neighborClone);       // Map to original neighbor
-                    clone.neighbors.add(neighborClone);           // Add to current clone's neighbor list
                     queue.offer(neighbor);                  // Add original neighbor to queue
                 }
+                
+                clone.neighbors.add(map.get(neighbor)); // Add the clone to this clone's neighbors
+
             }
 
         }
