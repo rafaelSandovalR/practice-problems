@@ -12,9 +12,10 @@ import java.util.List;
  */
 public class Controller {
     public static void main(String[] args) {
-        int[] nums = {1,2,3,4};
+        int[] nums = {1,2,3};
         
         Solution sol = new Solution();
-        List<List<Integer>> res = sol.permute(nums);
+        Solution2 sol2 = new Solution2();
+        List<List<Integer>> res = sol2.permute(nums);
     }
 }
