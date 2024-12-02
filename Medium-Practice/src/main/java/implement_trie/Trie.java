@@ -43,10 +43,9 @@ public class Trie {
             if (idx >= word.length()) return; // Base case: Reached the end of the word
             int i = word.charAt(idx) - 'a'; // Calculate the index for current char ('a' -> 0, 'b' -> 1, etc.)
             
-            if (nodes[i] == null){
-                nodes[i] = new Node(); // If child node for this char doesn't exist, create it
-            }
-            
+            // If child node for this char doesn't exist, create it
+            nodes[i] = nodes[i] == null ? new Node() : nodes[i];
+
             if (idx == word.length() - 1){
                 nodes[i].isWord = true; // If this is the last char, make as end of word
             }
