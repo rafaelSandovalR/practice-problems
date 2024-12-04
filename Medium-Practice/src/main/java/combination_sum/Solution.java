@@ -18,10 +18,8 @@ public class Solution {
         
         Arrays.sort(candidates); 
         List<List<Integer>> answer = new ArrayList<>(); // Main List of Combinations
-        List<Integer> combo = new ArrayList<>();        // Individual Combination Sums
-
-        
-        generate(candidates, target, 0, answer, combo); // Recursively generate combinations
+       
+        generate(candidates, target, 0, answer, new ArrayList<>()); // Recursively generate combinations
         
         return answer;
     }
