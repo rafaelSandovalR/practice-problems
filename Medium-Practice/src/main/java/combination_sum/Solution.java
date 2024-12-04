@@ -49,4 +49,23 @@ public class Solution {
             ptr++;  // Move to the next digit
         }
     }
+    
+    // Slightly more concise version
+    
+    public void generateCombinations(int[] candidates, int target, int currentIndex, List<List<Integer>> answer, List<Integer> currentCombo){
+        
+        if (target == 0) {
+            answer.add(List.copyOf(currentCombo));
+            return; // No need for further recursion
+        }
+        
+        for (int i = 0; currentIndex < candidates.length; i++){
+            int candidate = candidates[i];
+            if (target - candidate < 0) break; // Pruning
+            
+            currentCombo.add(candidate);
+            generateCombinations(candidates, target - candidate, i, answer, currentCombo);
+            currentCombo.remove(currentCombo.size() - 1);
+        }
+    }
 }
