@@ -12,24 +12,29 @@ import java.util.Arrays;
  */
 public class Solution {
     public int coinChange(int[] coins, int amount){
+        int n = coins.length;
+        int[] minQty = prepArray(coins, amount);
         
+        for (int i = coins[n] + 1; i <= amount; i++){
+            minQty[i] = getMin(coins, amount);
+        }
+        
+        return minQty[amount];
+    }
+    
+    private int[] prepArray(int[] coins, int amount){
         Arrays.sort(coins);
         
-        // Find the largest coin we can use
-        int max = -1; // Index of largest coin
-        for (int i = 0; i < coins.length; i++){
-            if (amount - coins[i] >= 0) max = i;
+        int[] minQty = new int[amount + 1];
+        Arrays.fill(minQty, -1);
+        
+        for (int coin : coins){
+            minQty[coin] = 1;
         }
+        return minQty;
+    }
+    
+    private int getMin(int[] coins, int amount){
         
-        if (max < 0) return -1; // No coin less than the amount
-        
-        int[] qty = new int[coins.length];
-        int rmdr = amount;
-        
-        
-        for (int i = max; i >= 0; i--){
-            
-            
-        }
     }
 }

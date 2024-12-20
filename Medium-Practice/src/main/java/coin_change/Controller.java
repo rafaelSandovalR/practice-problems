@@ -10,6 +10,10 @@ package coin_change;
  */
 public class Controller {
     public static void main(String[] args) {
+        Solution sol = new Solution();
+        int[] coins = {3,5};
+        int amount = 17;
         
+        int minChange = sol.coinChange(coins, amount);
     }
 }
