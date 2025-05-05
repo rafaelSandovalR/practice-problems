@@ -17,13 +17,9 @@ public class Solution {
         Arrays.sort(citations);
 
         for (int i = 0; i < n; i++){
-            int candidate = citations[i];
-            
-            if (candidate > h && n-i >= candidate){
-                h = candidate;
-            }
-        }
-        
+            int candidate = Math.min(n-i, citations[i]);
+            h = Math.max(candidate, h);
+        }       
         return h;
     }
 }

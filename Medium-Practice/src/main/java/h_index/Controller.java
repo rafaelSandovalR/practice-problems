@@ -11,7 +11,7 @@ package h_index;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        int[] citations = {1,2,3,2,4,1,5};
+        int[] citations = {1,100,100,100};
         
         int hIndex = sol.hIndex(citations);
     }
