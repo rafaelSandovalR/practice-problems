@@ -4,12 +4,26 @@
  */
 package h_index;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Rsand
  */
 public class Solution {
     public int hIndex(int[] citations){
+        int n = citations.length;
+        int h = 0;
+        Arrays.sort(citations);
+
+        for (int i = 0; i < n; i++){
+            int candidate = citations[i];
+            
+            if (candidate > h && n-i >= candidate){
+                h = candidate;
+            }
+        }
         
+        return h;
     }
 }
