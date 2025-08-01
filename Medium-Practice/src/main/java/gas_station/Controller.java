@@ -10,10 +10,11 @@ package gas_station;
  */
 public class Controller {
     public static void main(String[] args) {
-        Solution sol = new Solution();
-        int[] gas = new int[] {0,0,0,0,0,0,2};
-        int[] cost = new int[] {0,0,0,0,0,1,0};
+        Solution2 sol = new Solution2();
+        int[] gas = new int[] {5,8,2,8};
+        int[] cost = new int[] {6,5,6,6};
         
         int ans = sol.canCompleteCircuit(gas, cost);
+        System.out.println(ans);
     }
 }
