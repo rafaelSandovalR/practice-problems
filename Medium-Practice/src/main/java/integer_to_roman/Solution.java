@@ -18,26 +18,25 @@ public class Solution {
         StringBuilder ans = new StringBuilder();
         
         for (int i = 6; i >= 0; i--){
-
-            int rem = num % romanVal[i];
-            if (i % 2 != 0 && (num / romanVal[i-1] == 9 || num / romanVal[i-1] == 4)){
-                if (num / romanVal[i-1] == 9){
-                    ans.append(romanChar[i - 1]);
-                    ans.append(romanChar[i + 1]);                    
+                       
+            int pre = romanVal[Math.max(0, i-1)], preExtract = num / pre;
+            int curr = romanVal[i];
+            int divisor = curr;
+            
+            if (i % 2 != 0 && (preExtract == 4 || preExtract == 9)){
+                ans.append(romanChar[i-1]);
+                switch(preExtract){
+                    case 4 -> ans.append(romanChar[i]);
+                    case 9 -> ans.append(romanChar[i+1]);
                 }
-                if (num / romanVal[i-1] == 4){
-                    ans.append(romanChar[i - 1]);
-                    ans.append(romanChar[i]);
-                }
-
-                rem = num % romanVal[i-1];
+                divisor = pre;
             } else{
-                for (int j = 0; j < num / romanVal[i]; j++) {
+                for (int j = 0; j < num / curr; j++) {
                     ans.append(romanChar[i]);
                 }
-            } 
-            num = rem;
-
+            }
+            
+            num %= divisor;
         }
         
         return ans.toString();
