@@ -11,6 +11,8 @@ package reverse_words_in_string;
 public class Controller {
     public static void main(String[] args) {
         
-        
+        Solution2 sol = new Solution2();
+        String s = "  hello world  ";
+        String r = sol.reverseWords(s);
     }
 }
