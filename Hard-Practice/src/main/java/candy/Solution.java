@@ -24,8 +24,8 @@ public class Solution {
         int n = ratings.length, pre = idx-1, post = idx+1;
         if (idx == n) return;
         ans[idx]++;
-        if (idx > 0 && ratings[pre] < ratings[idx]) ans[idx]++;
+        if (idx > 0 && ratings[pre] < ratings[idx]) ans[idx] = ans[pre] + 1;
         fill(ratings,ans,post);
-        if (post < n && ratings[post] < ratings[idx]) ans[idx] = ans[post] + 1;
+        if (post < n && ratings[post] < ratings[idx]) ans[idx] = Math.max(ans[idx], ans[post] + 1);
     }
 }
