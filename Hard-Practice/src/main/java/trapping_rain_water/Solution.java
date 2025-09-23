@@ -28,5 +28,19 @@ public class Solution {
             count += actual water stored;
             return count;
         */
+        
+        int n = height.length, maxLeft = 0, maxRight = 0, total = 0;
+        int[] water = new int[n];
+        for (int i = 0; i < n; i++){
+            water[i] = height[i] < maxLeft ? maxLeft - height[i] : 0;
+            maxLeft = Math.max(maxLeft, height[i]);
+        }
+        for (int j = n-1; j >=0; j--){
+            water[j] = height[j] < maxRight ? Math.min(water[j], maxRight - height[j]) : 0;
+            maxRight = Math.max(maxRight, height[j]);
+            total += water[j];
+        }
+        
+        return total;
     }
 }

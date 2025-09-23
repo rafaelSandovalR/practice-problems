@@ -11,8 +11,8 @@ package trapping_rain_water;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        //int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
-        int[] height = {1,0,3,1,0,1,2,2,1,2,1};
+        int[] height = {0,1,0,2,1,0,1,3,2,1,2,1};
+        //int[] height = {1,0,3,1,0,1,2,2,1,2,1};
         int total = sol.trap(height);
     }
 }
