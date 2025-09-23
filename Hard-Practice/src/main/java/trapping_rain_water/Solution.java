@@ -11,31 +11,22 @@ package trapping_rain_water;
 public class Solution {
     public int trap(int[] height){
         
+        /*  Two pass idea: using an auxillary array store potential water above
+            each index, after a downward slope and until you rise above left
+            wall height; 
         
-        int leftWall = 0, rightWall = 1, total = 0, end = height.length-1;
+            height = [0,1,0,2,1,0,1,3,2,1,2,1]
+            aux =    [0,0,1,0,1,2,1,0,1,2,1,2] <- first pass
         
-        // Find left wall (first peak)
-        while (leftWall < end-1){
-            if (height[leftWall] > height[rightWall]){ // When downslope begins
-                int potential = 0, nextMax = 0, nextIdx = -1;
-                while (rightWall < end && height[leftWall] > height[rightWall]){
-                    potential += height[leftWall] - height[rightWall++];
-                    if (height[rightWall] > nextMax){ // Find next highest right wall
-                        nextMax = height[rightWall];
-                        nextIdx = rightWall;
-                    }
-                }
-                
-                if (height[leftWall] <= height[rightWall]){
-                    total += potential;
-                    leftWall = rightWall-1;
-                }
-                
-            }
-            leftWall++; rightWall++;
-        }
+            On the second pass, going backwards, determine actual water stored
+            based on right wall height;
         
-        
-        
+            height = [0,1,0,2,1,0,1,3,2,1,2,1]
+            aux =    [0,0,1,0,1,2,1,0,1,2,1,2] <- first pass
+            aux =    [0,0,1,0,1,2,1,0,0,1,0,0] <- second pass
+            actual is min(aux[i], maxRightWallHeight)
+            count += actual water stored;
+            return count;
+        */
     }
 }
