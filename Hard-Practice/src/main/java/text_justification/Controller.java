@@ -13,10 +13,9 @@ import java.util.List;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        String[] words = {"Science","is","what","we",
-                    "understand","well","enough","to",
-                    "explain","to","a","computer.","Art",
-                    "is","everything","else","we","do"};
-        List<String> ans = sol.fullyJustify(words, 20);
+        String[] words = {"ask","not","what","your","country",
+                    "can","do","for","you","ask","what","you",
+                    "can","do","for","your","country"};
+        List<String> ans = sol.fullyJustify(words, 16);
     }
 }
