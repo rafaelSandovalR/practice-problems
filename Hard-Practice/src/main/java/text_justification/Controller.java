@@ -4,6 +4,8 @@
  */
 package text_justification;
 
+import java.util.List;
+
 /**
  *
  * @author Rsand
@@ -11,6 +13,10 @@ package text_justification;
 public class Controller {
     public static void main(String[] args) {
         Solution sol = new Solution();
-        
+        String[] words = {"Science","is","what","we",
+                    "understand","well","enough","to",
+                    "explain","to","a","computer.","Art",
+                    "is","everything","else","we","do"};
+        List<String> ans = sol.fullyJustify(words, 20);
     }
 }
