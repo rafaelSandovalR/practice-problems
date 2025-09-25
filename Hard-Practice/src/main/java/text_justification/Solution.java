@@ -65,19 +65,32 @@ public class Solution {
         */
         
         while (i < n){
-            int width = maxWidth;
+            int width = maxWidth, letterCount = 0;
             StringBuilder str = new StringBuilder();
-            List<String> line = new ArrayList<String>();
+            List<String> line = new ArrayList<>();
             // Determine all words that fit in one line
-            while (width >= 0) {
-                if (width - words[i].length() >= 0) {
-                    line.add(words[i]);
-                    width -= words[i++].length() + 1; // You need at least one space between words
-                }
+            while (i < n && width >= 0) {
+                if (width - words[i].length() < 0) break;
+                letterCount += words[i].length();
+                line.add(words[i]);
+                width -= words[i++].length() + 1; // You need at least one space between words
+
             }
             // Build justified line
+            int wordCount = line.size();
+            int totalSpaces = maxWidth - letterCount;
+            int maxSpaces = Math.ceilDiv(totalSpaces, wordCount-1); // CRASHES WHEN LINE CONSISTS OF ONE WORD
             
+            for (int j = 0; j < wordCount - 1; j++){
+                str.append(line.get(j));
+                for (int k = 0; k < Math.min(maxSpaces, totalSpaces); k++){
+                    str.append(" ");
+                }
+                totalSpaces -= maxSpaces;
+            }
+            str.append(line.get(wordCount-1));
+            justifiedText.add(str.toString());
         }
-            
+        return justifiedText;
     }
 }
