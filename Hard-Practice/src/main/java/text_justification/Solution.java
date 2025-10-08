@@ -35,7 +35,8 @@ public class Solution {
             for (int j = 0; j < wordCount - 1; j++){
                 // Handle last line
                 int maxSpaces = lastLine ? 1 : 
-                          wordCount == 1 ? 0 : Math.ceilDiv(totalSpaces, wordCount - 1 - j);
+                                wordCount == 1 ? 0 : 
+                                Math.ceilDiv(totalSpaces, wordCount - 1 - j);
                 
                 str.append(line.get(j));
                 for (int k = 0; k < Math.min(maxSpaces, totalSpaces); k++){
