@@ -10,19 +10,24 @@ package zigzag_conversion;
  */
 public class Solution2 {
     public String convert(String s, int numRows){
-        int n = s.length();
+        
+        if (numRows == 1) return s;
+        
+        int n = s.length(), width = (2*numRows) - 2;
         char[] str = s.toCharArray();
         char[] converted = new char[n];
 
-        for (int row = 0, insert = 0; row < numRows; row++) {
-            int i = row;
-            while (i < n && insert < n) {
-                converted[insert++] = str[i];
-                i += row == numRows-1 ? 2 * numRows - 2 : 2 * (numRows - row) - 2;
+        for (int row = 0, write = 0; row < numRows; row++, width -= 2) {
+            int read = row;
+            while (read < n) {
+                if (width > 0){
+                    converted[write++] = str[read];
+                    read += width;
+                }
 
-                if (i < n && row > 0 && row < numRows - 1) {
-                    converted[insert++] = str[i];
-                    i += 2 * row;
+                if (read < n && row * 2 > 0) {
+                    converted[write++] = str[read];
+                    read += row * 2;
                 }
             }
         }
